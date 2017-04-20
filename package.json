@@ -1,0 +1,11 @@
+{
+  "name": "react-native-common-utils",
+  "version": "0.0.1",
+  "description": "Common utils for RN projects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ruben Shalimov <r_shalimov@inbox.ru.>",
+  "license": "ISC"
+}
