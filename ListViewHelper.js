@@ -3,7 +3,9 @@ import {
    View,
    ListView,
 } from "react-native";
+import { autobind } from "core-decorators";
 
+@autobind
 export default class ListViewHelper {
    constructor(items, itemType, ref) {
       this.setItems(items);
@@ -16,6 +18,8 @@ export default class ListViewHelper {
             return false;
          }
       });
+      
+      this.callbacks = new Map();
    }
    
    setItems(items) {
@@ -26,12 +30,20 @@ export default class ListViewHelper {
       this.itemType = itemType;
    }
    
+   setCallback(name, callback) {
+      this.callbacks.set(name, callback);
+   }
+   
+   deleteCallback(name) {
+      this.callbacks.delete(name);
+   }
+   
    setOnPress(onPress) {
-      this.onPress = onPress;
+      this.setCallback("onPress", onPress);
    }
    
    setOnLongPress(onLongPress) {
-      this.onLongPress = onLongPress;
+      this.setCallback("onLongPress", onLongPress);
    }
    
    setStyle(style) {
@@ -46,19 +58,46 @@ export default class ListViewHelper {
       this.separatorStyle = separatorStyle;
    }
    
+   renderRow(data, sectionID, rowID, highlightRow) {
+      return React.createElement(
+         this.itemType, {
+         data,
+         sectionID,
+         rowID,
+         highlightRow,
+         itemCount: this.items.length,
+         callbacks: this.callbacks,
+         onPress: this.callbacks.get("onPress"),
+         onLongPress: this.callbacks.get("onLongPress")
+      });
+   }
+   
+   renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+      return (rowID == this.items.length - 1 ? this.renderLastRowSeparator :
+         this.renderRowSeparator)(sectionID, rowID, adjacentRowHighlighted);
+   }
+   
+   renderLastRowSeparator(sectionID, rowID, adjacentRowHighlighted) {
+      return null;
+   }
+   
+   generateRowSeparatorKey(sectionID, rowID, adjacentRowHighlighted) {
+      return `${sectionID.toString()}_${rowID.toString()}`;
+   }
+   
+   renderRowSeparator(sectionID, rowID, adjacentRowHighlighted) {
+      return <View
+         key={this.generateRowSeparatorKey(sectionID, rowID, adjacentRowHighlighted)}
+         style={this.separatorStyle} />;
+   }
+   
    createListView() {
       return <ListView
          ref={this.ref}
          pageSize={this.pageSize}
          style={this.style}
          dataSource={this.dataSource.cloneWithRows(this.items)}
-         renderRow={data => React.createElement(this.itemType, {
-            data,
-            onPress: this.onPress,
-            onLongPress: this.onLongPress
-         })}
-         renderSeparator={(sectionId, rowId) => rowId == this.items.length - 1 ?
-            null : <View key={`${sectionId.toString()}_${rowId.toString()}`}
-               style={this.separatorStyle} />} />
+         renderRow={this.renderRow}
+         renderSeparator={this.renderSeparator} />
    }
 };
