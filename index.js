@@ -13,11 +13,15 @@ export {
 import AlterStyles from "./AlterStyles";
 import ListViewHelper from "./ListViewHelper";
 import MaterialSwitch from "./MaterialSwitch";
+import ProgressBar from "./ProgressBar";
+import DateTimePicker from "./DateTimePicker";
 import StaticUtils from "./StaticUtils";
 
 export {
    AlterStyles,
    ListViewHelper,
    MaterialSwitch,
+   ProgressBar,
+   DateTimePicker,
    StaticUtils
 };
