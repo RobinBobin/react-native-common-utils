@@ -23,8 +23,8 @@ export default class WhereBuilder {
    }
    
    toString() {
-      return new ArrayStringifier().setPrefix(" WHERE\n" + (this.conditionString
+      return new ArrayStringifier().setPrefix(" WHERE " + (this.conditionString
          || ""), !this.conditionString).process(StaticUtils.addSeparator(this.
-            entries, ",\n"));
+            entries, ", "));
    }
 }

@@ -24,8 +24,8 @@ export default class StaticUtils {
       return ar;
    }
    
-   static addSeparator(array, separator, stringifier) {
-      return new ArrayStringifier().process(array, separator, stringifier);
+   static addSeparator(array, separator, elementProcessor) {
+      return new ArrayStringifier().process(array, separator, elementProcessor);
    }
    
    static ensureBounds(value, min, max) {
@@ -36,5 +36,9 @@ export default class StaticUtils {
       array.push(element);
       
       return element;
+   }
+   
+   static quoteIfString(value) {
+      return value.constructor == String ? `"${value}"` : value;
    }
 }

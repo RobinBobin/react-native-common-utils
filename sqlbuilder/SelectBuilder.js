@@ -44,17 +44,17 @@ export default class SelectBuilder extends BuilderWithWhere {
    }
    
    toString() {
-      return new ArrayStringifier().setPrefix("SELECT\n").process(this.columns,
-         ",\n", column => Array.isArray(column) ? `${column[0]} AS ${column[1]}` :
+      return new ArrayStringifier().setPrefix("SELECT ").process(this.columns,
+         ", ", column => Array.isArray(column) ? `${column[0]} AS ${column[1]}` :
             column)
          
-         + new ArrayStringifier().setPrefix(" FROM\n").process(this.tables, ",\n")
+         + new ArrayStringifier().setPrefix(" FROM ").process(this.tables, ", ")
          
          + this.whereBuilder
          
-         + new ArrayStringifier().setPrefix(" ORDER BY\n").
-            process(this.orderBys, ",\n")
+         + new ArrayStringifier().setPrefix(" ORDER BY ").
+            process(this.orderBys, ", ")
          
-         + this.limitString;
+         + `${this.limitString};`;
    }
 }

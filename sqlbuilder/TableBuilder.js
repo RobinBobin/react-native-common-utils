@@ -31,6 +31,6 @@ export default class TableBuilder {
    
    toString() {
       return `CREATE TABLE ${this.ifNotExists ? "IF NOT EXISTS" : ""} ` +
-         this.name + ` (\n${StaticUtils.addSeparator(this.entries, ",\n")});`;
+         this.name + ` (${StaticUtils.addSeparator(this.entries, ", ")});`;
    }
 }

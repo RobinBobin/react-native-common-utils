@@ -1,3 +1,5 @@
+import StaticUtils from "../StaticUtils";
+
 export default class Condition {
    constructor(column, whereBuilder) {
       this.column = column;
@@ -18,7 +20,7 @@ export default class Condition {
    
    operator(operator, value) {
       this.operator = operator;
-      this.value = value;
+      this.value = StaticUtils.quoteIfString(value);
       
       return this.whereBuilder;
    }

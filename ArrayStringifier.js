@@ -16,14 +16,14 @@ export default class ArrayStringifier {
       return setPrefixOrPostfix(this, false, postfix, addIfArrayLength);
    }
    
-   process(array, separator, stringifier) {
+   process(array, separator, elementProcessor) {
       let str = this.prefix && (!this.prefix.addIfArrayLength ||
          array.length) ? this.prefix.string : "";
       
       for (let i = 0; i < array.length; i++) {
-         const element = array[i];
+         str += (elementProcessor ? elementProcessor(
+            array[i]) : array[i]).toString();
          
-         str += `${stringifier ? stringifier(element) : element}`;
          str += `${i < array.length - 1 ? separator : ""}`;
       }
       

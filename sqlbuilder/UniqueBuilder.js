@@ -31,7 +31,7 @@ export default class UniqueBuilder {
    }
    
    toString() {
-      return new ArrayStringifier().setPrefix(
-         "UNIQUE (\n").process(this.entries, ",\n");
+      return new ArrayStringifier().setPrefix("UNIQUE (").
+         setPostfix(")").process(this.entries, ", ");
    }
 }

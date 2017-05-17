@@ -6,7 +6,7 @@ import WhereBuilder from "./WhereBuilder";
 function executeSql(callback, obj) {
    callback(obj);
    
-   SqlBuilder.executeSql(obj.toString());
+   return SqlBuilder.executeSql(obj.toString());
 }
 
 export default class SqlBuilder {
