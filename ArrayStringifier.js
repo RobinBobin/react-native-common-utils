@@ -8,26 +8,50 @@ function setPrefixOrPostfix(obj, prefix, string, addIfArrayLength) {
 }
 
 export default class ArrayStringifier {
+   constructor(array) {
+      this.array = array;
+      
+      this.setSeparator(", ");
+   }
+   
    setPrefix(prefix, addIfArrayLength = true) {
       return setPrefixOrPostfix(this, true, prefix, addIfArrayLength);
+   }
+   
+   setSeparator(separator) {
+      this.separator = separator;
+      
+      return this;
+   }
+   
+   setElementProcessor(elementProcessor) {
+      this.elementProcessor = elementProcessor;
+      
+      return this;
    }
    
    setPostfix(postfix, addIfArrayLength = true) {
       return setPrefixOrPostfix(this, false, postfix, addIfArrayLength);
    }
    
-   process(array, separator, elementProcessor) {
+   process() {
       let str = this.prefix && (!this.prefix.addIfArrayLength ||
-         array.length) ? this.prefix.string : "";
+         this.array.length) ? this.prefix.string : "";
       
-      for (let i = 0; i < array.length; i++) {
-         str += (elementProcessor ? elementProcessor(
-            array[i]) : array[i]).toString();
+      for (let i = 0; i < this.array.length; i++) {
+         const rawElement = this.elementProcessor ? this.
+            elementProcessor(this.array[i]) : this.array[i];
          
-         str += `${i < array.length - 1 ? separator : ""}`;
+         const element = rawElement.hasOwnProperty("getElement") ?
+            rawElement.getElement() : rawElement;
+         
+         const separator = i == this.array.length - 1 ? "" : element ==
+            rawElement ? this.separator : rawElement.getSeparator();
+         
+         str += `${element}${separator}`;
       }
       
-      if (this.postfix && (!this.postfix.addIfArrayLength || array.length)) {
+      if (this.postfix && (!this.postfix.addIfArrayLength || this.array.length)) {
          str += this.postfix.string;
       }
       

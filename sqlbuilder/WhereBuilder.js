@@ -17,14 +17,31 @@ export default class WhereBuilder {
    }
    
    and() {
-      this.entries.push("AND");
+      return this.grouping(" AND ");
+   }
+   
+   or() {
+      return this.grouping(" OR ");
+   }
+   
+   push() {
+      return this.grouping("(");
+   }
+   
+   pop() {
+      return this.grouping(")");
+   }
+   
+   grouping(grouping) {
+      this.entries.push(grouping);
       
       return this;
    }
    
    toString() {
-      return new ArrayStringifier().setPrefix(" WHERE " + (this.conditionString
-         || ""), !this.conditionString).process(StaticUtils.addSeparator(this.
-            entries, ", "));
+      return new ArrayStringifier(this.entries)
+         .setPrefix(" WHERE " + (this.conditionString || ""), !this.conditionString)
+         .setSeparator("")
+         .process();
    }
 }

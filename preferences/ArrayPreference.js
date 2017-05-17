@@ -16,10 +16,10 @@ export default class ArrayPreference extends Preference {
       if (!array.length) {
          const rawArray = value.split(",");
          
-         for (let weightIndex = 0; weightIndex < rawArray.
-            length / this.fieldsPerLine; weightIndex++)
+         for (let rawIndex = 0; rawIndex < rawArray.
+            length / this.fieldsPerLine; rawIndex++)
          {
-            const index = weightIndex * this.fieldsPerLine;
+            const index = rawIndex * this.fieldsPerLine;
             
             array.push([]);
             

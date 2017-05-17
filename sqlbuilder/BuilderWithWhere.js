@@ -1,4 +1,5 @@
 import WhereBuilder from "./WhereBuilder";
+import Condition from "./Condition";
 
 export default class BuilderWithWhere {
    constructor() {
@@ -7,9 +8,16 @@ export default class BuilderWithWhere {
    
    where(callbackOrConditionString, add = true) {
       if (add) {
-         callbackOrConditionString.constructor == String ?
-            this.whereBuilder.condition(callbackOrConditionString)
-            : callbackOrConditionString(this.whereBuilder);
+         switch (callbackOrConditionString.constructor) {
+            case String:
+            case Condition:
+               this.whereBuilder.condition(callbackOrConditionString);
+               break;
+            
+            default:
+               callbackOrConditionString(this.whereBuilder);
+               break;
+         }
       }
    }
 }

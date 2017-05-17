@@ -1,5 +1,4 @@
 import { NativeModules } from "react-native";
-import ArrayStringifier from "./ArrayStringifier";
 
 export default class StaticUtils {
    static spinkitColor(rgba) {
@@ -22,10 +21,6 @@ export default class StaticUtils {
       }
       
       return ar;
-   }
-   
-   static addSeparator(array, separator, elementProcessor) {
-      return new ArrayStringifier().process(array, separator, elementProcessor);
    }
    
    static ensureBounds(value, min, max) {

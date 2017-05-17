@@ -27,14 +27,19 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
       let str;
       
       if (this.insert) {
-         const createList = index => new ArrayStringifier().setPrefix(" (").
-            setPostfix(")").process(this.pairs, ", ", pair => pair[index]);
+         const createList = index => new ArrayStringifier(this.pairs)
+            .setPrefix(" (")
+            .setElementProcessor(pair => pair[index])
+            .setPostfix(")")
+            .process();
          
          str = `INSERT INTO ${this.table}${createList(0)} VALUES${createList(1)};`;
       } else {
-         str = new ArrayStringifier().setPrefix(`UPDATE ${this.table} SET `).
-            setPostfix(`${this.whereBuilder};`).process(this.pairs, ", ", pair =>
-               `${pair[0]} = ${pair[1]}`);
+         str = new ArrayStringifier(this.pairs)
+            .setPrefix(`UPDATE ${this.table} SET `)
+            .setElementProcessor(pair => `${pair[0]} = ${pair[1]}`)
+            .setPostfix(`${this.whereBuilder};`)
+            .process();
       }
       
       return str;

@@ -30,7 +30,7 @@ export default class SelectBuilder extends BuilderWithWhere {
    }
    
    orderBy(column, direction) {
-      this.orderBys.push([column, direction]);
+      this.orderBys.push(`${column} ${direction}`);
       
       return this;
    }
@@ -44,16 +44,21 @@ export default class SelectBuilder extends BuilderWithWhere {
    }
    
    toString() {
-      return new ArrayStringifier().setPrefix("SELECT ").process(this.columns,
-         ", ", column => Array.isArray(column) ? `${column[0]} AS ${column[1]}` :
-            column)
+      return new ArrayStringifier(this.columns)
+         .setPrefix("SELECT ")
+         .setElementProcessor(column => Array.isArray(column) ?
+            `${column[0]} AS ${column[1]}` : column)
+         .process()
          
-         + new ArrayStringifier().setPrefix(" FROM ").process(this.tables, ", ")
+         + new ArrayStringifier(this.tables)
+            .setPrefix(" FROM ")
+            .process()
          
          + this.whereBuilder
          
-         + new ArrayStringifier().setPrefix(" ORDER BY ").
-            process(this.orderBys, ", ")
+         + new ArrayStringifier(this.orderBys)
+            .setPrefix(" ORDER BY ")
+            .process()
          
          + `${this.limitString};`;
    }

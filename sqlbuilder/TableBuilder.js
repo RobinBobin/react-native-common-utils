@@ -1,4 +1,5 @@
 import StaticUtils from "../StaticUtils";
+import ArrayStringifier from "../ArrayStringifier";
 import Column from "./Column";
 import UniqueBuilder  from "./UniqueBuilder";
 
@@ -30,7 +31,10 @@ export default class TableBuilder {
    }
    
    toString() {
-      return `CREATE TABLE ${this.ifNotExists ? "IF NOT EXISTS" : ""} ` +
-         this.name + ` (${StaticUtils.addSeparator(this.entries, ", ")});`;
+      return new ArrayStringifier(this.entries)
+         .setPrefix("CREATE TABLE" + (this.ifNotExists ?
+            " IF NOT EXISTS" : "") + ` ${this.name} (`)
+         .setPostfix(");")
+         .process();
    }
 }

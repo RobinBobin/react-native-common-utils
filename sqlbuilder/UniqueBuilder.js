@@ -16,8 +16,10 @@ class UniqueEntry extends Entry{
    }
    
    toString() {
-      return this.name + new ArrayStringifier().
-         setPrefix(" ").process(this.attrs, " ");
+      return this.name + new ArrayStringifier(this.attrs)
+         .setPrefix(" ")
+         .setSeparator(" ")
+         .process();
    }
 }
 
@@ -31,7 +33,9 @@ export default class UniqueBuilder {
    }
    
    toString() {
-      return new ArrayStringifier().setPrefix("UNIQUE (").
-         setPostfix(")").process(this.entries, ", ");
+      return new ArrayStringifier(this.entries)
+         .setPrefix("UNIQUE (")
+         .setPostfix(")")
+         .process();
    }
 }

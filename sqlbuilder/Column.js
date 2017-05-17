@@ -25,7 +25,9 @@ export default class Column extends Entry {
    }
    
    toString() {
-      return `${this.name} ${this.type}` + new ArrayStringifier().
-         setPrefix(" ").process(this.attrs, " ");
+      return `${this.name} ${this.type}` + new ArrayStringifier(this.attrs)
+         .setPrefix(" ")
+         .setSeparator(" ")
+         .process();
    }
 }
