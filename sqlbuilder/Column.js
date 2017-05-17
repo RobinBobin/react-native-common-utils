@@ -1,4 +1,4 @@
-import StaticUtils from "../StaticUtils";
+import ArrayStringifier from "../ArrayStringifier";
 import Entry from "./Entry";
 
 export default class Column extends Entry {
@@ -25,7 +25,7 @@ export default class Column extends Entry {
    }
    
    toString() {
-      return `${this.name} ${this.type} ` +
-         StaticUtils.addSeparator(this.attrs, " ");
+      return `${this.name} ${this.type}` + new ArrayStringifier().
+         setPrefix(" ").process(this.attrs, " ");
    }
 }

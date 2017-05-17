@@ -1,8 +1,10 @@
-import StaticUtils from "../StaticUtils";
+import ArrayStringifier from "../ArrayStringifier";
 import BuilderWithWhere from "./BuilderWithWhere";
 
 export default class SelectBuilder extends BuilderWithWhere {
    constructor() {
+      super();
+      
       this.columns = [];
       this.tables = [];
       this.orderBys = [];
@@ -42,15 +44,17 @@ export default class SelectBuilder extends BuilderWithWhere {
    }
    
    toString() {
-      const columns = StaticUtils.addSeparator(this.columns, ",\n", column =>
-         Array.isArray(column) ? `${column[0]} AS ${column[1]}` : column);
-      
-      const orderBy = StaticUtils.addSeparator(this.orderBys, ",\n");
-      
-      return `SELECT\n${columns}`
-         + ` FROM\n${StaticUtils.addSeparator(this.tables, ",\n")}`
+      return new ArrayStringifier().setPrefix("SELECT\n").process(this.columns,
+         ",\n", column => Array.isArray(column) ? `${column[0]} AS ${column[1]}` :
+            column)
+         
+         + new ArrayStringifier().setPrefix(" FROM\n").process(this.tables, ",\n")
+         
          + this.whereBuilder
-         + (!orderBy.length ? orderBy : ` ORDER BY\n${orderBy}`)
+         
+         + new ArrayStringifier().setPrefix(" ORDER BY\n").
+            process(this.orderBys, ",\n")
+         
          + this.limitString;
    }
 }

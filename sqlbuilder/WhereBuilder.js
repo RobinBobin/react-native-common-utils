@@ -1,4 +1,5 @@
 import StaticUtils from "../StaticUtils";
+import ArrayStringifier from "../ArrayStringifier"
 import Condition from "./Condition";
 
 export default class WhereBuilder {
@@ -7,7 +8,7 @@ export default class WhereBuilder {
    }
    
    condition(condition) {
-      this.condition = condition;
+      this.conditionString = condition;
    }
    
    column(column) {
@@ -22,7 +23,8 @@ export default class WhereBuilder {
    }
    
    toString() {
-      return " WHERE\n" + (this.condition || StaticUtils.
-         addSeparator(this.entries, ",\n"));
+      return new ArrayStringifier().setPrefix(" WHERE\n" + (this.conditionString
+         || ""), !this.conditionString).process(StaticUtils.addSeparator(this.
+            entries, ",\n"));
    }
 }

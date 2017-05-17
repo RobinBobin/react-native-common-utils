@@ -1,4 +1,5 @@
 import StaticUtils from "../StaticUtils";
+import ArrayStringifier from "../ArrayStringifier";
 import Entry from "./Entry";
 
 class UniqueEntry extends Entry{
@@ -15,7 +16,8 @@ class UniqueEntry extends Entry{
    }
    
    toString() {
-      return `${this.name} ${StaticUtils.addSeparator(this.attrs, " ")}`;
+      return this.name + new ArrayStringifier().
+         setPrefix(" ").process(this.attrs, " ");
    }
 }
 
@@ -29,6 +31,7 @@ export default class UniqueBuilder {
    }
    
    toString() {
-      return `UNIQUE (\n${StaticUtils.addSeparator(this.entries, ",\n")})`;
+      return new ArrayStringifier().setPrefix(
+         "UNIQUE (\n").process(this.entries, ",\n");
    }
 }

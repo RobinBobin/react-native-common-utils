@@ -20,6 +20,7 @@ import DateTimePicker from "./DateTimePicker";
 import StaticUtils from "./StaticUtils";
 import GDrive from "./GDrive";
 import utf8 from "./utf8";
+import ArrayStringifier from "./ArrayStringifier";
 
 export {
    AlterStyles,
@@ -29,7 +30,8 @@ export {
    DateTimePicker,
    StaticUtils,
    GDrive,
-   utf8
+   utf8,
+   ArrayStringifier
 };
 
 import SqlBldr from "./sqlbuilder/SqlBuilder";

@@ -3,13 +3,17 @@ import BuilderWithWhere from "./BuilderWithWhere";
 
 export default class InsertUpdateBuilder extends BuilderWithWhere {
    constructor(insert, table) {
+      super();
+      
       this.insert = insert;
       this.table = table;
       this.pairs = [];
    }
    
-   columnValue(column, value) {
-      this.pairs.push([column, value]);
+   columnValue(column, value, add = true) {
+      if (add) {
+         this.pairs.push([column, value]);
+      }
       
       return this;
    }
