@@ -12,4 +12,37 @@ export default class StaticUtils {
    static getLocaleId() {
       return NativeModules.I18nManager.localeIdentifier.split("_")[1];
    }
+   
+   static encodedUtf8ToByteArray(encoded) {
+      const ar = [];
+      
+      for (let i = 0; i < encoded.length; i++) {
+         ar.push(encoded.charCodeAt(i));
+      }
+      
+      return ar;
+   }
+   
+   static addSeparator(array, separator, toString) {
+      let str = "";
+      
+      for (let i = 0; i < array.length; i++) {
+         const element = array[i];
+         
+         str += `${toString ? toString(element) : element.toString()}`;
+         str += `${i < array.length - 1 ? separator : ""}`;
+      }
+      
+      return str;
+   }
+   
+   static ensureBounds(value, min, max) {
+      return Math.max(Math.min(value, max), min);
+   }
+   
+   static pushAndReturnElement(array, element) {
+      array.push(element);
+      
+      return element;
+   }
 }
