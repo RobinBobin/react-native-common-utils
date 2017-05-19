@@ -13,7 +13,8 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
    
    columnValue(column, value, add = true) {
       if (add) {
-         this.pairs.push([column, StaticUtils.quoteIfString(value)]);
+         this.pairs.push([column, value == "NULL" ?
+            value : StaticUtils.quoteIfString(value)]);
       }
       
       return this;
