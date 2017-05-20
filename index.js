@@ -1,8 +1,11 @@
-import Preferences from "./preferences/Preferences";
-import Preference from "./preferences/Preference";
-import NumberPreference from "./preferences/NumberPreference";
-import SwitchPreference from "./preferences/SwitchPreference";
-import ArrayPreference from "./preferences/ArrayPreference";
+/**
+ * Preferences.
+ */
+import Preferences from "./js/preferences/Preferences";
+import Preference from "./js/preferences/Preference";
+import NumberPreference from "./js/preferences/NumberPreference";
+import SwitchPreference from "./js/preferences/SwitchPreference";
+import ArrayPreference from "./js/preferences/ArrayPreference";
 
 export {
    Preferences,
@@ -12,15 +15,19 @@ export {
    ArrayPreference
 };
 
-import AlterStyles from "./AlterStyles";
-import ListViewHelper from "./ListViewHelper";
-import MaterialSwitch from "./MaterialSwitch";
-import ProgressBar from "./ProgressBar";
-import DateTimePicker from "./DateTimePicker";
-import StaticUtils from "./StaticUtils";
-import GDrive from "./GDrive";
-import utf8 from "./utf8";
-import ArrayStringifier from "./ArrayStringifier";
+
+/**
+ * Different.
+ */
+import AlterStyles from "./js/AlterStyles";
+import ListViewHelper from "./js/ListViewHelper";
+import MaterialSwitch from "./js/MaterialSwitch";
+import ProgressBar from "./js/ProgressBar";
+import DateTimePicker from "./js/DateTimePicker";
+import StaticUtils from "./js/StaticUtils";
+import GDrive from "./js/GDrive";
+import utf8 from "./js/utf8";
+import ArrayStringifier from "./js/ArrayStringifier";
 
 export {
    AlterStyles,
@@ -34,9 +41,13 @@ export {
    ArrayStringifier
 };
 
-import SqlBldr from "./sqlbuilder/SqlBuilder";
-import WhereBuilder from "./sqlbuilder/WhereBuilder";
-import Condition from "./sqlbuilder/Condition";
+
+/**
+ * sqlbuilder.
+ */
+import SqlBldr from "./js/sqlbuilder/SqlBuilder";
+import WhereBuilder from "./js/sqlbuilder/WhereBuilder";
+import Condition from "./js/sqlbuilder/Condition";
 
 export class SqlBuilder extends SqlBldr {
    static WhereBuilder = WhereBuilder;
