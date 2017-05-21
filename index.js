@@ -53,3 +53,11 @@ export class SqlBuilder extends SqlBldr {
    static WhereBuilder = WhereBuilder;
    static Condition = Condition;
 };
+
+
+/**
+ * Native modules.
+ */
+import { NativeModules } from "react-native";
+
+exports.ShareData = NativeModules.RNCShareData;
