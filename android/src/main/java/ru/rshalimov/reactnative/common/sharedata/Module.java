@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
+import android.util.Pair;
 import android.util.SparseArray;
 
 import com.facebook.react.bridge.BaseActivityEventListener;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -37,7 +39,8 @@ public class Module extends ReactContextBaseJavaModule {
    private static final String ERROR_NO_TEMP_FILE_DST = "ERROR_NO_TEMP_FILE_DST";
    private static final String ERROR_TEMP_FILE_CREATE = "ERROR_TEMP_FILE_CREATE";
    
-   private final SparseArray <Promise> promises = new SparseArray <> ();
+   private final SparseArray <Pair <Promise, List
+      <File>>> promises = new SparseArray <> ();
    
    public Module(ReactApplicationContext reactContext) {
       super(reactContext);
@@ -51,14 +54,18 @@ public class Module extends ReactContextBaseJavaModule {
             Intent intent)
          {
             if (requestCode < promises.size()) {
-               final Promise promise = promises.get(requestCode);
+               final Pair <Promise, List <File>> pair = promises.get(requestCode);
                promises.delete(requestCode);
                
                final WritableNativeMap map = new WritableNativeMap();
                map.putInt("requestIndex", requestCode);
                map.putInt("resultCode", resultCode);
                
-               promise.resolve(map);
+               for (File file : pair.second) {
+                  file.delete();
+               }
+               
+               pair.first.resolve(map);
             }
          }
       });
@@ -92,7 +99,7 @@ public class Module extends ReactContextBaseJavaModule {
          { "bcc", Intent.EXTRA_BCC }
       }) {
          if (data.hasKey(recipients[0])) {
-            final ArrayList <String> list = new ArrayList <> ();
+            final List <String> list = new ArrayList <> ();
             
             if (data.getType(recipients[0]) == ReadableType.String) {
                list.add(data.getString(recipients[0]));
@@ -122,6 +129,7 @@ public class Module extends ReactContextBaseJavaModule {
             .putExtra(Intent.EXTRA_HTML_TEXT, html);
       }
       
+      final List <File> filesToDelete = new ArrayList <> ();
       PromiseException promiseException = null;
       
       try {
@@ -152,8 +160,6 @@ public class Module extends ReactContextBaseJavaModule {
                final String name = sb.toString();
                final File tmpFile = new File(externalCacheDir, name);
                
-               tmpFile.delete();
-               
                if (attachment.hasKey("base64")) {
                   try (final FileOutputStream fos = new FileOutputStream(tmpFile)) {
                      fos.write(Base64.decode(attachment.
@@ -172,6 +178,8 @@ public class Module extends ReactContextBaseJavaModule {
                   }
                }
                
+               filesToDelete.add(tmpFile);
+               
                uris.add(Uri.fromFile(tmpFile));
             }
             
@@ -183,7 +191,7 @@ public class Module extends ReactContextBaseJavaModule {
                createChooser(intent, Utils.getString(data, "chooserTitle", null)),
             promises.size());
          
-         promises.append(promises.size(), promise);
+         promises.append(promises.size(), Pair.create(promise, filesToDelete));
       } catch (PromiseException e) {
          promiseException = e;
       } catch (IOException e) {
@@ -191,6 +199,10 @@ public class Module extends ReactContextBaseJavaModule {
       }
       
       if (promiseException != null) {
+         for (File file : filesToDelete) {
+            file.delete();
+         }
+         
          promise.reject(promiseException.code, promiseException);
       }
    }
