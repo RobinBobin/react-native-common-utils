@@ -2,16 +2,18 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import StaticUtils from "./StaticUtils";
 
 export const consts = {
-   marginPadding: 15,
-   baseHeight: 50,
-   textColor: 0x55606EFF,
-   textColorDisabled: 0xD0CECEFF,
-   baseFontSize: 14,
-   fontSizeStep: 3,
-   fontSizeSmallMediumSteps: 1,
-   fontSizeMediumSteps: 2,
-   fontSizeLargeSteps: 3,
-   backgroundColor: 0xE9E9E9FF
+   font: {
+      size: 14,
+      step: 3,
+      smallMediumSteps: 1,
+      mediumSteps: 2,
+      largeSteps: 3
+   },
+   button: {
+      containerBackgroundColor: 0x0099CBFF,
+      textColor: "white",
+      textFontSize: 20
+   }
 };
 
 export const centerCenter = {
@@ -24,33 +26,37 @@ export const centerCenterFlex1 = {
    flex: 1
 };
 
-export const scene = {
-   flex: 1,
-   margin: consts.marginPadding
+export const styles = {
+   marginPadding: 15,
+   activeOpacity: 0.5,
+   baseHeight: 50,
+   textColor: 0x55606EFF,
+   textColorDisabled: 0xD0CECEFF,
+   backgroundColor: 0xE9E9E9FF
 };
-
-export const styles = {};
 
 export { EStyleSheet };
 
 export function fontSize(steps = 0) {
-   return consts.baseFontSize + steps * consts.fontSizeStep;
+   return consts.font.size + steps * consts.font.step;
 };
 
-export function createButton(
-   containerBackgroundColor = 0x0099CBFF,
-   textColor = "white",
-   textFontSize = fontSize(2))
-{
-   return EStyleSheet.create({
+export function addCommonObjects() {
+   styles.scene = {
+      flex: 1,
+      margin: styles.marginPadding
+   };
+   
+   styles.button = EStyleSheet.create({
       container: {
          ...centerCenter,
-         height: consts.baseHeight,
-         backgroundColor: containerBackgroundColor
+         height: styles.baseHeight,
+         backgroundColor: consts.button.containerBackgroundColor
       },
       text: {
-         color: textColor,
-         fontSize: textFontSize
+         color: consts.button.textColor,
+         fontSize: consts.button.textFontSize,
+         textAlign: "center"
       }
    });
 };

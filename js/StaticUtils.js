@@ -38,6 +38,8 @@ export default class StaticUtils {
    }
    
    static indexObjectWithClassName(obj, className) {
-      return className ? Object.assign({...obj[className]}, {all: obj}) : obj;
+      const all = {...obj};
+      
+      return className ? Object.assign({...obj[className]}, {all}) : all;
    }
 }
