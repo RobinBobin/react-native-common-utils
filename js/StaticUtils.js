@@ -36,4 +36,8 @@ export default class StaticUtils {
    static quoteIfString(value) {
       return value.constructor == String ? `"${value}"` : value;
    }
+   
+   static indexObjectWithClassName(obj, className) {
+      return className ? Object.assign({...obj[className]}, {all: obj}) : obj;
+   }
 }
