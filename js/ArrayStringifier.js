@@ -9,13 +9,19 @@ function setPrefixOrPostfix(obj, prefix, string, addIfArrayLength) {
 
 export default class ArrayStringifier {
    constructor(array) {
-      this.array = array;
-      
-      this.setSeparator(", ");
+      this
+         .setArray(array)
+         .setSeparator(", ");
    }
    
    setPrefix(prefix, addIfArrayLength = true) {
       return setPrefixOrPostfix(this, true, prefix, addIfArrayLength);
+   }
+   
+   setArray(array) {
+      this.array = array;
+      
+      return this;
    }
    
    setSeparator(separator) {

@@ -6,10 +6,7 @@ import android.net.Uri;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Base64;
-import android.util.Pair;
-import android.util.SparseArray;
 
-import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -17,7 +14,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
-import com.facebook.react.bridge.WritableNativeMap;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,36 +35,10 @@ public class Module extends ReactContextBaseJavaModule {
    private static final String ERROR_NO_TEMP_FILE_DST = "ERROR_NO_TEMP_FILE_DST";
    private static final String ERROR_TEMP_FILE_CREATE = "ERROR_TEMP_FILE_CREATE";
    
-   private final SparseArray <Pair <Promise, List
-      <File>>> promises = new SparseArray <> ();
+   private final List <File> allFilesToDelete = new ArrayList <> ();
    
    public Module(ReactApplicationContext reactContext) {
       super(reactContext);
-      
-      reactContext.addActivityEventListener(new BaseActivityEventListener() {
-         @Override
-         public void onActivityResult(
-            Activity activity,
-            int requestCode,
-            int resultCode,
-            Intent intent)
-         {
-            if (requestCode < promises.size()) {
-               final Pair <Promise, List <File>> pair = promises.get(requestCode);
-               promises.delete(requestCode);
-               
-               final WritableNativeMap map = new WritableNativeMap();
-               map.putInt("requestIndex", requestCode);
-               map.putInt("resultCode", resultCode);
-               
-               for (File file : pair.second) {
-                  file.delete();
-               }
-               
-               pair.first.resolve(map);
-            }
-         }
-      });
    }
    
    @Override
@@ -84,6 +54,13 @@ public class Module extends ReactContextBaseJavaModule {
       constants.put(ERROR_TEMP_FILE_CREATE, ERROR_TEMP_FILE_CREATE);
       
       return constants;
+   }
+   
+   @ReactMethod
+   public void deleteTempFiles() {
+      for (File file : allFilesToDelete) {
+         file.delete();
+      };
    }
    
    @ReactMethod
@@ -186,12 +163,13 @@ public class Module extends ReactContextBaseJavaModule {
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
          }
          
-         getCurrentActivity().startActivityForResult(
+         getCurrentActivity().startActivity(
             !Utils.getBoolean(data, "createChooser", true) ? intent : Intent.
-               createChooser(intent, Utils.getString(data, "chooserTitle", null)),
-            promises.size());
+               createChooser(intent, Utils.getString(data, "chooserTitle", null)));
          
-         promises.append(promises.size(), Pair.create(promise, filesToDelete));
+         allFilesToDelete.addAll(filesToDelete);
+         
+         promise.resolve(Boolean.TRUE);
       } catch (PromiseException e) {
          promiseException = e;
       } catch (IOException e) {
