@@ -1,4 +1,5 @@
 import StaticUtils from "../StaticUtils";
+import ArrayStringifier from "../ArrayStringifier";
 import utf8 from "../utf8";
 import GDrive from "./GDrive";
 
@@ -40,5 +41,61 @@ export default class Files {
                body.length),
             body
          });
+   }
+   
+   async safeCreateFolder(metadata) {
+      const mimeFolder = "application/vnd.google-apps.folder";
+      
+      let result = await this.list({
+         q: `mimeType='${mimeFolder}' and trashed=false and ` +
+            `name='${metadata.name}' and '${metadata.parents[0]}' in parents`
+      });
+      
+      if (!result.ok) {
+         throw result;
+      }
+      
+      let json = await result.json();
+      
+      let id;
+      
+      if (json.files.length) {
+         id = json.files[0].id;
+      } else {
+         metadata.mimeType = mimeFolder;
+         
+         const body = JSON.stringify(metadata);
+         
+         result = await fetch(GDrive._urlFiles, {
+            method: "POST",
+            headers: GDrive._createHeaders(
+               GDrive._contentTypeJson,
+               body.length),
+            body
+         });
+         
+         if (!result.ok) {
+            throw result;
+         }
+         
+         id = (await result.json()).id;
+      }
+      
+      return id;
+   }
+   
+   list(params) {
+      const array = [];
+      
+      Object.keys(params).forEach(key => array.push(`${key}=${params[key]}`));
+      
+      const parameters = new ArrayStringifier(array)
+         .setPrefix("?")
+         .setSeparator("&")
+         .process();
+      
+      return fetch(`${GDrive._urlFiles}${parameters}`, {
+         headers: GDrive._createHeaders()
+      });
    }
 }

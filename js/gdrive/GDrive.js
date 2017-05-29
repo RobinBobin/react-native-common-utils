@@ -5,6 +5,7 @@ import Permissions from "./Permissions";
  * Is supposed to be used with joonhocho/react-native-google-sign-in.
  */
 export default class GDrive {
+   static _urlFiles = "https://www.googleapis.com/drive/v3/files";
    static _contentTypeJson = "application/json; charset=UTF-8";
    
    static init(user, params = {}) {
@@ -15,10 +16,13 @@ export default class GDrive {
    
    static _createHeaders(contentType, contentLength, ... additionalPairs) {
       let pairs = [
-         [ "Authorization", `Bearer ${GDrive.user.accessToken}` ],
+         [ "Authorization", `Bearer ${GDrive.user.accessToken}` ]
+      ];
+      
+      [
          [ "Content-Type", contentType] ,
          [ "Content-Length", contentLength ]
-      ];
+      ].forEach(data => data[1] ? pairs.push(data) : undefined);
       
       if (additionalPairs) {
          pairs = pairs.concat(additionalPairs);
