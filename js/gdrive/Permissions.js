@@ -6,7 +6,7 @@ export default class Permissions {
    create(fileId, params) {
       const body = JSON.stringify(params);
       
-      return fetch(`${GDrive._urlFiles}${fileId}${permissions}`, {
+      return fetch(`${GDrive._urlFiles}/${fileId}${permissions}`, {
          method: "POST",
          headers: GDrive._createHeaders(
             GDrive._contentTypeJson,
