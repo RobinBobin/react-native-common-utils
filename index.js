@@ -25,7 +25,6 @@ import MaterialSwitch from "./js/MaterialSwitch";
 import ProgressBar from "./js/ProgressBar";
 import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
-import GDrive from "./js/GDrive";
 import utf8 from "./js/utf8";
 import ArrayStringifier from "./js/ArrayStringifier";
 
@@ -36,7 +35,6 @@ export {
    ProgressBar,
    DateTimePicker,
    StaticUtils,
-   GDrive,
    utf8,
    ArrayStringifier
 };
@@ -52,6 +50,16 @@ import Condition from "./js/sqlbuilder/Condition";
 export class SqlBuilder extends SqlBldr {
    static WhereBuilder = WhereBuilder;
    static Condition = Condition;
+};
+
+
+/**
+ * GDrive.
+ */
+import GDrive from "./js/gdrive/GDrive";
+
+export {
+   GDrive
 };
 
 
