@@ -18,7 +18,8 @@ public class CommonPackage implements ReactPackage {
       final List <String> m = new ArrayList <> ();
       
       for (String module : (modules.length > 0 ? modules : new String [] {
-         "sharedata"
+         "sharedata",
+         "geturi"
       })) {
          m.add(module);
       }

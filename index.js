@@ -69,3 +69,4 @@ export {
 import { NativeModules } from "react-native";
 
 exports.ShareData = NativeModules.RNCShareData;
+exports.GetUri = NativeModules.RNCGetUri;

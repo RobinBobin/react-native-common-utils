@@ -1,6 +1,5 @@
 package ru.rshalimov.reactnative.common.sharedata;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.Html;
@@ -33,6 +32,7 @@ public class Module extends ReactContextBaseJavaModule {
    private static final String TAG = "RNCShareData";
    
    private static final String ERROR_NO_TEMP_FILE_DST = "ERROR_NO_TEMP_FILE_DST";
+   private static final String ERROR_NO_SRC_TO_COPY = "ERROR_NO_SRC_TO_COPY";
    private static final String ERROR_TEMP_FILE_CREATE = "ERROR_TEMP_FILE_CREATE";
    
    private final List <File> allFilesToDelete = new ArrayList <> ();
@@ -51,6 +51,7 @@ public class Module extends ReactContextBaseJavaModule {
       final Map <String, Object> constants = new HashMap <> ();
       
       constants.put(ERROR_NO_TEMP_FILE_DST, ERROR_NO_TEMP_FILE_DST);
+      constants.put(ERROR_NO_SRC_TO_COPY, ERROR_NO_SRC_TO_COPY);
       constants.put(ERROR_TEMP_FILE_CREATE, ERROR_TEMP_FILE_CREATE);
       
       return constants;
@@ -153,6 +154,8 @@ public class Module extends ReactContextBaseJavaModule {
                   {
                      d.transferFrom(s, 0, s.size());
                   }
+               } else {
+                  throw new PromiseException(ERROR_NO_SRC_TO_COPY);
                }
                
                filesToDelete.add(tmpFile);
