@@ -21,7 +21,7 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
    }
    
    where(callbackOrConditionString, add = true) {
-      super.where(callbackOrConditionString, add && !this.insert);
+      return super.where(callbackOrConditionString, add && !this.insert);
    }
    
    toString() {

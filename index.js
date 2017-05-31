@@ -44,10 +44,12 @@ export {
  * sqlbuilder.
  */
 import SqlBldr from "./js/sqlbuilder/SqlBuilder";
+import SelectBuilder from "./js/sqlbuilder/SelectBuilder";
 import WhereBuilder from "./js/sqlbuilder/WhereBuilder";
 import Condition from "./js/sqlbuilder/Condition";
 
 export class SqlBuilder extends SqlBldr {
+   static SelectBuilder = SelectBuilder;
    static WhereBuilder = WhereBuilder;
    static Condition = Condition;
 };

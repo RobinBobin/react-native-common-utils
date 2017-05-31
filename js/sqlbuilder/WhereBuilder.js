@@ -38,9 +38,10 @@ export default class WhereBuilder {
       return this;
    }
    
-   toString() {
+   toString(noWhere) {
       return new ArrayStringifier(this.entries)
-         .setPrefix(" WHERE " + (this.conditionString || ""), !this.conditionString)
+         .setPrefix((noWhere ? "" : " WHERE ") + (this.
+            conditionString || ""), !this.conditionString)
          .setSeparator("")
          .process();
    }

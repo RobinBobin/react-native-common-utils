@@ -19,5 +19,7 @@ export default class BuilderWithWhere {
                break;
          }
       }
+      
+      return this;
    }
 }

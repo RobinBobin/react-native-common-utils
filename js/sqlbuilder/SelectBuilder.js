@@ -1,12 +1,14 @@
-import ArrayStringifier from "../ArrayStringifier";
 import BuilderWithWhere from "./BuilderWithWhere";
+import ArrayStringifier from "../ArrayStringifier";
+import StaticUtils from "../StaticUtils";
+import FromBuilder from "./FromBuilder";
 
 export default class SelectBuilder extends BuilderWithWhere {
    constructor() {
       super();
       
       this.columns = [];
-      this.tables = [];
+      this.froms = [];
       this.orderBys = [];
       this.limitString = "";
    }
@@ -17,19 +19,18 @@ export default class SelectBuilder extends BuilderWithWhere {
       return this;
    }
    
-   from(table) {
-      this.tables.push(table);
+   from(table, callback) {
+      const fb = StaticUtils.pushAndReturnElement(
+         this.froms, new FromBuilder(table));
+      
+      if (callback) {
+         callback(fb);
+      }
       
       return this;
    }
    
-   where(callbackOrConditionString, add = true) {
-      super.where(callbackOrConditionString, add);
-      
-      return this;
-   }
-   
-   orderBy(column, direction) {
+   orderBy(column, direction = "ASC") {
       this.orderBys.push(`${column} ${direction}`);
       
       return this;
@@ -50,7 +51,7 @@ export default class SelectBuilder extends BuilderWithWhere {
             `${column[0]} AS ${column[1]}` : column)
          .process()
          
-         + new ArrayStringifier(this.tables)
+         + new ArrayStringifier(this.froms)
             .setPrefix(" FROM ")
             .process()
          
