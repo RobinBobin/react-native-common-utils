@@ -1,22 +1,23 @@
 import Files from "./Files";
 import Permissions from "./Permissions";
 
-/**
- * Is supposed to be used with joonhocho/react-native-google-sign-in.
- */
 export default class GDrive {
    static _urlFiles = "https://www.googleapis.com/drive/v3/files";
    static _contentTypeJson = "application/json; charset=UTF-8";
    
-   static init(user, params = {}) {
-      GDrive.user = user;
+   static init(accessToken, params = {}) {
+      GDrive.accessToken = accessToken;
       GDrive.files = new Files(params.files);
       GDrive.permissions = new Permissions();
    }
    
+   static isInitialized() {
+      return !!GDrive.accessToken;
+   }
+   
    static _createHeaders(contentType, contentLength, ... additionalPairs) {
       let pairs = [
-         [ "Authorization", `Bearer ${GDrive.user.accessToken}` ]
+         [ "Authorization", `Bearer ${GDrive.accessToken}` ]
       ];
       
       [

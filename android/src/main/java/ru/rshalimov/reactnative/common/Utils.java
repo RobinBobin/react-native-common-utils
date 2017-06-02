@@ -42,6 +42,22 @@ public class Utils {
       return safeGet(map, key, getMapArray, null);
    }
    
+   public static String getFileNameExtension(ReadableMap map,
+      String nameKey, String extensionKey, String defaultName)
+   {
+      return getFileNameExtension(map, nameKey, extensionKey, defaultName, "");
+   }
+   
+   public static String getFileNameExtension(ReadableMap map, String nameKey,
+      String extensionKey, String defaultName, String defaultExtension)
+   {
+      final String fileName = getString(map, nameKey, defaultName);
+      final String fileExtension = getString(map, extensionKey, defaultExtension);
+      
+      return fileExtension == null || fileExtension.isEmpty() ?
+         fileName : String.format("%s.%s", fileName, fileExtension);
+   }
+   
    @SuppressWarnings("unchecked")
    private static <T> T safeGet(ReadableMap map,
       String key, Method getter, T defaultValue)

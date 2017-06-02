@@ -126,41 +126,26 @@ public class Module extends ReactContextBaseJavaModule {
             for (int i = 0; i < attachments.size(); i++) {
                final ReadableMap attachment = attachments.getMap(i);
                
-               final StringBuilder sb = new StringBuilder(Utils.getString(
-                  attachment, "name", UUID.randomUUID().toString()));
-               
-               if (attachment.hasKey("ext")) {
-                  sb
-                     .append('.')
-                     .append(attachment.getString("ext"));
-               }
-               
-               final String name = sb.toString();
-               final File tmpFile = new File(externalCacheDir, name);
+               final File dst = new File(externalCacheDir, Utils.
+                  getFileNameExtension(attachment, "name", "ext",
+                     UUID.randomUUID().toString()));
                
                if (attachment.hasKey("base64")) {
-                  try (final FileOutputStream fos = new FileOutputStream(tmpFile)) {
+                  try (final FileOutputStream fos = new FileOutputStream(dst)) {
                      fos.write(Base64.decode(attachment.
                         getString("base64"), Base64.DEFAULT));
                   }
+               } else if (attachment.hasKey("path")) {
+                  copyFile(attachment.getString("path"), dst);
                } else if (attachment.hasKey("uri")) {
-                  try (
-                     final FileInputStream fis = new FileInputStream(new File(
-                        Uri.parse(attachment.getString("uri")).getPath()));
-                     
-                     final FileOutputStream fos = new FileOutputStream(tmpFile);
-                     final FileChannel s = fis.getChannel();
-                     final FileChannel d = fos.getChannel())
-                  {
-                     d.transferFrom(s, 0, s.size());
-                  }
+                  copyFile(Uri.parse(attachment.getString("uri")).getPath(), dst);
                } else {
                   throw new PromiseException(ERROR_NO_SRC_TO_COPY);
                }
                
-               filesToDelete.add(tmpFile);
+               filesToDelete.add(dst);
                
-               uris.add(Uri.fromFile(tmpFile));
+               uris.add(Uri.fromFile(dst));
             }
             
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
@@ -185,6 +170,17 @@ public class Module extends ReactContextBaseJavaModule {
          }
          
          promise.reject(promiseException.code, promiseException);
+      }
+   }
+   
+   private void copyFile(String src, File dst) throws IOException {
+      try (
+         final FileInputStream fis = new FileInputStream(new File(src));
+         final FileOutputStream fos = new FileOutputStream(dst);
+         final FileChannel s = fis.getChannel();
+         final FileChannel d = fos.getChannel())
+      {
+         d.transferFrom(s, 0, s.size());
       }
    }
 }

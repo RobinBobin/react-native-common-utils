@@ -1,18 +1,22 @@
-package ru.rshalimov.reactnative.common.geturi;
+package ru.rshalimov.reactnative.common.getpath;
 
+import android.content.Context;
 import android.net.Uri;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import ru.rshalimov.reactnative.common.Utils;
+
 public class Module extends ReactContextBaseJavaModule {
-   private static final String TAG = "RNCGetUri";
+   private static final String TAG = "RNCGetPath";
    
    private static final String PATH_DB = "DB";
    
@@ -35,19 +39,16 @@ public class Module extends ReactContextBaseJavaModule {
    }
    
    @ReactMethod
-   public void get(String pathType, String fileName, Promise promise) {
-      final boolean dummy = fileName == null || fileName.isEmpty();
-      final String fName = dummy ? "dummy" : fileName;
+   public void get(ReadableMap params, Promise promise) {
+      final Context ctx = getCurrentActivity();
+      final String pathType = params.getString("pathType");
       
       File path = null;
       
       switch (pathType) {
          case PATH_DB:
-            path = getCurrentActivity().getDatabasePath(fName);
-            
-            if (dummy) {
-               path = path.getParentFile();
-            }
+            path = ctx.getDatabasePath(Utils.getFileNameExtension(
+               params, "fileName", "fileExtension", ""));
             
             break;
       }
@@ -55,11 +56,12 @@ public class Module extends ReactContextBaseJavaModule {
       if (path == null) {
          promise.reject("Invalid path type", pathType);
       } else {
-         promise.resolve(new Uri.Builder()
-            .scheme("file")
-            .path(path.getPath())
-            .build()
-            .toString());
+         promise.resolve(!Utils.getBoolean(params, "asUri", false) ?
+            path.getPath() : new Uri.Builder()
+               .scheme("file")
+               .path(path.getPath())
+               .build()
+               .toString());
       }
    }
 }

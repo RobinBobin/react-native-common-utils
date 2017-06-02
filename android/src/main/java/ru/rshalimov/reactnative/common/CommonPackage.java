@@ -19,7 +19,7 @@ public class CommonPackage implements ReactPackage {
       
       for (String module : (modules.length > 0 ? modules : new String [] {
          "sharedata",
-         "geturi"
+         "getpath"
       })) {
          m.add(module);
       }
