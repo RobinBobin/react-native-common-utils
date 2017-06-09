@@ -7,28 +7,28 @@ export default class Condition {
       this.whereBuilder = whereBuilder;
    }
    
-   e(value) {
-      return this.operator("=", value);
+   e(value, quoteIfString = true) {
+      return this.operator("=", value, quoteIfString);
    }
    
-   ne(value) {
-      return this.operator("!=", value);
+   ne(value, quoteIfString = true) {
+      return this.operator("!=", value, quoteIfString);
    }
    
-   g(value) {
-      return this.operator(">", value);
+   g(value, quoteIfString = true) {
+      return this.operator(">", value, quoteIfString);
    }
    
-   ge(value) {
-      return this.operator(">=", value);
+   ge(value, quoteIfString = true) {
+      return this.operator(">=", value, quoteIfString);
    }
    
-   l(value) {
-      return this.operator("<", value);
+   l(value, quoteIfString = true) {
+      return this.operator("<", value, quoteIfString);
    }
    
-   le(value) {
-      return this.operator("<=", value);
+   le(value, quoteIfString = true) {
+      return this.operator("<=", value, quoteIfString);
    }
    
    in(array) {

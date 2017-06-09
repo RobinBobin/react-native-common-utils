@@ -11,9 +11,9 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
       this.pairs = [];
    }
    
-   columnValue(column, value, add = true) {
+   columnValue(column, value, add = true, quoteIfString = true) {
       if (add) {
-         this.pairs.push([column, value == "NULL" ?
+         this.pairs.push([column, value == "NULL" || !quoteIfString ?
             value : StaticUtils.quoteIfString(value)]);
       }
       
@@ -39,7 +39,7 @@ export default class InsertUpdateBuilder extends BuilderWithWhere {
          str = new ArrayStringifier(this.pairs)
             .setPrefix(`UPDATE ${this.table} SET `)
             .setElementProcessor(pair => `${pair[0]} = ${pair[1]}`)
-            .setPostfix(`${this.whereBuilder};`)
+            .setPostfix(`${this.whereBuilder}`)
             .process();
       }
       
