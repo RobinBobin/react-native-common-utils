@@ -5,10 +5,13 @@ export default class GDrive {
    static _urlFiles = "https://www.googleapis.com/drive/v3/files";
    static _contentTypeJson = "application/json; charset=UTF-8";
    
-   static init(accessToken, params = {}) {
-      GDrive.accessToken = accessToken;
+   static init(params = {}) {
       GDrive.files = new Files(params.files);
       GDrive.permissions = new Permissions();
+   }
+   
+   static setAccessToken(accessToken) {
+      GDrive.accessToken = accessToken;
    }
    
    static isInitialized() {
