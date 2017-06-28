@@ -60,6 +60,13 @@ export default class Files {
          });
    }
    
+   delete(fileId) {
+      return fetch(`${GDrive._urlFiles}/${fileId}`, {
+         method: "DELETE",
+         headers: GDrive._createHeaders()
+      });
+   }
+   
    async safeCreateFolder(metadata) {
       let id = await this.getId(metadata.name, metadata.parents, Files.mimeFolder);
       
