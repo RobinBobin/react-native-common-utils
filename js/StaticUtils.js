@@ -37,6 +37,10 @@ export default class StaticUtils {
       return value.constructor == String ? `"${value}"` : value;
    }
    
+   static safeQuoteIfString(value, quoteIfString) {
+      return quoteIfString ? StaticUtils.quoteIfString(value) : value;
+   }
+   
    static indexObjectWithClassName(obj, className) {
       const all = {...obj};
       

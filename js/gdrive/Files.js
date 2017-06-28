@@ -2,10 +2,27 @@ import StaticUtils from "../StaticUtils";
 import ArrayStringifier from "../ArrayStringifier";
 import utf8 from "../utf8";
 import GDrive from "./GDrive";
+import RNFS from "react-native-fs";
 
 const uploadUrl = "https://www.googleapis.com/upload/drive/v3/files";
 
+function _stringifyQueryParams(queryParams,
+   prefix = "?", separator = "&", quoteIfString)
+{
+   const array = [];
+   
+   Object.keys(queryParams).forEach(key => array.push(
+      `${key}=${StaticUtils.safeQuoteIfString(queryParams[key], quoteIfString)}`));
+   
+   return new ArrayStringifier(array)
+      .setPrefix(prefix)
+      .setSeparator(separator)
+      .process();
+}
+
 export default class Files {
+   static mimeFolder = "application/vnd.google-apps.folder";
+   
    constructor(params = {}) {
       this.params = params;
       
@@ -44,25 +61,10 @@ export default class Files {
    }
    
    async safeCreateFolder(metadata) {
-      const mimeFolder = "application/vnd.google-apps.folder";
+      let id = await this.getId(metadata.name, metadata.parents, Files.mimeFolder);
       
-      let result = await this.list({
-         q: `mimeType='${mimeFolder}' and trashed=false and ` +
-            `name='${metadata.name}' and '${metadata.parents[0]}' in parents`
-      });
-      
-      if (!result.ok) {
-         throw result;
-      }
-      
-      let json = await result.json();
-      
-      let id;
-      
-      if (json.files.length) {
-         id = json.files[0].id;
-      } else {
-         metadata.mimeType = mimeFolder;
+      if (!id) {
+         metadata.mimeType = Files.mimeFolder;
          
          const body = JSON.stringify(metadata);
          
@@ -84,17 +86,51 @@ export default class Files {
       return id;
    }
    
-   list(params) {
-      const array = [];
+   async getId(name, parents, mimeType, trashed = false) {
+      const queryParams = {name, trashed};
       
-      Object.keys(params).forEach(key => array.push(`${key}=${params[key]}`));
+      if (mimeType) {
+         queryParams.mimeType = mimeType;
+      }
       
-      const parameters = new ArrayStringifier(array)
-         .setPrefix("?")
-         .setSeparator("&")
-         .process();
+      let result = await this.list({
+         q: _stringifyQueryParams(queryParams, "",
+            " and ", true) + ` and '${parents[0]}' in parents`
+      });
       
-      return fetch(`${GDrive._urlFiles}${parameters}`, {
+      if (!result.ok) {
+         throw result;
+      }
+      
+      const file = (await result.json()).files[0];
+      
+      return file ? file.id : file;
+   }
+   
+   get(fileId, queryParams) {
+      const parameters = _stringifyQueryParams(queryParams);
+      
+      return fetch(`${GDrive._urlFiles}/${fileId}${parameters}`, {
+         headers: GDrive._createHeaders()
+      });
+   }
+   
+   download(fileId, downloadFileOptions, queryParams = {}) {
+      queryParams.alt = "media";
+      
+      const parameters = _stringifyQueryParams(queryParams);
+      
+      downloadFileOptions.fromUrl = `${GDrive._urlFiles}/${fileId}${parameters}`;
+      
+      downloadFileOptions.headers = Object.assign({
+         "Authorization": `Bearer ${GDrive.accessToken}`
+      }, downloadFileOptions.headers);
+      
+      return RNFS.downloadFile(downloadFileOptions);
+   }
+   
+   list(queryParams) {
+      return fetch(`${GDrive._urlFiles}${_stringifyQueryParams(queryParams)}`, {
          headers: GDrive._createHeaders()
       });
    }

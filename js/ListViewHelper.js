@@ -58,6 +58,10 @@ export default class ListViewHelper {
       this.separatorStyle = separatorStyle;
    }
    
+   setRowParams(params) {
+      this.rowParams = params;
+   }
+   
    renderRow(data, sectionID, rowID, highlightRow) {
       return React.createElement(
          this.itemType, {
@@ -68,7 +72,8 @@ export default class ListViewHelper {
          itemCount: this.items.length,
          callbacks: this.callbacks,
          onPress: this.callbacks.get("onPress"),
-         onLongPress: this.callbacks.get("onLongPress")
+         onLongPress: this.callbacks.get("onLongPress"),
+         params: this.rowParams ? {...this.rowParams} : undefined
       });
    }
    
@@ -87,7 +92,8 @@ export default class ListViewHelper {
    
    renderRowSeparator(sectionID, rowID, adjacentRowHighlighted) {
       return <View
-         key={this.generateRowSeparatorKey(sectionID, rowID, adjacentRowHighlighted)}
+         key={this.generateRowSeparatorKey(
+            sectionID, rowID, adjacentRowHighlighted)}
          style={this.separatorStyle} />;
    }
    

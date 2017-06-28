@@ -127,7 +127,7 @@ public class Module extends ReactContextBaseJavaModule {
                final ReadableMap attachment = attachments.getMap(i);
                
                final File dst = new File(externalCacheDir, Utils.
-                  getFileNameExtension(attachment, "name", "ext",
+                  getFileNameExtension(attachment, "fileName", "fileExtension",
                      UUID.randomUUID().toString()));
                
                if (attachment.hasKey("base64")) {
