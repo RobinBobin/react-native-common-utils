@@ -1,3 +1,5 @@
+import DottedStringObject from "./DottedStringObject";
+
 export default class AlterStyles {
    constructor(...styles) {
       this.styles = styles;
@@ -30,5 +32,29 @@ export default class AlterStyles {
       }
       
       return retval;
+   }
+   
+   /**
+    * Combine styles from styles.js and React.Component.props.styles.
+    * @param {*} styles React.Component.props.styles.
+    * @param {*} stylesData array, each element of which is an array:
+    * [0] - styles.js object with style properties;
+    * [1] - dotted string with a name of a props.styles object.
+    */
+   static combineStyles(styles, stylesData) {
+      return stylesData.map(data => {
+         const resultingStyle = new AlterStyles(data[0]);
+         const styleObject = DottedStringObject.getProperty(styles, data[1], {});
+         
+         Object.keys(styleObject).forEach(stylePropertyName =>
+            resultingStyle.addProperty(
+               stylePropertyName,
+               true,
+               styleObject[stylePropertyName]));
+         
+         return [data[1], resultingStyle.build()];
+      }).reduce((p, c) => {
+         return DottedStringObject.addProperty(p, c[0], c[1]);
+      }, {});
    }
 }
