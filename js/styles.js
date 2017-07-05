@@ -1,7 +1,16 @@
 import EStyleSheet from "react-native-extended-stylesheet";
 import StaticUtils from "./StaticUtils";
 
-export const consts = {
+export const styles = {
+   marginPadding: 15,
+   activeOpacity: 0.5,
+   baseHeight: 50,
+   textColor: 0x55606EFF,
+   textColorDisabled: 0xD0CECEFF,
+   backgroundColor: 0xE9E9E9FF
+};
+
+export const parameters = {
    font: {
       size: 14,
       step: 3,
@@ -10,9 +19,39 @@ export const consts = {
       largeSteps: 3
    },
    button: {
-      containerBackgroundColor: 0x0099CBFF,
-      textColor: "white",
-      textFontSize: 20
+      container: {
+         height: styles.baseHeight,
+         backgroundColor: 0x0099CBFF
+      },
+      text: {
+         color: "white",
+         fontSize: 20
+      }
+   },
+   toggleButtons: {
+      activeColors: {
+         label: "white",
+         background: styles.textColor
+      },
+      container: {
+         flexDirection: "row",
+         justifyContent: "center",
+         paddingTop: styles.marginPadding * 0.5,
+         paddingBottom: styles.marginPadding * 0.5
+      },
+      textButton: {
+         container: {
+            paddingTop: styles.marginPadding * 0.5,
+            paddingBottom: styles.marginPadding * 0.5,
+            paddingLeft: styles.marginPadding,
+            paddingRight: styles.marginPadding
+         },
+         label: {
+            color: styles.textColor,
+            fontSize: 20,
+            textAlign: "center"
+         }
+      }
    }
 };
 
@@ -26,19 +65,10 @@ export const centerCenterFlex1 = {
    flex: 1
 };
 
-export const styles = {
-   marginPadding: 15,
-   activeOpacity: 0.5,
-   baseHeight: 50,
-   textColor: 0x55606EFF,
-   textColorDisabled: 0xD0CECEFF,
-   backgroundColor: 0xE9E9E9FF
-};
-
 export { EStyleSheet };
 
 export function fontSize(steps = 0) {
-   return consts.font.size + steps * consts.font.step;
+   return parameters.font.size + steps * parameters.font.step;
 };
 
 export function addCommonObjects() {
@@ -50,13 +80,28 @@ export function addCommonObjects() {
    styles.button = EStyleSheet.create({
       container: {
          ...centerCenter,
-         height: styles.baseHeight,
-         backgroundColor: consts.button.containerBackgroundColor
+         ...parameters.button.container
       },
       text: {
-         color: consts.button.textColor,
-         fontSize: consts.button.textFontSize,
+         ...parameters.button.text,
          textAlign: "center"
+      }
+   });
+   
+   styles.toggleButtons = EStyleSheet.create({
+      $activeColors: {
+         ...parameters.toggleButtons.activeColors
+      },
+      container: {
+         ...parameters.toggleButtons.container
+      },
+      $textButton: {
+         container: {
+            ...parameters.toggleButtons.textButton.container
+         },
+         label: {
+            ...parameters.toggleButtons.textButton.label
+         }
       }
    });
 };

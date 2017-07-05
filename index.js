@@ -27,6 +27,7 @@ import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
 import utf8 from "./js/utf8";
 import ArrayStringifier from "./js/ArrayStringifier";
+import DottedStringObject from "./js/DottedStringObject";
 
 export {
    AlterStyles,
@@ -36,7 +37,18 @@ export {
    DateTimePicker,
    StaticUtils,
    utf8,
-   ArrayStringifier
+   ArrayStringifier,
+   DottedStringObject
+};
+
+
+/**
+ * ToggleButtons.
+ */
+import ToggleButtons from "./js/ToggleButtons";
+
+export {
+   ToggleButtons
 };
 
 
