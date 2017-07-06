@@ -21,8 +21,6 @@ export {
  */
 import AlterStyles from "./js/AlterStyles";
 import ListViewHelper from "./js/ListViewHelper";
-import MaterialSwitch from "./js/MaterialSwitch";
-import ProgressBar from "./js/ProgressBar";
 import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
 import utf8 from "./js/utf8";
@@ -32,8 +30,6 @@ import DottedStringObject from "./js/DottedStringObject";
 export {
    AlterStyles,
    ListViewHelper,
-   MaterialSwitch,
-   ProgressBar,
    DateTimePicker,
    StaticUtils,
    utf8,
@@ -43,12 +39,20 @@ export {
 
 
 /**
- * ToggleButtons.
+ * Components.
  */
-import ToggleButtons from "./js/ToggleButtons";
+import MaterialSwitch from "./js/components/MaterialSwitch";
+import ProgressBar from "./js/components/ProgressBar";
+import ToggleButtons from "./js/components/ToggleButtons/ToggleButtons";
+import ImageToggleButton from "./js/components/ToggleButtons/ImageToggleButton";
+import TextToggleButton from "./js/components/ToggleButtons/TextToggleButton";
 
 export {
-   ToggleButtons
+   MaterialSwitch,
+   ProgressBar,
+   ToggleButtons,
+   ImageToggleButton,
+   TextToggleButton
 };
 
 
