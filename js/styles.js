@@ -39,10 +39,6 @@ styles.button = {
 };
 
 styles.toggleButtons = {
-   $activeColors: {
-      label: "white",
-      background: styles.textColor
-   },
    container: {
       flexDirection: "row",
       justifyContent: "center",
@@ -51,32 +47,40 @@ styles.toggleButtons = {
    },
    $button: {
       container: {
-         ...centerCenter,
-         paddingTop: styles.marginPadding * 0.5,
-         paddingBottom: styles.marginPadding * 0.5,
-         paddingLeft: styles.marginPadding,
-         paddingRight: styles.marginPadding
+         inactive: {
+            ...centerCenter,
+            paddingTop: styles.marginPadding * 0.5,
+            paddingBottom: styles.marginPadding * 0.5,
+            paddingLeft: styles.marginPadding,
+            paddingRight: styles.marginPadding
+         },
+         active: {
+            backgroundColor: styles.textColor
+         }
       },
       label: {
-         color: styles.textColor,
-         fontSize: 20,
-         textAlign: "center"
+         inactive: {
+            color: styles.textColor,
+            fontSize: 20,
+            textAlign: "center"
+         },
+         active: {
+            color: "white"
+         }
       }
    }
 };
 
-export const parameters = {
-   font: {
-      size: 14,
-      step: 3,
-      smallMediumSteps: 1,
-      mediumSteps: 2,
-      largeSteps: 3
-   }
+export const font = {
+   size: 14,
+   step: 3,
+   smallMediumSteps: 1,
+   mediumSteps: 2,
+   largeSteps: 3
 };
 
 export function fontSize(steps = 0) {
-   return parameters.font.size + steps * parameters.font.step;
+   return font.size + steps * font.step;
 };
 
 export function buildStyleObjects() {
@@ -101,4 +105,8 @@ export function buildStyleObjects() {
    });
 };
 
-export default StaticUtils.indexObjectWithClassName.bind(null, styles);
+export default className => {
+   const all = {...styles};
+   
+   return className ? Object.assign({...styles[className]}, {all}) : all;
+}

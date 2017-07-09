@@ -41,7 +41,7 @@ export default class AlterStyles {
     * [0] - styles.js object with style properties;
     * [1] - dotted string with a name of a props.styles object.
     */
-   static combineStyles(styles, stylesData) {
+   static combine(styles, stylesData) {
       return stylesData.map(data => {
          const resultingStyle = new AlterStyles(data[0]);
          const styleObject = DottedStringObject.getProperty(styles, data[1], {});

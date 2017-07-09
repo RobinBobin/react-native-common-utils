@@ -9,15 +9,13 @@ export default class ToggleButtons extends React.Component {
    constructor(props) {
       super(props);
       
-      this.styles = AlterStyles.combineStyles(this.props.styles,
-         [[styles.toggleButtons._container, "container"]]);
-      
-      this.currentIndex = this.props.initialIndex | 0;
+      this.state = {
+         currentIndex: this.props.initialIndex | 0
+      };
    }
    
    onPress(index) {
-      this.currentIndex = index;
-      this.forceUpdate();
+      this.setState({currentIndex: index});
       
       if (this.props.onPress) {
          this.props.onPress(index);
@@ -25,14 +23,13 @@ export default class ToggleButtons extends React.Component {
    }
    
    render() {
-      return <View style={this.styles.container}>
-         {this.props.buttons.map((button, index) => React.createElement(
-            button.component, {
-               ...button,
-               index,
-               key: index,
-               parent: this
-            }))}
+      const clone = child => React.cloneElement(
+         child, {index: child.key, parent: this});
+      
+      return <View style={AlterStyles.combine(this.props.styles,
+         [[styles.toggleButtons._container, "container"]]).container}>
+         {Array.isArray(this.props.children) ? this.props.children.
+            map(child => clone(child)) : clone(this.props.children)}
       </View>
    }
 }

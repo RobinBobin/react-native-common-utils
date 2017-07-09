@@ -41,9 +41,11 @@ export default class StaticUtils {
       return quoteIfString ? StaticUtils.quoteIfString(value) : value;
    }
    
-   static indexObjectWithClassName(obj, className) {
-      const all = {...obj};
-      
-      return className ? Object.assign({...obj[className]}, {all}) : all;
+   static objectToArray(object) {
+      return Object.keys(object).reduce((p, c) => {
+         p.push(object[c]);
+         
+         return p;
+      }, []);
    }
 }

@@ -30,12 +30,4 @@ export default class DottedStringObject {
       
       return value;
    }
-   
-   static getProperties(object, defaultValues) {
-      return Object.keys(defaultValues).map(key => [key, DottedStringObject.
-         getProperty(object, key, defaultValues[key])]).reduce((p, c) => {
-            p[c[0]] = c[1];
-            return p;
-         }, {});
-   }
 }
