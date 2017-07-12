@@ -72,16 +72,6 @@ export class SqlBuilder extends SqlBldr {
 
 
 /**
- * GDrive.
- */
-import GDrive from "./js/gdrive/GDrive";
-
-export {
-   GDrive
-};
-
-
-/**
  * Native modules.
  */
 import { NativeModules } from "react-native";

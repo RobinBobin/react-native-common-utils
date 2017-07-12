@@ -63,9 +63,12 @@ export default class ListViewHelper {
    }
    
    renderRow(data, sectionID, rowID, highlightRow) {
+      const type = Array.isArray(data) ? data[0] : this.itemType;
+      const d = Array.isArray(data) ? data[1] : data;
+      
       return React.createElement(
-         this.itemType, {
-         data,
+         type, {
+         data: d,
          sectionID,
          rowID,
          highlightRow,

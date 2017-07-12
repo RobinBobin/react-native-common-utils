@@ -1,5 +1,4 @@
 import EStyleSheet from "react-native-extended-stylesheet";
-import StaticUtils from "./StaticUtils";
 
 const centerCenter = {
    justifyContent: "center",
@@ -103,10 +102,8 @@ export function buildStyleObjects() {
          }
       }
    });
+   
+   EStyleSheet.build();
 };
 
-export default className => {
-   const all = {...styles};
-   
-   return className ? Object.assign({...styles[className]}, {all}) : all;
-}
+export default require("./strings").default.bind(null, styles);
