@@ -8,7 +8,7 @@ import { autobind } from "core-decorators";
 export default class DateTimePicker {
    constructor(
       component,
-      dateTime = new Date,
+      dateTime = new Date(),
       maxDate = new Date(),
       is24Hour = true)
    {

@@ -48,4 +48,13 @@ export default class StaticUtils {
          return p;
       }, []);
    }
+   
+   static escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+   }
+   
+   static replaceAll(string, find, replace) {
+      return string.replace(new RegExp(StaticUtils.
+         escapeRegExp(find), 'g'), replace);
+   }
 }
