@@ -1,17 +1,13 @@
-var React = require('react');
+import React from "react";
+import {
+   PanResponder,
+   View,
+   TouchableHighlight,
+   Animated
+} from "react-native";
 
-var {
-  PanResponder,
-  View,
-  TouchableHighlight,
-  Animated,
-} = require("react-native");
-
-var MaterialSwitch = React.createClass({
-  padding: 2,
-
-  getDefaultProps() {
-    return {
+export default class MaterialSwitch extends React.Component {
+   static defaultProps = {
       active: false,
       disabled: false,
       styles: {},
@@ -20,10 +16,10 @@ var MaterialSwitch = React.createClass({
       activeButtonColor: '#FAFAFA',
       activeButtonPressedColor: '#F5F5F5',
       buttonShadow: {
-        shadowColor: '#000',
-        shadowOpacity: 0.5,
-        shadowRadius: 1,
-        shadowOffset: { height: 1, width: 0 },
+         shadowColor: '#000',
+         shadowOpacity: 0.5,
+         shadowRadius: 1,
+         shadowOffset: { height: 1, width: 0 },
       },
       activeBackgroundColor: 'rgba(255,255,255,.5)',
       inactiveBackgroundColor: 'rgba(0,0,0,.5)',
@@ -36,22 +32,25 @@ var MaterialSwitch = React.createClass({
       onActivate: function() {},
       onDeactivate: function() {},
       onChangeState: function() {},
-    };
-  },
-
-  getInitialState() {
-    var w = this.props.switchWidth - Math.min(this.props.switchHeight, this.props.buttonRadius*2);
-    
-    return {
-      width: w,
-      state: this.props.active,
-      position: new Animated.Value(this.props.active? w : 0),
-    };
-  },
-
-  start: {},
-
-  componentWillMount: function() {
+   };
+   
+   constructor(props) {
+      super(props);
+      
+      this.padding = 2;
+      this.start = {};
+      
+      var w = this.props.switchWidth - Math.min(this.props.
+         switchHeight, this.props.buttonRadius*2);
+      
+      this.state = {
+         width: w,
+         state: this.props.active,
+         position: new Animated.Value(this.props.active? w : 0)
+      };
+   }
+   
+  componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
@@ -126,7 +125,7 @@ var MaterialSwitch = React.createClass({
       },
       onShouldBlockNativeResponder: (evt, gestureState) => true,
     });
-  },
+  }
 
   onSwipe(currentPosition, startingPosition, onChange, onTerminate) {
     if (currentPosition-startingPosition >= 0) {
@@ -142,7 +141,7 @@ var MaterialSwitch = React.createClass({
         onChange();
       }
     }
-  },
+  }
 
   activate() {
     if (!this.props.disabled) {
@@ -155,7 +154,7 @@ var MaterialSwitch = React.createClass({
       ).start();
       this.changeState(true);
     }
-  },
+  }
 
   deactivate() {
     if (!this.props.disabled) {
@@ -168,7 +167,7 @@ var MaterialSwitch = React.createClass({
       ).start();
       this.changeState(false);
     }
-  },
+  }
 
   changeState(state) {
     var callHandlers = (this.start.stateChanged ?
@@ -179,7 +178,7 @@ var MaterialSwitch = React.createClass({
         this.callback();
       }
     }, this.props.switchAnimationTime/2);
-  },
+  }
 
   callback() {
     var state = this.state.state;
@@ -189,7 +188,7 @@ var MaterialSwitch = React.createClass({
       this.props.onDeactivate();
     }
     this.props.onChangeState(state);
-  },
+  }
 
   toggle() {
     if (this.state.state) {
@@ -197,7 +196,7 @@ var MaterialSwitch = React.createClass({
     } else {
       this.activate();
     }
-  },
+  }
 
   render() {
     var doublePadding = this.padding*2-2;
@@ -243,6 +242,4 @@ var MaterialSwitch = React.createClass({
       </View>
     )
   }
-});
-
-module.exports = MaterialSwitch;
+}
