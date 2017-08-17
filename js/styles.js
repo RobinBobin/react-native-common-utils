@@ -91,6 +91,13 @@ export function create() {
          }
       }
    };
+   
+   styles.listView = {
+      $itemHeight: styles.baseHeight * 1.2,
+      separatorStyle: {
+         height: styles.marginPadding * 0.5
+      }
+   };
 }
 
 export function build() {

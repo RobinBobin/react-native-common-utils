@@ -43,6 +43,7 @@ export {
  */
 import MaterialSwitch from "./js/components/MaterialSwitch";
 import ProgressBar from "./js/components/ProgressBar";
+import Button from "./js/components/Button";
 import ToggleButtons from "./js/components/ToggleButtons/ToggleButtons";
 import ImageToggleButton from "./js/components/ToggleButtons/ImageToggleButton";
 import TextToggleButton from "./js/components/ToggleButtons/TextToggleButton";
@@ -50,6 +51,7 @@ import TextToggleButton from "./js/components/ToggleButtons/TextToggleButton";
 export {
    MaterialSwitch,
    ProgressBar,
+   Button,
    ToggleButtons,
    ImageToggleButton,
    TextToggleButton

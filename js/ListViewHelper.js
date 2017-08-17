@@ -4,12 +4,14 @@ import {
    ListView,
 } from "react-native";
 import { autobind } from "core-decorators";
+import { styles } from "./styles";
 
 @autobind
 export default class ListViewHelper {
    constructor(items, itemType, ref) {
       this.setItems(items);
       this.setItemType(itemType);
+      this.setSeparatorStyle(styles.listView.separatorStyle);
       
       this.ref = ref;
       
@@ -63,20 +65,17 @@ export default class ListViewHelper {
    }
    
    renderRow(data, sectionID, rowID, highlightRow) {
-      const type = Array.isArray(data) ? data[0] : this.itemType;
-      const d = Array.isArray(data) ? data[1] : data;
-      
       return React.createElement(
-         type, {
-         data: d,
-         sectionID,
-         rowID,
-         highlightRow,
-         itemCount: this.items.length,
-         callbacks: this.callbacks,
-         onPress: this.callbacks.get("onPress"),
-         onLongPress: this.callbacks.get("onLongPress"),
-         params: this.rowParams ? {...this.rowParams} : undefined
+         Array.isArray(data) ? data[0] : this.itemType, {
+            data: Array.isArray(data) ? data[1] : data,
+            sectionID,
+            rowID,
+            highlightRow,
+            itemCount: this.items.length,
+            callbacks: this.callbacks,
+            onPress: this.callbacks.get("onPress"),
+            onLongPress: this.callbacks.get("onLongPress"),
+            params: this.rowParams ? {...this.rowParams} : undefined
       });
    }
    
@@ -101,6 +100,10 @@ export default class ListViewHelper {
    }
    
    createListView() {
+      if (!this.items.length) {
+         this.items.push({});
+      }
+      
       return <ListView
          ref={this.ref}
          pageSize={this.pageSize}
