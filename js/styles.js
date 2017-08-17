@@ -19,57 +19,6 @@ export const styles = {
    }
 };
 
-styles.scene = {
-   flex: 1,
-   margin: styles.marginPadding
-};
-
-styles.button = {
-   container: {
-      ...centerCenter,
-      height: styles.baseHeight,
-      backgroundColor: 0x0099CBFF
-   },
-   text: {
-      color: "white",
-      fontSize: 20,
-      textAlign: "center"
-   }
-};
-
-styles.toggleButtons = {
-   container: {
-      flexDirection: "row",
-      justifyContent: "center",
-      paddingTop: styles.marginPadding * 0.5,
-      paddingBottom: styles.marginPadding * 0.5
-   },
-   $button: {
-      container: {
-         inactive: {
-            ...centerCenter,
-            paddingTop: styles.marginPadding * 0.5,
-            paddingBottom: styles.marginPadding * 0.5,
-            paddingLeft: styles.marginPadding,
-            paddingRight: styles.marginPadding
-         },
-         active: {
-            backgroundColor: styles.textColor
-         }
-      },
-      label: {
-         inactive: {
-            color: styles.textColor,
-            fontSize: 20,
-            textAlign: "center"
-         },
-         active: {
-            color: "white"
-         }
-      }
-   }
-};
-
 export const font = {
    size: 14,
    step: 3,
@@ -78,11 +27,73 @@ export const font = {
    largeSteps: 3
 };
 
-export function fontSize(steps = 0) {
-   return font.size + steps * font.step;
-};
+export function create() {
+   styles.navigator = {
+      backgroundColor: styles.backgroundColor
+   };
 
-export function buildStyleObjects() {
+   styles.navigatorWithPadding = {
+      ...styles.navigator,
+      padding: styles.marginPadding
+   };
+
+   styles.scene = {
+      flex: 1
+   };
+
+   styles.sceneWithMargin = {
+      ...styles.scene,
+      margin: styles.marginPadding
+   };
+
+   styles.button = {
+      container: {
+         ...centerCenter,
+         height: styles.baseHeight,
+         backgroundColor: 0x0099CBFF
+      },
+      text: {
+         color: "white",
+         fontSize: 20,
+         textAlign: "center"
+      }
+   };
+
+   styles.toggleButtons = {
+      container: {
+         flexDirection: "row",
+         justifyContent: "center",
+         paddingTop: styles.marginPadding * 0.5,
+         paddingBottom: styles.marginPadding * 0.5
+      },
+      $button: {
+         container: {
+            inactive: {
+               ...centerCenter,
+               paddingTop: styles.marginPadding * 0.5,
+               paddingBottom: styles.marginPadding * 0.5,
+               paddingLeft: styles.marginPadding,
+               paddingRight: styles.marginPadding
+            },
+            active: {
+               backgroundColor: styles.textColor
+            }
+         },
+         label: {
+            inactive: {
+               color: styles.textColor,
+               fontSize: 20,
+               textAlign: "center"
+            },
+            active: {
+               color: "white"
+            }
+         }
+      }
+   };
+}
+
+export function build() {
    Object.keys(styles).forEach(key => {
       const field = styles[key];
       
@@ -104,6 +115,10 @@ export function buildStyleObjects() {
    });
    
    EStyleSheet.build();
+};
+
+export function fontSize(steps = 0) {
+   return font.size + steps * font.step;
 };
 
 export default require("./strings").default.bind(null, styles);
