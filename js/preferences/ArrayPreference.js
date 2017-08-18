@@ -1,5 +1,9 @@
 import Preference from "./Preference";
 
+//
+// TODO dimensions.
+// TODO variable element length for multidimensional arrays.
+//
 export default class ArrayPreference extends Preference {
    getFieldsPerLine() {
       return this.fieldsPerLine;
@@ -28,6 +32,8 @@ export default class ArrayPreference extends Preference {
             }
          }
       }
+      
+      this.value = array;
       
       return array;
    }

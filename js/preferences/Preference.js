@@ -14,27 +14,42 @@ export default class Preference {
          this.section[part] = this : ((!this.section.hasOwnProperty(part) &&
             (this.section[part] = {})), this.section = this.section[part]));
       
-      this.loaded = new Promise(resolve =>
-         AsyncStorage.getItem(this.toString())
-            .catch(this._onError)
-            .then(value => (this.setValue(value == null || value ==
-               undefined ? defaultValue : value), resolve())));
+      this.loaded = new Promise(async (resolve, reject) => {
+         let value;
+         
+         try {
+            value = await AsyncStorage.getItem(this.toString());
+         } catch (error) {
+            this._onError(error);
+         } finally {
+            await this.setValue(value == null || value == undefined ?
+               defaultValue : value) ? resolve() : reject();
+         }
+      });
    }
    
    getValue() {
       return this.value;
    }
    
-   setValue(value) {
-      this.value = value;
+   async setValue(value) {
+      let result;
       
-      AsyncStorage
-         .setItem(this.toString(), this.getValue().toString())
-         .catch(this._onError);
-      
-      for (let listener of this.valueChangeListeners.values()) {
-         listener.onValueChanged(this);
+      try {
+         await AsyncStorage.setItem(this.toString(), value.toString());
+         
+         this.value = value;
+         
+         for (let listener of this.valueChangeListeners.values()) {
+            listener.onValueChanged(this);
+         }
+         
+         result = true;
+      } catch (error) {
+         this._onError(error);
       }
+      
+      return result;
    }
    
    getComponentType() {
@@ -49,7 +64,7 @@ export default class Preference {
       this.valueChangeListeners.add(listener);
    }
    
-   removeValueChangeListener(listeners) {
+   removeValueChangeListener(listener) {
       this.valueChangeListeners.delete(listener);
    }
    
