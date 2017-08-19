@@ -8,7 +8,7 @@ Contents:
 
 ## <a id="installation">Installation</a>
     npm i --save react-native-common-utils
-If you want to use [native modules](#NativeModules) defined in the package, use the following command afterwards:
+If you want to use [native modules](#nativeModules) defined in the package, use the following command afterwards:
 
     react-native link react-native-common-utils
 
