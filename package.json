@@ -1,11 +1,26 @@
 {
   "name": "react-native-common-utils",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Common utils for RN projects.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ruben Shalimov <r_shalimov@inbox.ru.>",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobinBobin/react-native-common-utils.git"
+  },
+  "keywords": [
+    "UI components",
+    "google drive",
+    "AsyncStorage",
+    "sql query builder",
+    "utils"
+  ],
+  "author": "Ruben Shalimov <r_shalimov@inbox.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RobinBobin/react-native-common-utils/issues"
+  },
+  "homepage": "https://github.com/RobinBobin/react-native-common-utils#readme"
 }
