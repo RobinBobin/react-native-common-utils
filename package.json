@@ -1,6 +1,6 @@
 {
   "name": "react-native-common-utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Common utils for RN projects.",
   "main": "index.js",
   "scripts": {
@@ -12,10 +12,12 @@
   },
   "keywords": [
     "UI components",
-    "google drive",
+    "google drive api",
     "AsyncStorage",
     "sql query builder",
-    "utils"
+    "utils",
+    "email with multiple attachments",
+    "email with binary attachments"
   ],
   "author": "Ruben Shalimov <r_shalimov@inbox.ru>",
   "license": "ISC",

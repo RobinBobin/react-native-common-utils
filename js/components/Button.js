@@ -27,7 +27,8 @@ export default class Button extends React.Component {
             .addProperty("backgroundColor", this.props.
                disabled, styles.textColorDisabled)
             .build()}>
-         <Text style={stls.text}>{this.props.text}</Text>
+         { this.props.text && <Text style={stls.text}>{this.props.text}</Text> }
+         { this.props.children }
       </TouchableOpacity>;
    }
 }
