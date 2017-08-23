@@ -16,25 +16,25 @@ If you want to use [native modules](#nativeModules) defined in the package, use 
 
  1. <a id="cNativeModules">[Native modules](#nativeModules)</a>
 	 2. <a id="cShareData">[ShareData](#shareData)</a>
-		 2. <a id="cShareDataDeleteTempFiles">[deleteTempFiles()](#shareDataDeleteTempFiles)</a>
-		 3. <a id="cShareDataSend">[send()](#shareDataSend)</a>
-	 4. <a id="cGetPath">[GetPath](#getPath)</a>
-		 5. <a id="cGetPathGet">[get()](#getPathGet)</a>
- 6. <a id="cUIComponents">[UI components](#uiComponents)</a>
- 7. <a id="cgdrive">[Google Drive API wrapper](#gdrive)</a>
-	 8. <a id="cgdrive2">[GDrive](#gdrive2)</a>
-		 9. <a id="cgdrive2SetAccessToken">[setAccessToken()](#gdrive2SetAccessToken)</a>
-		 10. <a id="cgdrive2Init">[init()](#gdrive2Init)</a>
-		 11. <a id="cgdrive2IsInitialized">[isInitialized()](#gdrive2IsInitialized)</a>
-	 12. <a id="cgdriveFiles">[Files](#gdriveFiles)</a>
-		 13. <a id="cgdriveFilesCreateFileMultipart">[createFileMultipart()](#gdriveFilesCreateFileMultipart)</a>
-		 14. <a id="cgdriveFilesDelete">[delete()](#gdriveFilesDelete)</a>
-		 15. <a id="cgdriveFilesGet">[get()](#gdriveFilesGet)</a>
-		 16. <a id="cgdriveFilesDownload">[download()](#gdriveFilesDownload)</a>
-		 5. <a id="cgdriveFilesGetId">[getId()](#gdriveFilesGetId)</a>
-		 6. <a id="cgdriveFilesList">[list()](#gdriveFilesList)</a>
-		 7. <a id="cgdriveFilesSafeCreateFolder">[safeCreateFolder()](#gdriveFilesSafeCreateFolder)</a>
-	 8. <a id="cgdrivePermissions">[Permissions](#gdrivePermissions)</a>
+		 3. <a id="cShareDataDeleteTempFiles">[deleteTempFiles()](#shareDataDeleteTempFiles)</a>
+		 4. <a id="cShareDataSend">[send()](#shareDataSend)</a>
+	 5. <a id="cGetPath">[GetPath](#getPath)</a>
+		 6. <a id="cGetPathGet">[get()](#getPathGet)</a>
+ 7. <a id="cUIComponents">[UI components](#uiComponents)</a>
+ 8. <a id="cgdrive">[Google Drive API wrapper](#gdrive)</a>
+	 9. <a id="cgdrive2">[GDrive](#gdrive2)</a>
+		 10. <a id="cgdrive2SetAccessToken">[setAccessToken()](#gdrive2SetAccessToken)</a>
+		 11. <a id="cgdrive2Init">[init()](#gdrive2Init)</a>
+		 12. <a id="cgdrive2IsInitialized">[isInitialized()](#gdrive2IsInitialized)</a>
+	 13. <a id="cgdriveFiles">[Files](#gdriveFiles)</a>
+		 14. <a id="cgdriveFilesCreateFileMultipart">[createFileMultipart()](#gdriveFilesCreateFileMultipart)</a>
+		 15. <a id="cgdriveFilesDelete">[delete()](#gdriveFilesDelete)</a>
+		 16. <a id="cgdriveFilesGet">[get()](#gdriveFilesGet)</a>
+		 17. <a id="cgdriveFilesDownload">[download()](#gdriveFilesDownload)</a>
+		 18. <a id="cgdriveFilesGetId">[getId()](#gdriveFilesGetId)</a>
+		 19. <a id="cgdriveFilesList">[list()](#gdriveFilesList)</a>
+		 20. <a id="cgdriveFilesSafeCreateFolder">[safeCreateFolder()](#gdriveFilesSafeCreateFolder)</a>
+	 21. <a id="cgdrivePermissions">[Permissions](#gdrivePermissions)</a>
 
 ### <a id="nativeModules">[Native modules<i class="icon-up"></i>](#cNativeModules)</a>
 
