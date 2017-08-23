@@ -86,7 +86,8 @@ Gets the path/uri of the specified file.
 
     import { GetPath } from "react-native-common-utils";
 
- - [get()<i class="icon-up"></i>](#getPath)</a>
+ - [get()<i class="icon-up"></i>](#getPath)
+
     This function returns a `Promise` resolving to the path/uri of the specified file. `"pathType"` must be one of:
     
     Value|Meaning
@@ -148,7 +149,7 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
         
         GDrive.init(params);
     
- - [isInitialized()<i class="icon-up"></i>](#cgdrive2)
+ - [isInitialized()<i class="icon-up"></i>](#gdrive2)
     
     Returns `true` if an access token has been supplied, `false` otherwise.
     
@@ -165,7 +166,7 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
         const contents = [10, 20, 30];
         
         GDrive.files.createFileMultipart(
-            contents ,
+            contents,
             "corresponding mime type", {
 	            parents: ["root"],
 	            name: "My file"
@@ -196,15 +197,15 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 		GDrive.files.download(fileId, downloadFileOptions, queryParams);
 		
  - [getId()<i class="icon-up"></i>](#gdriveFiles)
-
+    
 	Gets the id of the first file with the specified metadata. The function returns a `Promise`. It's rejected on failure and resolved to the file id or `undefined` (if nothing is found) on success.
 	
-		GDrive.files.getId(
-			name: String, // The name.
-			parents: [String], // The parents.
-			mimeType: String, // The mime type.
-			trashed: Boolean // Whether the file is trashed. Default: false
-		);
+        GDrive.files.getId(
+            name: String, // The name.
+            parents: [String], // The parents.
+            mimeType: String, // The mime type.
+            trashed: Boolean // Whether the file is trashed. Default: false
+        );
 		
  - [list()<i class="icon-up"></i>](#gdriveFiles)
 	
@@ -216,10 +217,10 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 	
 	Creates a folder with the specified `name` and `parents` if it doesn't exist. Then the function returns a `Promise`, that is resolved to the folder id on success and is rejected on failure.
 	
-		GDrive.files.safeCreateFolder({
-			name: "My folder",
-			parents: ["root"]
-		});
+        GDrive.files.safeCreateFolder({
+            name: "My folder",
+            parents: ["root"]
+        });
 
 #### <a id="gdrivePermissions">[Permissions<i class="icon-up"></i>](#cgdrivePermissions)</a>
 
