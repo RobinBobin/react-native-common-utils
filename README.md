@@ -1,8 +1,8 @@
 This is a collection of (hopefully useful) classes that can be used in RN projects.
 
  1. <a id="cInstallation">[Installation.](#installation)</a>
- 2. <a id="cPackageContents">[Package contents.](#packageContents)</a>
- 3. <a id="cVersionHistory">[Version history.](#versionHistory)</a>
+ 1. <a id="cPackageContents">[Package contents.](#packageContents)</a>
+ 1. <a id="cVersionHistory">[Version history.](#versionHistory)</a>
 
 ## <a id="installation">[Installation<i class="icon-up"></i>](#cInstallation)</a>
 Install with:
@@ -15,30 +15,27 @@ If you want to use [native modules](#nativeModules) defined in the package, use 
 ## <a id="packageContents">[Package contents<i class="icon-up"></i>](#cPackageContents)</a>
 
  1. <a id="cNativeModules">[Native modules](#nativeModules)</a>
-	 2. <a id="cShareData">[ShareData](#shareData)</a>
-		 3. <a id="cShareDataDeleteTempFiles">[deleteTempFiles()](#shareDataDeleteTempFiles)</a>
-		 4. <a id="cShareDataSend">[send()](#shareDataSend)</a>
-	 5. <a id="cGetPath">[GetPath](#getPath)</a>
-		 6. <a id="cGetPathGet">[get()](#getPathGet)</a>
- 7. <a id="cUIComponents">[UI components](#uiComponents)</a>
- 8. <a id="cgdrive">[Google Drive API wrapper](#gdrive)</a>
-	 9. <a id="cgdrive2">[GDrive](#gdrive2)</a>
-		 10. <a id="cgdrive2SetAccessToken">[setAccessToken()](#gdrive2SetAccessToken)</a>
-		 11. <a id="cgdrive2Init">[init()](#gdrive2Init)</a>
-		 12. <a id="cgdrive2IsInitialized">[isInitialized()](#gdrive2IsInitialized)</a>
-	 13. <a id="cgdriveFiles">[Files](#gdriveFiles)</a>
-		 14. <a id="cgdriveFilesCreateFileMultipart">[createFileMultipart()](#gdriveFilesCreateFileMultipart)</a>
-		 15. <a id="cgdriveFilesDelete">[delete()](#gdriveFilesDelete)</a>
-		 16. <a id="cgdriveFilesGet">[get()](#gdriveFilesGet)</a>
-		 17. <a id="cgdriveFilesDownload">[download()](#gdriveFilesDownload)</a>
-		 18. <a id="cgdriveFilesGetId">[getId()](#gdriveFilesGetId)</a>
-		 19. <a id="cgdriveFilesList">[list()](#gdriveFilesList)</a>
-		 20. <a id="cgdriveFilesSafeCreateFolder">[safeCreateFolder()](#gdriveFilesSafeCreateFolder)</a>
-	 21. <a id="cgdrivePermissions">[Permissions](#gdrivePermissions)</a>
-
+ 1. <a id="cUIComponents">[UI components](#uiComponents)</a>
+ 1. <a id="cgdrive">[Google Drive API wrapper](#gdrive)</a>
+ 1. <a id="cPreferences">[Preferences](#preferences)</a>
+ 1. <a id="csqlbuilder">[SQLBuilder](#sqlbuilder)
+ 1. AlterStyles
+ 1. ArrayStringifier
+ 1. ContextMenu
+ 1. DateTimePicker
+ 1. DottedStringObject
+ 1. ListViewHelper
+ 1. StaticUtils
+ 1. strings
+ 1. styles
+ 1. utf8
+ 
 ### <a id="nativeModules">[Native modules<i class="icon-up"></i>](#cNativeModules)</a>
 
 **Warning**: Native modules are currently implemented only for Android. I'll implement them for iOS as soon as I learn Swift / Objective-C well enough &#x263a;.
+
+ 1. <a id="cShareData">[ShareData](#shareData)</a>
+ 1. <a id="cGetPath">[GetPath](#getPath)</a>
 
 #### <a id="shareData">[ShareData<i class="icon-up"></i>](#cShareData)</a>
 
@@ -46,15 +43,15 @@ Shares arbitrary data.
 
     import { ShareData } from "react-native-common-utils";
 
- - <a id="shareDataDeleteTempFiles">[deleteTempFiles()<i class="icon-up"></i></a>](#cShareDataDeleteTempFiles)</a>
+ - [deleteTempFiles()<i class="icon-up"></i>](#shareData)</a>
     
     Invoke to delete the temp files created internally by the module.
     
         ShareData.deleteTempFiles();
         
- - <a id="shareDataSend">[send()<i class="icon-up"></i>](#cShareDataSend)</a>
+ - [send()<i class="icon-up"></i>](#shareData)
     
-    Shares data. This function returns a `Promise`.
+    Shares data returning a `Promise`.
     
     If you specify an attachment, one of `"base64"`, `"path"`, `"uri"` must be specified, otherwise the promise will be rejected with the code `"ERROR_NO_SRC_TO_COPY"`.
     
@@ -89,7 +86,7 @@ Gets the path/uri of the specified file.
 
     import { GetPath } from "react-native-common-utils";
 
- - <a id="getPathGet">[get()<i class="icon-up"></i>](#cGetPathGet)</a>
+ - [get()<i class="icon-up"></i>](#getPath)</a>
     This function returns a `Promise` resolving to the path/uri of the specified file. `"pathType"` must be one of:
     
     Value|Meaning
@@ -120,18 +117,22 @@ It doesn't provide any authorization mechanism, so another package has to be use
 
 My code uses [react-native-fs](https://www.npmjs.com/package/react-native-fs) (and another thank you goes to its authors!) so please don't forget to install it: it won't be installed automatically.
 
+ 1. <a id="cgdrive2">[GDrive](#gdrive2)</a>
+ 1. <a id="cgdriveFiles">[Files](#gdriveFiles)</a>
+ 1. <a id="cgdrivePermissions">[Permissions](#gdrivePermissions)</a>
+
 #### <a id="gdrive2">[GDrive<i class="icon-up"></i>](#cgdrive2)</a>
 This is the "entry point" of the wrapper. It contains only `static` methods.
 
     import GDrive from "react-native-common-utils/js/gdrive/GDrive";
 
- - <a id="gdrive2SetAccessToken">[setAccessToken()<i class="icon-up"></i>](#cgdrive2SetAccessToken)</a>
+ - [setAccessToken()<i class="icon-up"></i>](#gdrive2)
     
     Sets the access token for use in subsequent calls to the api. Get the token from a package you choose to use.
     
         GDrive.setAccessToken(accessToken);
     
- - <a id="gdrive2Init">[init()<i class="icon-up"></i>](#cgdrive2Init)</a>
+ - [init()<i class="icon-up"></i>](#gdrive2)
     
     Initializes the wrapper.
     
@@ -147,15 +148,15 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
         
         GDrive.init(params);
     
- - <a id="gdrive2IsInitialized">[isInitialized()<i class="icon-up"></i>](#cgdrive2IsInitialized)</a>
+ - [isInitialized()<i class="icon-up"></i>](#cgdrive2)
     
-    Determines whether an access token has been supplied.
+    Returns `true` if an access token has been supplied, `false` otherwise.
     
         GDrive.isInitialized() ? <some code> : <some other code>;
 
 #### <a id="gdriveFiles">[Files<i class="icon-up"></i>](#cgdriveFiles)</a>
 
- - <a id="gdriveFilesCreateFileMultipart">[createFileMultipart()<i class="icon-up"></i>](#cgdriveFilesCreateFileMultipart)</a>
+ - [createFileMultipart()<i class="icon-up"></i>](#gdriveFiles)
     
     Creates a file using [multipart upload](https://developers.google.com/drive/v3/web/manage-uploads). Returns the result of `fetch()`.
     
@@ -170,33 +171,33 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 	            name: "My file"
             });
             
- - <a id="gdriveFilesDelete">[delete()<i class="icon-up"></i>](#cgdriveFilesDelete)</a>
+ - [delete()<i class="icon-up"></i>](#gdriveFiles)
     
     [Deletes](https://developers.google.com/drive/v3/reference/files/delete) the specified file returning the result of `fetch()`.
     
 	    GDrive.files.delete(fileId);
 
- - <a id="gdriveFilesGet">[get()<i class="icon-up"></i>](#cgdriveFilesGet)</a>
+ - [get()<i class="icon-up"></i>](#gdriveFiles)
 	
-    Gets the content of the specified **text** file returning the result of `fetch()`. For `queryParams` see "Optional query parameters" [here](https://developers.google.com/drive/v3/reference/files/get).
+    Gets the content of the specified **text** file returning the result of `fetch()` (use `download()` for binary files). For `queryParams` see "Optional query parameters" [here](https://developers.google.com/drive/v3/reference/files/get).
 	
 		GDrive.files.get(fileId, { ... });
 		
- - <a id="gdriveFilesDownload">[download()<i class="icon-up"></i>](#cgdriveFilesDownload)</a>
+ - [download()<i class="icon-up"></i>](#gdriveFiles)
 	
 	Downloads the specified text or binary file.
 	
 	For `downloadFileOptions` see the description of`downloadFile()` [here](https://www.npmjs.com/package/react-native-fs). Please, bear in mind that `fromUrl` is set automatically and any user supplied value will be overwritten.
 	
-	The meaning of `queryParams` is the same as in [get()](#gdriveFilesGet).
+	The meaning of `queryParams` is the same as in `get()`.
 	
 	The function returns the result of `RNFS.downloadFile(downloadFileOptions)`.
 		
 		GDrive.files.download(fileId, downloadFileOptions, queryParams);
 		
- - <a id="gdriveFilesGetId">[getId()<i class="icon-up"></i>](#cgdriveFilesGetId)</a>
+ - [getId()<i class="icon-up"></i>](#gdriveFiles)
 
-	Gets the id of the first file with the specified metadata. The function returns a `Promise` resolving to the file id on success and to `undefined` on failure.
+	Gets the id of the first file with the specified metadata. The function returns a `Promise`. It's rejected on failure and resolved to the file id or `undefined` (if nothing is found) on success.
 	
 		GDrive.files.getId(
 			name: String, // The name.
@@ -205,25 +206,34 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 			trashed: Boolean // Whether the file is trashed. Default: false
 		);
 		
- - <a id="gdriveFilesList">[list()<i class="icon-up"></i>](#cgdriveFilesList)</a>
+ - [list()<i class="icon-up"></i>](#gdriveFiles)
 	
 	[Lists or searches files](https://developers.google.com/drive/v3/reference/files/list) returning the result of `fetch()`.
 	
 		GDrive.files.list({q: "'root' in parents"});
 	
- - <a id="gdriveFilesSafeCreateFolder">[safeCreateFolder()<i class="icon-up"></i>](#cgdriveFilesSafeCreateFolder)</a>
+ - [safeCreateFolder()<i class="icon-up"></i>](#gdriveFiles)
 	
+	Creates a folder with the specified `name` and `parents` if it doesn't exist. Then the function returns a `Promise`, that is resolved to the folder id on success and is rejected on failure.
+	
+		GDrive.files.safeCreateFolder({
+			name: "My folder",
+			parents: ["root"]
+		});
+
 #### <a id="gdrivePermissions">[Permissions<i class="icon-up"></i>](#cgdrivePermissions)</a>
 
-### Preferences
+### <a id="preferences">[Preferences<i class="icon-up"></i>](#cPreferences)</a>
+
 #### ArrayPreference
 #### NumberPreference
 #### Preference
 #### Preferences
 #### SwitchPreference
 
-### SQLBuilder
+### <a id="sqlbuilder">[SQLBuilder<i class="icon-up"></i>](#csqlbuilder)</a>
 An SQL query builder. I was unable to use [knex](http://knexjs.org/) (as far as I understood it `required` packages not available in RN) so I wrote this one.
+
 ### AlterStyles
 ### ArrayStringifier
 ### ContextMenu
@@ -238,7 +248,7 @@ An SQL query builder. I was unable to use [knex](http://knexjs.org/) (as far as 
 ## <a id="versionHistory">[Version history<i class="icon-up"></i>](#cVersionHistory)</a>
 Version number|Changes
 -|-
-v1.0.6|Readme updated.
+v1.0.6 - v1.0.8|Readme updated.
 v1.0.5|1.&nbsp;Readme updated.<br>2.&nbsp;Components/Button: arbitrary children supported.
 v1.0.2 - v1.0.4|Readme updated.
 v1.0.1|Readme added.
