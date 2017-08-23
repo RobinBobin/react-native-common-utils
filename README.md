@@ -46,7 +46,7 @@ Shares arbitrary data.
 
     import { ShareData } from "react-native-common-utils";
 
- - <a id="shareDataDeleteTempFiles">[deleteTempFiles()<i class="icon-up"></a>](#cShareDataDeleteTempFiles)</a>
+ - <a id="shareDataDeleteTempFiles">[deleteTempFiles()<i class="icon-up"></i></a>](#cShareDataDeleteTempFiles)</a>
     
     Invoke to delete the temp files created internally by the module.
     
