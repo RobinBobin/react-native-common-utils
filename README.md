@@ -16,7 +16,7 @@ If you want to use [native modules](#nativeModules) defined in the package, use 
 
  1. <a name="cNativeModules">[Native modules](#nativeModules)</a>
  1. <a name="cUIComponents">[UI components](#uiComponents)</a>
- 1. <a name="cgdrive">[Google Drive API wrapper](#gdrive)</a>
+ 1. <a name="cgdriveapiw">[Google Drive API wrapper](#gdriveapiw)</a>
  1. <a name="cPreferences">[Preferences](#preferences)</a>
  1. <a name="csqlbuilder">[SQLBuilder](#sqlbuilder)
  1. AlterStyles
@@ -110,7 +110,7 @@ Gets the path/uri of the specified file.
 #### MaterialSwitch
 #### ProgressBar
 
-### <a name="gdrive">[Google Drive API Wrapper<i class="icon-up"></i>](#cgdrive)</a>
+### <a name="gdriveapiw">[Google Drive API Wrapper<i class="icon-up"></i>](#cgdriveapiw)</a>
 
 These wrapper facilitates the use of the [google drive api](https://developers.google.com/drive/v3/reference/). 
 
@@ -118,22 +118,22 @@ It doesn't provide any authorization mechanism, so another package has to be use
 
 My code uses [react-native-fs](https://www.npmjs.com/package/react-native-fs) (and another thank you goes to its authors!) so please don't forget to install it: it won't be installed automatically.
 
- 1. <a name="cgdriveGDrive">[GDrive](#gdriveGDrive)</a>
- 1. <a name="cgdriveFiles">[Files](#gdriveFiles)</a>
- 1. <a name="cgdrivePermissions">[Permissions](#gdrivePermissions)</a>
+ 1. <a name="cgdriveapiwGDrive">[GDrive](#gdriveapiwGDrive)</a>
+ 1. <a name="cgdriveapiwFiles">[Files](#gdriveapiwFiles)</a>
+ 1. <a name="cgdriveapiwPermissions">[Permissions](#gdriveapiwPermissions)</a>
 
-#### <a name="gdriveGDrive">[GDrive<i class="icon-up"></i>](#cgdriveGDrive)</a>
+#### <a name="gdriveapiwGDrive">[GDrive<i class="icon-up"></i>](#cgdriveapiwGDrive)</a>
 This is the "entry point" of the wrapper. It contains only `static` methods.
 
-    import GDrive from "react-native-common-utils/js/gdrive/GDrive";
+    import GDrive from "react-native-common-utils/js/gdriveapiw/GDrive";
 
- - [setAccessToken()<i class="icon-up"></i>](#gdriveGDrive)
+ - [setAccessToken()<i class="icon-up"></i>](#gdriveapiwGDrive)
     
     Sets the access token for use in subsequent calls to the api. Get the token from a package you choose to use.
     
         GDrive.setAccessToken(accessToken);
     
- - [init()<i class="icon-up"></i>](#gdriveGDrive)
+ - [init()<i class="icon-up"></i>](#gdriveapiwGDrive)
     
     Initializes the wrapper.
     
@@ -149,15 +149,15 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
         
         GDrive.init(params);
     
- - [isInitialized()<i class="icon-up"></i>](#gdriveGDrive)
+ - [isInitialized()<i class="icon-up"></i>](#gdriveapiwGDrive)
     
     Returns `true` if an access token has been supplied, `false` otherwise.
     
         GDrive.isInitialized() ? <some code> : <some other code>;
 
-#### <a name="gdriveFiles">[Files<i class="icon-up"></i>](#cgdriveFiles)</a>
+#### <a name="gdriveapiwFiles">[Files<i class="icon-up"></i>](#cgdriveapiwFiles)</a>
 
- - [createFileMultipart()<i class="icon-up"></i>](#gdriveFiles)
+ - [createFileMultipart()<i class="icon-up"></i>](#gdriveapiwFiles)
     
     Creates a file using [multipart upload](https://developers.google.com/drive/v3/web/manage-uploads). Returns the result of `fetch()`.
     
@@ -172,19 +172,19 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 	            name: "My file"
             });
             
- - [delete()<i class="icon-up"></i>](#gdriveFiles)
+ - [delete()<i class="icon-up"></i>](#gdriveapiwFiles)
     
     [Deletes](https://developers.google.com/drive/v3/reference/files/delete) the specified file returning the result of `fetch()`.
     
 	    GDrive.files.delete(fileId);
 
- - [get()<i class="icon-up"></i>](#gdriveFiles)
+ - [get()<i class="icon-up"></i>](#gdriveapiwFiles)
 	
     Gets the content of the specified **text** file returning the result of `fetch()` (use `download()` for binary files). For `queryParams` see "Optional query parameters" [here](https://developers.google.com/drive/v3/reference/files/get).
 	
 		GDrive.files.get(fileId, { ... });
 		
- - [download()<i class="icon-up"></i>](#gdriveFiles)
+ - [download()<i class="icon-up"></i>](#gdriveapiwFiles)
 	
 	Downloads the specified text or binary file.
 	
@@ -196,7 +196,7 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 		
 		GDrive.files.download(fileId, downloadFileOptions, queryParams);
 		
- - [getId()<i class="icon-up"></i>](#gdriveFiles)
+ - [getId()<i class="icon-up"></i>](#gdriveapiwFiles)
     
 	Gets the id of the first file with the specified metadata. The function returns a `Promise`. It's rejected on failure and resolved to the file id or `undefined` (if nothing is found) on success.
 	
@@ -207,13 +207,13 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
             trashed: Boolean // Whether the file is trashed. Default: false
         );
 		
- - [list()<i class="icon-up"></i>](#gdriveFiles)
+ - [list()<i class="icon-up"></i>](#gdriveapiwFiles)
 	
 	[Lists or searches files](https://developers.google.com/drive/v3/reference/files/list) returning the result of `fetch()`.
 	
 		GDrive.files.list({q: "'root' in parents"});
 	
- - [safeCreateFolder()<i class="icon-up"></i>](#gdriveFiles)
+ - [safeCreateFolder()<i class="icon-up"></i>](#gdriveapiwFiles)
 	
 	Creates a folder with the specified `name` and `parents` if it doesn't exist. Then the function returns a `Promise`, that is resolved to the folder id on success and is rejected on failure.
 	
@@ -222,7 +222,7 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
             parents: ["root"]
         });
 
-#### <a name="gdrivePermissions">[Permissions<i class="icon-up"></i>](#cgdrivePermissions)</a>
+#### <a name="gdriveapiwPermissions">[Permissions<i class="icon-up"></i>](#cgdriveapiwPermissions)</a>
 
 ### <a name="preferences">[Preferences<i class="icon-up"></i>](#cPreferences)</a>
 
