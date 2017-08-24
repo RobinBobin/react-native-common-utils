@@ -118,22 +118,22 @@ It doesn't provide any authorization mechanism, so another package has to be use
 
 My code uses [react-native-fs](https://www.npmjs.com/package/react-native-fs) (and another thank you goes to its authors!) so please don't forget to install it: it won't be installed automatically.
 
- 1. <a name="cgdrivegdrive">[GDrive](#gdrivegdrive)</a>
+ 1. <a name="cgdriveGDrive">[GDrive](#gdriveGDrive)</a>
  1. <a name="cgdriveFiles">[Files](#gdriveFiles)</a>
  1. <a name="cgdrivePermissions">[Permissions](#gdrivePermissions)</a>
 
-#### <a name="gdrivegdrive">[GDrive<i class="icon-up"></i>](#cgdrivegdrive)</a>
+#### <a name="gdriveGDrive">[GDrive<i class="icon-up"></i>](#cgdriveGDrive)</a>
 This is the "entry point" of the wrapper. It contains only `static` methods.
 
     import GDrive from "react-native-common-utils/js/gdrive/GDrive";
 
- - [setAccessToken()<i class="icon-up"></i>](#gdrivegdrive)
+ - [setAccessToken()<i class="icon-up"></i>](#gdriveGDrive)
     
     Sets the access token for use in subsequent calls to the api. Get the token from a package you choose to use.
     
         GDrive.setAccessToken(accessToken);
     
- - [init()<i class="icon-up"></i>](#gdrivegdrive)
+ - [init()<i class="icon-up"></i>](#gdriveGDrive)
     
     Initializes the wrapper.
     
@@ -149,7 +149,7 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
         
         GDrive.init(params);
     
- - [isInitialized()<i class="icon-up"></i>](#gdrivegdrive)
+ - [isInitialized()<i class="icon-up"></i>](#gdriveGDrive)
     
     Returns `true` if an access token has been supplied, `false` otherwise.
     
