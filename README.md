@@ -18,7 +18,7 @@ If you want to use [native modules](#nativeModules) defined in the package, use 
  1. <a name="cUIComponents">[UI components](#uiComponents)</a>
  1. <a name="cgdriveapiw">[Google Drive API wrapper](#gdriveapiw)</a>
  1. <a name="cPreferences">[Preferences](#preferences)</a>
- 1. <a name="csqlbuilder">[SQLBuilder](#sqlbuilder)
+ 1. <a name="csqlqbuilder">[SQL query builder](#sqlqbuilder)
  1. AlterStyles
  1. ArrayStringifier
  1. ContextMenu
@@ -123,7 +123,7 @@ My code uses [react-native-fs](https://www.npmjs.com/package/react-native-fs) (a
  1. <a name="cgdriveapiwPermissions">[Permissions](#gdriveapiwPermissions)</a>
 
 #### <a name="gdriveapiwGDrive">[GDrive<i class="icon-up"></i>](#cgdriveapiwGDrive)</a>
-This is the "entry point" of the wrapper. It contains only `static` methods.
+This is the "entry point" of the wrapper. It contains only `static` methods and fields.
 
     import GDrive from "react-native-common-utils/js/gdriveapiw/GDrive";
 
@@ -215,7 +215,7 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 	
  - [safeCreateFolder()<i class="icon-up"></i>](#gdriveapiwFiles)
 	
-	Creates a folder with the specified `name` and `parents` if it doesn't exist. Then the function returns a `Promise`, that is resolved to the folder id on success and is rejected on failure.
+	Gets the id of the first folder with the specified `name` and `parents`, creating the folder if it doesn't exist. The function returns a `Promise` that is rejected on failure and resolved to the folder id on success.
 	
         GDrive.files.safeCreateFolder({
             name: "My folder",
@@ -224,16 +224,150 @@ This is the "entry point" of the wrapper. It contains only `static` methods.
 
 #### <a name="gdriveapiwPermissions">[Permissions<i class="icon-up"></i>](#cgdriveapiwPermissions)</a>
 
+ - [create()](#gdriveapiwPermissions)
+	
+	[Creates](https://developers.google.com/drive/v3/reference/permissions/create) a permission for the specified file returning the result of fetch().
+	
+        GDrive.permissions.create(
+            fileId, {
+                role: "reader",
+                type: "anyone"
+            });
+
 ### <a name="preferences">[Preferences<i class="icon-up"></i>](#cPreferences)</a>
 
-#### ArrayPreference
-#### NumberPreference
 #### Preference
 #### Preferences
+#### ArrayPreference
+#### NumberPreference
 #### SwitchPreference
 
-### <a name="sqlbuilder">[SQLBuilder<i class="icon-up"></i>](#csqlbuilder)</a>
-An SQL query builder. I was unable to use [knex](http://knexjs.org/) (as far as I understood it `required` packages not available in RN) so I wrote this one.
+### <a name="sqlqbuilder">[SQL query builder<i class="icon-up"></i>](#csqlqbuilder)</a>
+An SQL query builder / executor (if an executing function is set).
+
+ 1. <a name="csqlqbuilderSqlBuilder">[SqlBuilder](#sqlqbuilderSqlBuilder)</a>
+ 1. <a name="csqlqbuilderTableBuilder">[TableBuilder](#sqlqbuilderTableBuilder)</a>
+ 1. <a name="csqlqbuilderColumn">[Column](#sqlqbuilderColumn)</a>
+ 1. <a name="csqlqbuilderUniqueBuilder">[UniqueBuilder](#sqlqbuilderUniqueBuilder)</a>
+
+#### <a name="sqlqbuilderSqlBuilder">[SqlBuilder<i class="icon-up"></i>](#csqlqbuilderSqlBuilder)</a>
+
+This is the "entry point" of the builder. It contains only `static` methods and fields.
+
+	import { SqlBuilder } from "react-native-common-utils";
+
+ - [setDebug()<i class="icon-up"></i>](#sqlqbuilderSqlBuilder)
+	
+	Turns on or off the debug mode. In debug mode each executed sql statement is logged to the console.
+	
+		SqlBuilder.setDebug(debug);
+
+ - [setSqlExecutor()<i class="icon-up"></i>](#sqlqbuilderSqlBuilder)
+
+	Sets a function to be used to execute sql statements.
+	
+		import SQLite from "react-native-sqlite-storage";
+		
+		...
+		
+		const db = await SQLite.openDatabase(...);
+		
+		SqlBuilder.setSqlExecutor(db.executeSql.bind(db));
+
+ - [executeSql()<i class="icon-up"></i>](#sqlqbuilderSqlBuilder)
+	
+	Executes an sql statement by invoking a function set by `setSqlExecutor()`. It returns the result of that function invocation or simply the passed sql statement if `setSqlExecutor` hasn't been called.
+	
+	The result of invoking this method is returned from the CRUD methods.
+	
+		SqlBuilder.executeSql("some sql code);
+
+ - [createTable()<i class="icon-up"></i>](#sqlqbuilderSqlBuilder)
+	
+	Creates a table using [TableBuilder](#sqlqbuilderTableBuilder).
+	
+        const name = "weights";
+        
+        const callback = tableBuilder => {
+            tb.integer("rowid").primary();
+            tb.integer("millis").notNull();
+            tb.integer("gross").notNull();
+            tb.integer("net").notNull();
+            tb.text("comment").notNull();
+        };
+        
+        const ifNotExists = Boolean; // Adds "IF NOT EXISTS" if true. Default: true.
+        
+        SqlBuilder.createTable(name, callback, ifNotExists);
+
+#### <a name="sqlqbuilderTableBuilder">[TableBuilder<i class="icon-up"></i>](#csqlqbuilderTableBuilder)</a>
+
+ - [column()](#sqlqbuilderTableBuilder)
+	
+	Creates a [Column](#sqlqbuilderColumn) and returns it to allow method chaining.
+	
+        tb
+            .column(
+                name: "rate",
+                type: "REAL")
+            .notNull();
+	
+	There are shorthands for the `INTEGER`, `TEXT` and `BLOB` types:
+	
+	        tb.integer("rowid").primary();
+	        tb.text("comment").notNull();
+	        tb.blob("image");
+
+ - [unique()](#sqlqbuilderTableBuilder)
+	
+	Makes a column unique using [UniqueBuilder](#sqlqbuilderUniqueBuilder).
+	    
+        tb.unique(ub => {
+            ub
+                .column("name")
+                .collate("NOCASE")
+                .order("ASC");
+            
+            ub
+                .column("code")
+                .collate("NOCASE")
+                .order("ASC");
+        });
+
+#### <a name="sqlqbuilderColumn">[Column](#csqlqbuilderColumn)</a>
+
+ - [primary()](#sqlqbuilderColumn)
+	
+	Adds `PRIMARY KEY` to this column definition.
+
+ - [foreign()](#sqlqbuilderColumn)
+
+	Adds `REFERENCES tableName(columnName)` to this column definition.
+	
+		tb.integer("type").foreign("tableName", "columnName");
+
+ - [onDelete()](#sqlqbuilderColumn)
+	
+	Adds `ON DELETE action` to this column definition.
+	
+        tb.integer("journeyRowid")
+            .foreign("tableName", "rowid")
+            .onDelete("action");
+
+ - [notNull()](#sqlqbuilderColumn)
+	
+	Adds `NOT NULL` to this column definition.
+
+#### <a name="sqlqbuilderUniqueBuilder">[UniqueBuilder<i class="icon-up"></i>](#csqlqbuilderUniqueBuilder)
+
+ - [column()](#sqlqbuilderUniqueBuilder)
+
+	Specifies the unique column name and optionally collation and order.
+	
+        ub
+            .column("code")
+            .collate("NOCASE")
+            .order("ASC");
 
 ### AlterStyles
 ### ArrayStringifier
@@ -249,7 +383,8 @@ An SQL query builder. I was unable to use [knex](http://knexjs.org/) (as far as 
 ## <a name="versionHistory">[Version history<i class="icon-up"></i>](#cVersionHistory)</a>
 Version number|Changes
 -|-
-v1.0.6 - v1.0.9|Readme updated.
+v1.0.11|1.&nbsp;Readme updated.<br>2.&nbsp;[react-native-extended-stylesheet](https://www.npmjs.com/package/react-native-extended-stylesheet) and [react-native-localization](https://www.npmjs.com/package/react-native-localization) specified as dependencies.
+v1.0.6 - v1.0.10|Readme updated.
 v1.0.5|1.&nbsp;Readme updated.<br>2.&nbsp;Components/Button: arbitrary children supported.
 v1.0.2 - v1.0.4|Readme updated.
 v1.0.1|Readme added.
