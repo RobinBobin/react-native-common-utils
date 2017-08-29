@@ -1,21 +1,25 @@
 {
   "name": "react-native-common-utils",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "Common utils for RN projects.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-   "react-native-extended-stylesheet": "latest",
-   "react-native-localization": "latest"
+    "core-decorators": "latest",
+    "babel-plugin-transform-decorators-legacy": "latest",
+    "react-native-extended-stylesheet": "latest",
+    "react-native-localization": "latest",
+    "client-side-common-utils": "latest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RobinBobin/react-native-common-utils.git"
   },
   "keywords": [
-    "UI components",
+    "React Native UI components",
+    "React Native utf8",
     "google drive api",
     "AsyncStorage",
     "sql query builder",

@@ -54,7 +54,7 @@ export default class AlterStyles {
          
          return [data[1], resultingStyle.build()];
       }).reduce((p, c) => {
-         return DottedStringObject.addProperty(p, c[0], c[1]);
+         return DottedStringObject.setProperty(p, c[0], c[1]);
       }, {});
    }
 }
