@@ -1,4 +1,4 @@
-import DottedStringObject from "./DottedStringObject";
+import { DottedStringObject } from "simple-common-utils";
 
 export default class AlterStyles {
    constructor(...styles) {

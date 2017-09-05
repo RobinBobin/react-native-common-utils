@@ -1,5 +1,5 @@
 import { NativeModules } from "react-native";
-import { StaticUtils as StaticUtilsBase } from "client-side-common-utils";
+import { StaticUtils as StaticUtilsBase } from "simple-common-utils";
 
 export default class StaticUtils extends StaticUtilsBase {
    static spinkitColor(rgba) {
