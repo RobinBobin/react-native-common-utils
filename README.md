@@ -129,7 +129,7 @@ Gets the path/uri of the specified file.
 
 ### DateTimePicker
 
-### <a name="listViewHelper"></a>[ListViewHelper](#cListViewHelper")
+### <a name="listViewHelper"></a>[ListViewHelper](#cListViewHelper)
 
 This class facilitates the use of the [`ListView`](https://facebook.github.io/react-native/docs/listview.html) class.
 
@@ -204,12 +204,12 @@ Class methods:
 
  - setCallback()
 
-   Sets a callback function to be invoked from the item-rendering component as a result of a user action.
+   Sets a callback function to be invoked from an item-rendering component in response to a user action.
 
         this.lv.setCallback("onEditItem", this.onEditItem);
         this.lv.setCallback("onDeleteItem", this.onDeleteItem);
 
-    The callbacks are stored as a `Map`.
+    The callbacks are stored in a `Map`.
 
  - deleteCallback()
 
@@ -257,7 +257,7 @@ Class methods:
      - onLongPress: the callback set by `setOnLongPress()`;
      - params: the JS-object set by `setRowParams()`.
 
-    All these can be referenced inside an item-rendering component through `this.props`.
+    All these can be referenced from within an item-rendering component through `this.props`.
 
  - renderSeparator()
 
