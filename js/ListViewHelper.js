@@ -99,17 +99,18 @@ export default class ListViewHelper {
          style={this.separatorStyle} />;
    }
    
+   setEmptyItemsRenderer(emptyItemsRenderer) {
+      this.emptyItemsRenderer = emptyItemsRenderer;
+   }
+   
    createListView() {
-      if (!this.items.length) {
-         this.items.push({});
-      }
-      
-      return <ListView
-         ref={this.ref}
-         pageSize={this.pageSize}
-         style={this.style}
-         dataSource={this.dataSource.cloneWithRows(this.items)}
-         renderRow={this.renderRow}
-         renderSeparator={this.renderSeparator} />
+      return !this.items.length ? this.emptyItemsRenderer ?
+         this.emptyItemsRenderer() : null : <ListView
+            ref={this.ref}
+            pageSize={this.pageSize}
+            style={this.style}
+            dataSource={this.dataSource.cloneWithRows(this.items)}
+            renderRow={this.renderRow}
+            renderSeparator={this.renderSeparator} />;
    }
 };

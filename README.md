@@ -2,11 +2,11 @@ This is a collection of useful classes that can be used in RN projects.
 
 **Warning**: v2.0.0 introduces backwards-incompatible changes. Please see the [version history](#versionHistory).
 
- 1. <a name="cInstallation">[Installation.](#installation)</a>
- 1. <a name="cPackageContents">[Package contents.](#packageContents)</a>
- 1. <a name="cVersionHistory">[Version history.](#versionHistory)</a>
+ 1. <a name="cInstallation"></a>[Installation.](#installation)
+ 1. <a name="cPackageContents"></a>[Package contents.](#packageContents)
+ 1. <a name="cVersionHistory"></a>[Version history.](#versionHistory)
 
-## <a name="installation">[Installation<i class="icon-up"></i>](#cInstallation)</a>
+## <a name="installation"></a>[Installation<i class="icon-up"></i>](#cInstallation)
 Install with:
 
     npm i --save react-native-common-utils
@@ -26,32 +26,32 @@ If you want to use [native modules](#nativeModules) defined in the package, use 
 
     react-native link react-native-common-utils
 
-## <a name="packageContents">[Package contents<i class="icon-up"></i>](#cPackageContents)</a>
+## <a name="packageContents"></a>[Package contents<i class="icon-up"></i>](#cPackageContents)
 
- 1. <a name="cNativeModules">[Native modules](#nativeModules)</a>
- 1. <a name="cPreferences">[Preferences](#preferences)</a>
+ 1. <a name="cNativeModules"></a>[Native modules](#nativeModules)
+ 1. <a name="cPreferences"></a>[Preferences](#preferences)
  1. AlterStyles
  1. ContextMenu
  1. DateTimePicker
- 1. ListViewHelper
- 1. StaticUtils
+ 1. <a name="cListViewHelper"></a>[ListViewHelper](#listViewHelper)
+ 1. <a name="cStaticUtils"></a>[StaticUtils](#staticUtils)
  1. strings
- 1. styles
+ 1. <a name="cStyles"></a>[styles](#styles)
  
-### <a name="nativeModules">[Native modules<i class="icon-up"></i>](#cNativeModules)</a>
+### <a name="nativeModules"></a>[Native modules<i class="icon-up"></i>](#cNativeModules)
 
 **Warning**: Native modules are currently implemented only for Android. I'll implement them for iOS as soon as I learn Swift / Objective-C well enough.
 
- 1. <a name="cShareData">[ShareData](#shareData)</a>
- 1. <a name="cGetPath">[GetPath](#getPath)</a>
+ 1. <a name="cShareData"></a>[ShareData](#shareData)
+ 1. <a name="cGetPath"></a>[GetPath](#getPath)
 
-#### <a name="shareData">[ShareData<i class="icon-up"></i>](#cShareData)</a>
+#### <a name="shareData"></a>[ShareData<i class="icon-up"></i>](#cShareData)
 
 Shares arbitrary data.
 
     import { ShareData } from "react-native-common-utils";
 
- - [deleteTempFiles()<i class="icon-up"></i>](#shareData)</a>
+ - [deleteTempFiles()<i class="icon-up"></i>](#shareData)
     
     Invoke to delete the temp files created internally by the module.
     
@@ -88,7 +88,7 @@ Shares arbitrary data.
 		
         ShareData.send(options);
 
-#### <a name="getPath">[GetPath<i class="icon-up"></i>](#cGetPath)</a>
+#### <a name="getPath"></a>[GetPath<i class="icon-up"></i>](#cGetPath)
 
 Gets the path/uri of the specified file.
 
@@ -115,7 +115,7 @@ Gets the path/uri of the specified file.
 
 
 
-### <a name="preferences">[Preferences<i class="icon-up"></i>](#cPreferences)</a>
+### <a name="preferences"></a>[Preferences<i class="icon-up"></i>](#cPreferences)
 
 #### Preference
 #### Preferences
@@ -124,17 +124,191 @@ Gets the path/uri of the specified file.
 #### SwitchPreference
 
 ### AlterStyles
-### ContextMenu
-### DateTimePicker
-### ListViewHelper
-### StaticUtils
-### strings
-### styles
 
-## <a name="versionHistory">[Version history<i class="icon-up"></i>](#cVersionHistory)</a>
+### ContextMenu
+
+### DateTimePicker
+
+### <a name="listViewHelper"></a>[ListViewHelper](#cListViewHelper")
+
+This class facilitates the use of the [`ListView`](https://facebook.github.io/react-native/docs/listview.html) class.
+
+    import { ListViewHelper } from "react-native-common-utils";
+
+A minimal usage example rendering a ListView with 3 items (10, 20, "abc"):
+
+    class Item extends React.Component {
+        render() {
+            return <Text>{this.props.data}</Text>;
+        }
+    }
+    
+    class Test extends React.Component {
+        constructor(props) {
+            super(props);
+            
+            this.lv = new ListViewHelper([10, 20, "abc"], Item);
+        }
+        
+        render() {
+            return this.lv.createListView();
+        }
+    }
+
+Please keep in mind that `ListViewHelper` renders row separators using a style from [`styles`](#styles)  so don't forget to initialize them even if you're not going to use them yourself.
+
+Another point to remember is that `ListViewHelper` uses the `@autobind` annotation, so if you extend it don't forget to use this annotation on your class as well.
+
+Class methods:
+
+ - constructor()
+
+    Creates and initializes a class instance. All parameters are optional.
+
+        this.lv = new ListViewHelper(
+            items, // Array with data for items.
+            itemType, // A React Native component to render items.
+            ref // String. Used as a ref for the ListView.
+        );
+
+ - setItems()
+
+    Specifies items data.
+
+        this.lv.setItems([{
+            name: "Leslie",
+            kind: "dog"
+        }, {
+            name: "Alice",
+            kind: "cat"
+        }]);
+
+    You can pass an `Array` as the data for a particular item. In this case the array's first element must be a React Native component to render this item and its second element must be the data itself. This allows different React Native components to be used for different items.
+
+        this.lv.setItems([{
+            name: "Leslie",
+            kind: "dog"
+        }, {
+            name: "Alice",
+            kind: "cat"
+        },
+        [Hippogriff, {
+            name: "Buckbeak"
+        }]]);
+
+    In this case the component set by the `constructor()` or `setItemType()` will be used for the first two items while the component `Hippogriff` will be used for the third one.
+
+ - setItemType()
+
+    Sets a React Native component to render items.
+
+ - setCallback()
+
+   Sets a callback function to be invoked from the item-rendering component as a result of a user action.
+
+        this.lv.setCallback("onEditItem", this.onEditItem);
+        this.lv.setCallback("onDeleteItem", this.onDeleteItem);
+
+    The callbacks are stored as a `Map`.
+
+ - deleteCallback()
+
+    Deletes a callback with the specified name.
+
+        this.lv.deleteCallback("onDeleteItem");
+
+ - setOnPress()
+
+    Sets a callback with the `"onPress"` name.
+
+ - setOnLongPress()
+
+    Sets a callback with the `"onLongPress"` name.
+
+ - setStyle()
+
+    Sets a style for the `ListView`.
+
+ - setPageSize()
+
+   Sets a page size for the `ListView`.
+
+ - setSeparatorStyle()
+
+    Sets a style to be used for row separators.
+
+ - setRowParams()
+
+    Sets a JS-object to be passed to **each** item in the list view.
+
+        this.lv.setRowParams({
+            owner: "Danny"
+        });
+
+ - renderRow()
+
+    Renders an item. See [`ListView.renderRow()`](https://facebook.github.io/react-native/docs/listview.html#renderrow) for parameter description .
+
+    Apart from the item data, each item receives the following:
+     - parameters from `renderRow()`;
+     - itemCount: the number of items in the list view;
+     - callbacks: the callbacks `Map`;
+     - onPress: the callback set by `setOnPress()`;
+     - onLongPress: the callback set by `setOnLongPress()`;
+     - params: the JS-object set by `setRowParams()`.
+
+    All these can be referenced inside an item-rendering component through `this.props`.
+
+ - renderSeparator()
+
+    Renders a row separator, invoking `renderLastRowSeparator()` for the last row and `renderRowSeparator()` for all the others.
+
+    See [`ListView.renderSeparator()`](https://facebook.github.io/react-native/docs/listview.html#renderseparator) for parameter description.
+
+ - renderLastRowSeparator()
+
+    Renders the last row separator simply returning `null`.
+
+ - renderRowSeparator()
+
+    Renders a row separator returning a `View` with a style set by `setSeparatorStyle()`.
+
+ - setEmptyItemsRenderer()
+
+    Sets a callback to be invoked if there are no items in this list view. The callback must return a renderable object.
+
+ - createListView()
+
+    Returns a `ListView` if there are any items set. Otherwise it invokes the callback set by `setEmptyItemsRenderer()` or simply returns `null` if the latter is undefined.
+
+### <a name="staticUtils"></a>[StaticUtils<i class="icon-up"></i>](#cStaticUtils)
+
+A collection of different `static` utility methods extending [StaticUtils](https://www.npmjs.com/package/simple-common-utils#staticUtils) from [simple-common-utils](https://www.npmjs.com/package/simple-common-utils).
+
+    import { StaticUtils } from "react-native-common-utils";
+
+ - spinkitColor()
+
+    Taking an RGBA value, returns a string of the form `#rrggbb` (as [react-native-spinkit](https://www.npmjs.com/package/react-native-spinkit) recognizes).
+
+        StaticUtils.spinkitColor(10); // #000000
+        StaticUtils.spinkitColor(0xFF487210); // #ff4872
+
+ - getLocaleId()
+
+    Gets the current locale id.
+
+        StaticUtils.getLocaleId(); // GB
+
+### strings
+
+### <a name="styles"></a>[styles](#cStyles)
+
+## <a name="versionHistory"></a>[Version history<i class="icon-up"></i>](#cVersionHistory)
 
 Version number|Changes
 -|-
+v2.1.0|1.&nbsp;Readme updated.<br>2.&nbsp;`ListViewHelper.setEmptyItemsRenderer()` is added.
 v2.0.2|Invalid imports fixed.
 v2.0.1|`client-side-common-utils` deprecated; switched to `simple-common-utils`.
 v2.0.0|**Backwards-incompatible changes**:<br>1.&nbsp;UI Components moved to [react-native-common-ui-components](https://www.npmjs.com/package/react-native-common-ui-components).<br>2.&nbsp;Google Drive API wrapper moved to [react-native-google-drive-api-wrapper](https://www.npmjs.com/package/react-native-google-drive-api-wrapper).<br>3.&nbsp;SQL query builder moved to [simple-sql-query-builder](https://www.npmjs.com/package/simple-sql-query-builder).<br> 4.&nbsp;`ArrayStringifier`, `DottedStringObject` and `utf8` moved to [client-side-common-utils](https://www.npmjs.com/package/client-side-common-utils).
