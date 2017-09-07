@@ -155,9 +155,9 @@ A minimal usage example rendering a ListView with 3 items (10, 20, "abc"):
         }
     }
 
-Please keep in mind that `ListViewHelper` renders row separators using a style from [`styles`](#styles)  so don't forget to initialize them even if you're not going to use them yourself.
+**Please keep in mind** that `ListViewHelper` renders row separators using a predefined style from [`styles`](#styles) so don't forget to initialize predefined styles even if you're not going to use them yourself.
 
-Another point to remember is that `ListViewHelper` uses the `@autobind` annotation, so if you extend it don't forget to use this annotation on your class as well.
+**Another point to remember** is that `ListViewHelper` uses the `@autobind` annotation, so if you extend it don't forget to use this annotation on your class as well.
 
 Class methods:
 
@@ -304,10 +304,142 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 ### <a name="styles"></a>[styles](#cStyles)
 
+A tiny styling infrastructure based on [react-native-extended-stylesheet](https://npmjs.com/packages/react-native-extended-stylesheet), coming with several predefined styles.
+
+**Please bear in mind** that [`ListViewHelper`](#listViewHelper) and several [components](https://www.npmjs.com/package/react-native-common-ui-components) use predefined styles so please don't forget to initialize them even if you're not going to use them yourself.
+
+    // Somewhere BEFORE the first use of dependent classes.
+    
+    const stls = require("react-native-common-utils/js/styles");
+    
+    stls.create();
+    stls.build();
+
+#### 1. Usage.
+
+The usage is quite simple and is illustrated by an example below. Please note `create()` after the `import` directive and `build()` and`indexObjectWithClassName()` at the last lines. [Variables](#stylesVariables) and [`font` / `fontSize()`](#stylesFont)  are described later and examples of custom style creation are given [here](#stylesCustomStyles).
+
+    // customStyles.js
+    
+    import indexObjectWithClassName, {
+        styles,
+        font,
+        create,
+        build,
+        fontSize
+    } from "react-native-common-utils/js/styles";
+    
+    // Tweak variables here and after that invoke...
+    
+    create();
+    
+    // Define your custom styles.
+    
+    styles.mainScene = {
+        mySuperView: {
+            flex: ... ,
+            backgroundColor: ... ,
+            ...
+        },
+        ...
+    };
+    
+    styles.anotherScene = {
+        ...
+    };
+    
+    styles.common = {
+        ...
+    };
+    
+    build();
+    
+    module.exports = indexObjectWithClassName;
+
+Then in `MainScene.js`:
+
+    const styles = require("customStyles")("mainScene");
+    
+    <View style={styles.mySuperView} />
+    <View style={styles.all.common} />
+
+That is, if you need styles defined in `styles.mainScene` you simply write `styles.styleToReference`. If you need "common" styles you write `styles.all.styleToReference`.
+
+It's not necessary to specify "the name" of a class when requiring`customStyles`:
+
+    const styles = require("customStyles")();
+    
+    <View style={styles.mainScene.mySuperView} />
+    <View style={styles.common} />
+
+#### 2. <a name="stylesVariables"></a>Variables.
+
+Variables are used to make different UI parts look the same. Their default values are given in brackets. Feel free to modify them as you choose. Either you do it or not, don't forget to call [`create()`](#stylesComplexStyles).
+
+ - marginPadding (15)
+
+    A value used for margins, paddings and the like.
+
+ - activeOpacity (0.5)
+
+    A value for [activeOpacity](https://facebook.github.io/react-native/docs/touchablehighlight.html#activeopacity).
+
+ - baseHeight (50)
+
+    Some referent value to base different height values upon. For example the height of buttons or list view items.
+
+ - textColor (0x55606EFF ![textColor](https://dummyimage.com/20/55606E/000000.png&text=+) )
+
+ - textColorDisabled (0xD0CECEFF ![textColorDisabled](https://dummyimage.com/20/D0CECE/000000.png&text=+) )
+
+ - backgroundColor (0xE9E9E9FF ![backgroundColor](https://dummyimage.com/20/E9E9E9/000000.png&text=+) )
+
+#### 3. Styles.
+
+ - centerCenter
+    
+    Centers content along both axes.
+
+ - centerCenterFlex1
+
+    Does exactly what the name suggests.
+
+Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend on [variable](#stylesVariables) values. That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
+
+ - navigator
+ - navigatorWithPadding
+ - scene
+ - sceneWithMargin
+ - button
+ - toggleButtons
+ - listView
+
+#### 4. <a name="stylesFont"></a>Font size.
+
+A font size is calculated as `baseFontSize + numberOfSteps * step`. `font` contains all the values and `fontSize()` is a function to calculate the font size: `fontSize(someInteger)`.
+
+`font` fields (with default values in brackets):
+
+ - size (14)
+
+    This is a base font size.
+    
+ - step (3)
+
+    This is a step value.
+ - smallMediumSteps (1)
+ - mediumSteps (2)
+ - largeSteps (3)
+
+    Variables to use as a number of steps. Assuming `font` fields have default values, `fontSize(mediumSteps)` for example will give `20`.
+
+#### 5. <a name="stylesCustomStyles"></a>Examples of custom styles.
+
 ## <a name="versionHistory"></a>[Version history<i class="icon-up"></i>](#cVersionHistory)
 
 Version number|Changes
 -|-
+v2.1.1|Readme updated.
 v2.1.0|1.&nbsp;Readme updated.<br>2.&nbsp;`ListViewHelper.setEmptyItemsRenderer()` is added.
 v2.0.2|Invalid imports fixed.
 v2.0.1|`client-side-common-utils` deprecated; switched to `simple-common-utils`.
