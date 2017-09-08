@@ -131,7 +131,7 @@ Gets the path/uri of the specified file.
 
 ### <a name="listViewHelper"></a>[ListViewHelper](#cListViewHelper)
 
-This class facilitates the use of the [`ListView`](https://facebook.github.io/react-native/docs/listview.html) class.
+This class facilitates the use of the [`ListView`](https://facebook.github.io/react-native/docs/listview.html) class. Please make sure you read this [note](#stylesnote) before using it.
 
     import { ListViewHelper } from "react-native-common-utils";
 
@@ -155,9 +155,7 @@ A minimal usage example rendering a ListView with 3 items (10, 20, "abc"):
         }
     }
 
-**Please keep in mind** that `ListViewHelper` renders row separators using a predefined style from [`styles`](#styles) so don't forget to initialize predefined styles even if you're not going to use them yourself.
-
-**Another point to remember** is that `ListViewHelper` uses the `@autobind` annotation, so if you extend it don't forget to use this annotation on your class as well.
+**Please keep in mind** that `ListViewHelper` uses the `@autobind` annotation, so if you extend it don't forget to use this annotation on your class as well.
 
 Class methods:
 
@@ -283,7 +281,7 @@ Class methods:
 
 ### <a name="staticUtils"></a>[StaticUtils<i class="icon-up"></i>](#cStaticUtils)
 
-A collection of different `static` utility methods extending [StaticUtils](https://www.npmjs.com/package/simple-common-utils#staticUtils) from [simple-common-utils](https://www.npmjs.com/package/simple-common-utils).
+A collection of different `static` utility methods extending [StaticUtils](https://www.npmjs.com/package/simple-common-utils#staticutils) from [simple-common-utils](https://www.npmjs.com/package/simple-common-utils).
 
     import { StaticUtils } from "react-native-common-utils";
 
@@ -306,7 +304,7 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 A tiny styling infrastructure based on [react-native-extended-stylesheet](https://npmjs.com/packages/react-native-extended-stylesheet), coming with several predefined styles.
 
-**Please bear in mind** that [`ListViewHelper`](#listViewHelper) and several [components](https://www.npmjs.com/package/react-native-common-ui-components) use predefined styles so please don't forget to initialize them even if you're not going to use them yourself.
+<a name="stylesnote"></a>**Please bear in mind** that [`ListViewHelper`](#listViewHelper) and several [components](https://www.npmjs.com/package/react-native-common-ui-components) use predefined styles so please don't forget to initialize them even if you're not going to use them yourself.
 
     // Somewhere BEFORE the first use of dependent classes.
     
@@ -374,7 +372,7 @@ It's not necessary to specify "the name" of a class when requiring`customStyles`
 
 #### 2. <a name="stylesVariables"></a>Variables.
 
-Variables are used to make different UI parts look the same. Their default values are given in brackets. Feel free to modify them as you choose. Either you do it or not, don't forget to call [`create()`](#stylesComplexStyles).
+Variables are used to make different UI parts look the same. Their default values are given in brackets. Feel free to modify them as you choose. In any case don't forget to call [`create()`](#stylesComplexStyles).
 
  - marginPadding (15)
 
@@ -387,12 +385,11 @@ Variables are used to make different UI parts look the same. Their default value
  - baseHeight (50)
 
     Some referent value to base different height values upon. For example the height of buttons or list view items.
-
  - textColor (0x55606EFF ![textColor](https://dummyimage.com/20/55606E/000000.png&text=+) )
-
  - textColorDisabled (0xD0CECEFF ![textColorDisabled](https://dummyimage.com/20/D0CECE/000000.png&text=+) )
-
  - backgroundColor (0xE9E9E9FF ![backgroundColor](https://dummyimage.com/20/E9E9E9/000000.png&text=+) )
+
+    These mean what their names suggest.
 
 #### 3. Styles.
 
@@ -404,7 +401,7 @@ Variables are used to make different UI parts look the same. Their default value
 
     Does exactly what the name suggests.
 
-Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend on [variable](#stylesVariables) values. That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
+Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend on [variables](#stylesVariables). That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
 
  - navigator
  - navigatorWithPadding
@@ -414,9 +411,9 @@ Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend
  - toggleButtons
  - listView
 
-#### 4. <a name="stylesFont"></a>Font size.
+#### 4. <a name="stylesFont"></a>Font sizes.
 
-A font size is calculated as `baseFontSize + numberOfSteps * step`. `font` contains all the values and `fontSize()` is a function to calculate the font size: `fontSize(someInteger)`.
+Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` contains all the values and `fontSize()` is a function to calculate the font size: `fontSize(someInteger);`.
 
 `font` fields (with default values in brackets):
 
@@ -431,7 +428,7 @@ A font size is calculated as `baseFontSize + numberOfSteps * step`. `font` conta
  - mediumSteps (2)
  - largeSteps (3)
 
-    Variables to use as a number of steps. Assuming `font` fields have default values, `fontSize(mediumSteps)` for example will give `20`.
+    Variables to use as a number of steps. Assuming `font` fields have default values, `fontSize(mediumSteps)`, for example, will give `20`.
 
 #### 5. <a name="stylesCustomStyles"></a>Examples of custom styles.
 
