@@ -404,12 +404,42 @@ Variables are used to make different UI parts look the same. Their default value
 Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend on [variables](#stylesVariables). That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
 
  - navigator
+
+    To be used for a [`Navigator`](http://facebook.github.io/react-native/releases/0.43/docs/navigator.html). Though it's deprecated long ago, I find this component useful when no navigation UI is needed.
+
+    This style sets the navigator background color equal to `backgroundColor`.
+
  - navigatorWithPadding
+
+    The same as `navigator` but with padding equal to `marginPadding`.
+    
  - scene
+
+    A style for scenes just making them fullscreen.
+    
  - sceneWithMargin
+
+    The same as `scene` but with margins set to `marginPadding`.
+
  - button
+
+    A style for [`Button`](https://npmjs.com/packages/react-native-common-ui-components#button).
+
  - toggleButtons
+
+    A style for [`ToggleButtons`](https://npmjs.com/packages/react-native-common-ui-components#togglebuttons).
+
  - listView
+
+    A style for [`ListViewHelper`](#listviewhelper) and list view items.
+    
+     - $itemHeight
+
+        A list view item height.
+
+     - separatorStyle
+
+        A style for list view item separators.
 
 #### 4. <a name="stylesFont"></a>Font sizes.
 
