@@ -1,12 +1,12 @@
-This is a collection of useful classes that can be used in RN projects.
+This is a collection of useful classes for RN projects.
 
-**Warning**: v2.0.0 introduces backwards-incompatible changes. Please see the [version history](#versionHistory).
+**Warning**: v3.0.0 introduces a backwards-incompatible change. Please see the [version history](#versionhistory).
 
- 1. <a name="cInstallation"></a>[Installation.](#installation)
- 1. <a name="cPackageContents"></a>[Package contents.](#packageContents)
- 1. <a name="cVersionHistory"></a>[Version history.](#versionHistory)
+ 1. <a name="cinstallation"></a>[Installation.](#installation)
+ 1. <a name="cpackagecontents"></a>[Package contents.](#packagecontents)
+ 1. <a name="cversionhistory"></a>[Version history.](#versionhistory)
 
-## <a name="installation"></a>[Installation<i class="icon-up"></i>](#cInstallation)
+## <a name="installation"></a>[Installation<i class="icon-up"></i>](#cinstallation)
 Install with:
 
     npm i --save react-native-common-utils
@@ -22,42 +22,42 @@ My code uses `@autobind` so please don't forget to modify your `.babelrc`:
         "transform-decorators-legacy" // <= This line must be added.
     ] 
 
-If you want to use [native modules](#nativeModules) defined in the package, use the following command:
+If you want to use [native modules](#nativemodules) defined in the package, use the following command:
 
     react-native link react-native-common-utils
 
-## <a name="packageContents"></a>[Package contents<i class="icon-up"></i>](#cPackageContents)
+## <a name="packagecontents"></a>[Package contents<i class="icon-up"></i>](#cpackagecontents)
 
- 1. <a name="cNativeModules"></a>[Native modules](#nativeModules)
- 1. <a name="cPreferences"></a>[Preferences](#preferences)
+ 1. <a name="cnativemodules"></a>[Native modules](#nativemodules)
+ 1. <a name="cpreferences"></a>[Preferences](#preferences)
  1. AlterStyles
  1. ContextMenu
  1. DateTimePicker
- 1. <a name="cListViewHelper"></a>[ListViewHelper](#listViewHelper)
- 1. <a name="cStaticUtils"></a>[StaticUtils](#staticUtils)
+ 1. <a name="clistviewhelper"></a>[ListViewHelper](#listviewhelper)
+ 1. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
  1. strings
- 1. <a name="cStyles"></a>[styles](#styles)
+ 1. <a name="cstyles"></a>[styles](#styles)
  
-### <a name="nativeModules"></a>[Native modules<i class="icon-up"></i>](#cNativeModules)
+### <a name="nativemodules"></a>[Native modules<i class="icon-up"></i>](#cnativemodules)
 
 **Warning**: Native modules are currently implemented only for Android. I'll implement them for iOS as soon as I learn Swift / Objective-C well enough.
 
- 1. <a name="cShareData"></a>[ShareData](#shareData)
- 1. <a name="cGetPath"></a>[GetPath](#getPath)
+ 1. <a name="csharedata"></a>[ShareData](#sharedata)
+ 1. <a name="cgetpath"></a>[GetPath](#getpath)
 
-#### <a name="shareData"></a>[ShareData<i class="icon-up"></i>](#cShareData)
+#### <a name="sharedata"></a>[ShareData<i class="icon-up"></i>](#csharedata)
 
 Shares arbitrary data.
 
     import { ShareData } from "react-native-common-utils";
 
- - [deleteTempFiles()<i class="icon-up"></i>](#shareData)
+ - [deleteTempFiles()<i class="icon-up"></i>](#sharedata)
     
     Invoke to delete the temp files created internally by the module.
     
         ShareData.deleteTempFiles();
         
- - [send()<i class="icon-up"></i>](#shareData)
+ - [send()<i class="icon-up"></i>](#sharedata)
     
     Shares data returning a `Promise`.
     
@@ -88,13 +88,13 @@ Shares arbitrary data.
 		
         ShareData.send(options);
 
-#### <a name="getPath"></a>[GetPath<i class="icon-up"></i>](#cGetPath)
+#### <a name="getpath"></a>[GetPath<i class="icon-up"></i>](#cgetpath)
 
 Gets the path/uri of the specified file.
 
     import { GetPath } from "react-native-common-utils";
 
- - [get()<i class="icon-up"></i>](#getPath)
+ - [get()<i class="icon-up"></i>](#getpath)
 
     This function returns a `Promise` resolving to the path/uri of the specified file. `"pathType"` must be one of:
     
@@ -115,7 +115,7 @@ Gets the path/uri of the specified file.
 
 
 
-### <a name="preferences"></a>[Preferences<i class="icon-up"></i>](#cPreferences)
+### <a name="preferences"></a>[Preferences<i class="icon-up"></i>](#cpreferences)
 
 #### Preference
 #### Preferences
@@ -129,7 +129,7 @@ Gets the path/uri of the specified file.
 
 ### DateTimePicker
 
-### <a name="listViewHelper"></a>[ListViewHelper](#cListViewHelper)
+### <a name="listviewhelper"></a>[ListViewHelper](#clistviewhelper)
 
 This class facilitates the use of the [`ListView`](https://facebook.github.io/react-native/docs/listview.html) class. Please make sure you read this [note](#stylesnote) before using it.
 
@@ -279,7 +279,7 @@ Class methods:
 
     Returns a `ListView` if there are any items set. Otherwise it invokes the callback set by `setEmptyItemsRenderer()` or simply returns `null` if the latter is undefined.
 
-### <a name="staticUtils"></a>[StaticUtils<i class="icon-up"></i>](#cStaticUtils)
+### <a name="staticutils"></a>[StaticUtils<i class="icon-up"></i>](#cstaticutils)
 
 A collection of different `static` utility methods extending [StaticUtils](https://www.npmjs.com/package/simple-common-utils#staticutils) from [simple-common-utils](https://www.npmjs.com/package/simple-common-utils).
 
@@ -300,11 +300,13 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 ### strings
 
-### <a name="styles"></a>[styles](#cStyles)
+### <a name="styles"></a>[styles](#cstyles)
 
 A tiny styling infrastructure based on [react-native-extended-stylesheet](https://npmjs.com/packages/react-native-extended-stylesheet), coming with several predefined styles.
 
-<a name="stylesnote"></a>**Please bear in mind** that [`ListViewHelper`](#listViewHelper) and several [components](https://www.npmjs.com/package/react-native-common-ui-components) use predefined styles so please don't forget to initialize them even if you're not going to use them yourself.
+**Warning**: v3.0.0 introduces a backwards-incompatible change. When using [react-native-common-ui-components](https://npmjs.com/packages/react-native-common-ui-components), everything must be imported from `react-native-common-ui-components/js/styles`, as predefined styles for components are moved there.
+
+<a name="stylesnote"></a>**Please bear in mind** that predefined styles must be initialized even if you're not going to use them yourself.
 
     // Somewhere BEFORE the first use of dependent classes.
     
@@ -315,7 +317,7 @@ A tiny styling infrastructure based on [react-native-extended-stylesheet](https:
 
 #### 1. Usage.
 
-The usage is quite simple and is illustrated by an example below. Please note `create()` after the `import` directive and `build()` and`indexObjectWithClassName()` at the last lines. [Variables](#stylesVariables) and [`font` / `fontSize()`](#stylesFont)  are described later and examples of custom style creation are given [here](#stylesCustomStyles).
+The usage is quite simple and is illustrated by an example below. Please note [`create()`](#stylescomplexstyles) after the `import` directive and `build()` and`indexObjectWithClassName()` at the last lines. [Variables](#stylesvariables) and [`font` / `fontSize()`](#stylesfont)  are described later and examples of custom style creation are given [here](#stylescustomstyles).
 
     // customStyles.js
     
@@ -370,9 +372,9 @@ It's not necessary to specify "the name" of a class when requiring`customStyles`
     <View style={styles.mainScene.mySuperView} />
     <View style={styles.common} />
 
-#### 2. <a name="stylesVariables"></a>Variables.
+#### 2. <a name="stylesvariables"></a>Variables.
 
-Variables are used to make different UI parts look the same. Their default values are given in brackets. Feel free to modify them as you choose. In any case don't forget to call [`create()`](#stylesComplexStyles).
+Variables are used to make different UI parts look the same. Their default values are given in brackets. Feel free to modify them as you choose. In any case don't forget to call [`create()`](#stylescomplexstyles).
 
  - marginPadding (15)
 
@@ -401,7 +403,7 @@ Variables are used to make different UI parts look the same. Their default value
 
     Does exactly what the name suggests.
 
-Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend on [variables](#stylesVariables). That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
+Apart from these, there are <a name="stylescomplexstyles"></a>styles that depend on [variables](#stylesvariables). That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
 
  - navigator
 
@@ -421,14 +423,6 @@ Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend
 
     The same as `scene` but with margins set to `marginPadding`.
 
- - button
-
-    A style for [`Button`](https://npmjs.com/packages/react-native-common-ui-components#button).
-
- - toggleButtons
-
-    A style for [`ToggleButtons`](https://npmjs.com/packages/react-native-common-ui-components#togglebuttons).
-
  - listView
 
     A style for [`ListViewHelper`](#listviewhelper) and list view items.
@@ -441,7 +435,7 @@ Apart from these, there are <a name="stylesComplexStyles"></a>styles that depend
 
         A style for list view item separators.
 
-#### 4. <a name="stylesFont"></a>Font sizes.
+#### 4. <a name="stylesfont"></a>Font sizes.
 
 Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` contains all the values and `fontSize()` is a function to calculate the font size: `fontSize(someInteger);`.
 
@@ -460,12 +454,15 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
     Variables to use as a number of steps. Assuming `font` fields have default values, `fontSize(mediumSteps)`, for example, will give `20`.
 
-#### 5. <a name="stylesCustomStyles"></a>Examples of custom styles.
+#### 5. <a name="stylescustomstyles"></a>Examples of custom styles.
 
-## <a name="versionHistory"></a>[Version history<i class="icon-up"></i>](#cVersionHistory)
+
+
+## <a name="versionhistory"></a>[Version history<i class="icon-up"></i>](#cversionhistory)
 
 Version number|Changes
 -|-
+v3.0.0|1.&nbsp;**Backwards-incompatible change**: when using [react-native-common-ui-components](https://npmjs.com/packages/react-native-common-ui-components), [styles](#styles) must be imported from `react-native-common-ui-components/js/styles`.<br>2.&nbsp;`AlterStyles.combineEx()` added.<br>3.&nbsp;Readme updated.
 v2.1.1|Readme updated.
 v2.1.0|1.&nbsp;Readme updated.<br>2.&nbsp;`ListViewHelper.setEmptyItemsRenderer()` is added.
 v2.0.2|Invalid imports fixed.

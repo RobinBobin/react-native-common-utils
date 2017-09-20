@@ -46,52 +46,6 @@ export function create() {
       margin: styles.marginPadding
    };
 
-   styles.button = {
-      container: {
-         ...centerCenter,
-         height: styles.baseHeight,
-         backgroundColor: 0x0099CBFF
-      },
-      text: {
-         color: "white",
-         fontSize: 20,
-         textAlign: "center"
-      }
-   };
-
-   styles.toggleButtons = {
-      container: {
-         flexDirection: "row",
-         justifyContent: "center",
-         paddingTop: styles.marginPadding * 0.5,
-         paddingBottom: styles.marginPadding * 0.5
-      },
-      $button: {
-         container: {
-            inactive: {
-               ...centerCenter,
-               paddingTop: styles.marginPadding * 0.5,
-               paddingBottom: styles.marginPadding * 0.5,
-               paddingLeft: styles.marginPadding,
-               paddingRight: styles.marginPadding
-            },
-            active: {
-               backgroundColor: styles.textColor
-            }
-         },
-         label: {
-            inactive: {
-               color: styles.textColor,
-               fontSize: 20,
-               textAlign: "center"
-            },
-            active: {
-               color: "white"
-            }
-         }
-      }
-   };
-   
    styles.listView = {
       $itemHeight: styles.baseHeight * 1.2,
       separatorStyle: {

@@ -35,11 +35,12 @@ export default class AlterStyles {
    }
    
    /**
-    * Combine styles from styles.js and React.Component.props.styles.
+    * Combines styles from React.Component.props.styles and styles.js.
     * @param {*} styles React.Component.props.styles.
     * @param {*} stylesData array, each element of which is an array:
     * [0] - styles.js object with style properties;
     * [1] - dotted string with a name of a props.styles object.
+    * @return An object with combined styles.
     */
    static combine(styles, stylesData) {
       return stylesData.map(data => {
@@ -56,5 +57,35 @@ export default class AlterStyles {
       }).reduce((p, c) => {
          return DottedStringObject.setProperty(p, c[0], c[1]);
       }, {});
+   }
+   
+   /**
+    * Like combine() but combines everything including standalone variables.
+    * @param {*} propsStyles React.Component.props.styles.
+    * @param {*} stylesStyle top-level style from styles.js.
+    * @return An object with combined styles.
+    */
+   static combineEx(propsStyles, stylesStyle) {
+      const standaloneVars = [];
+      const stylesData = [];
+      
+      Object.keys(stylesStyle).forEach(name => {
+         const field = stylesStyle[name];
+         
+         typeof field == "object" ? undefined : name[0] == "$" ?
+            standaloneVars.push(name) : stylesData.push([field, name]);
+      });
+      
+      const result = AlterStyles.combine(propsStyles, stylesData);
+      
+      standaloneVars.forEach(name => {
+         result[name] = stylesStyle[name];
+         
+         if (propsStyles && propsStyles[name]) {
+            result[name] = propsStyles[name];
+         }
+      });
+      
+      return result;
    }
 }
