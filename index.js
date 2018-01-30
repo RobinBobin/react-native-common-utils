@@ -23,12 +23,14 @@ import AlterStyles from "./js/AlterStyles";
 import ListViewHelper from "./js/ListViewHelper";
 import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
+import NativeEventEmitterWrapper from "./js/NativeEventEmitterWrapper";
 
 export {
    AlterStyles,
    ListViewHelper,
    DateTimePicker,
    StaticUtils,
+   NativeEventEmitterWrapper
 };
 
 
