@@ -1,4 +1,4 @@
-This is a collection of useful classes for RN projects.
+﻿This is a collection of useful classes for RN projects.
 
 **Warning**: v3.0.0 introduces a backwards-incompatible change. Please see the [version history](#versionhistory).
 
@@ -122,6 +122,7 @@ Gets the path/uri of the specified file.
 #### ArrayPreference
 #### NumberPreference
 #### SwitchPreference
+#### JSONPreference
 
 ### AlterStyles
 
@@ -462,6 +463,8 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v3.2.0|Added the `JSONPreference` class to store JSON objects as strings.
+v3.1.0|&nbsp;
 v3.0.0|1.&nbsp;**Backwards-incompatible change**: when using [react-native-common-ui-components](https://npmjs.com/packages/react-native-common-ui-components), [styles](#styles) must be imported from `react-native-common-ui-components/js/styles`.<br>2.&nbsp;`AlterStyles.combineEx()` added.<br>3.&nbsp;Readme updated.
 v2.1.1|Readme updated.
 v2.1.0|1.&nbsp;Readme updated.<br>2.&nbsp;`ListViewHelper.setEmptyItemsRenderer()` is added.

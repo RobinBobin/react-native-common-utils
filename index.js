@@ -6,13 +6,15 @@ import Preference from "./js/preferences/Preference";
 import NumberPreference from "./js/preferences/NumberPreference";
 import SwitchPreference from "./js/preferences/SwitchPreference";
 import ArrayPreference from "./js/preferences/ArrayPreference";
+import JSONPreference from "./js/preferences/JSONPreference"
 
 export {
    Preferences,
    Preference,
    NumberPreference,
    SwitchPreference,
-   ArrayPreference
+   ArrayPreference,
+   JSONPreference
 };
 
 
