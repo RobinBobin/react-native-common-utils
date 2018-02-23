@@ -32,11 +32,12 @@ export default class Preference {
       return this.value;
    }
    
-   async setValue(value) {
+   async setValue(value, stringifiedValue) {
       let result;
       
       try {
-         await AsyncStorage.setItem(this.toString(), value.toString());
+         await AsyncStorage.setItem(this.toString(),
+            stringifiedValue || value.toString());
          
          this.value = value;
          
