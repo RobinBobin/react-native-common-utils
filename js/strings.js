@@ -3,8 +3,8 @@ export { LocalizedStrings };
 
 export default function () {
    const object = arguments[0];
-   const prototype = arguments.length == 2 ? undefined : arguments[1].prototype;
-   const className = arguments[arguments.length - 1];
+   const prototype = arguments.length < 3 ? undefined : arguments[1].prototype;
+   const className = arguments.length == 1 ? null : arguments[arguments.length - 1];
    
    const all = {...object};
    
