@@ -1,40 +1,87 @@
 export default class Preferences {
-   static array = [];
-   static loadedListeners = new Set();
+   static Data = class {
+      constructor(name, defaultValue = "") {
+         this._name = name;
+         
+         this.setDefaultValue(defaultValue);
+         this.setSaveLazily(true);
+      }
+      
+      setDefaultValue(defaultValue) {
+         this._defaultValue = defaultValue;
+         
+         return this;
+      }
+      
+      setComponentType(componentType) {
+         this._componentType = componentType;
+         
+         return this;
+      }
+      
+      setSaveLazily(saveLazily) {
+         this._saveLazily = saveLazily;
+         
+         return this;
+      }
+   }
+   
+   
+   static _array = [];
+   static _loadedListeners = new Set();
    
    constructor() {
       throw new Error("Class 'Preferences' mustn't be instantiated.");
    }
    
-   static safeAddPreference(preferenceClass, name, defaultValue, componentType) {
-      if (Preferences.array.findIndex(p => p.name.
-         valueOf() == name.valueOf()) != -1)
+   static safeAddPreference() {
+      const preferenceClass = arguments[0];
+      
+      const data = arguments[1].constructor == Preferences.Data ? arguments[1] :
+         new Preferences.Data(arguments[1], arguments[2])
+            .setComponentType(arguments[3])
+            .setSaveLazily(false);
+      
+      if (Preferences._array.findIndex(p => p.
+         _data._name.valueOf() == data._name) != -1)
       {
-         console.log(`Skipping ${name}`);
+         console.log(`Skipping ${data._name}.`);
       } else {
-         console.log(`Adding ${name}`);
+         console.log(`Adding ${data._name}.`);
          
-         Preferences.array.push(new preferenceClass(
-            name, defaultValue, componentType));
+         Preferences._array.push(new preferenceClass(data));
       }
    }
    
    static addLoadedListener(listener) {
-      Preferences.loadedListeners.add(listener);
+      Preferences._loadedListeners.add(listener);
    }
    
    static clearLoadedListeners() {
-      Preferences.loadedListeners.clear();
+      Preferences._loadedListeners.clear();
    }
    
    static async load() {
-      const length = (await Promise.all(Preferences.array.
-         map(preference => preference.loaded))).length;
+      const length = (await Promise.all(Preferences._array.
+         map(preference => preference._loaded))).length;
       
-      for (let listener of Preferences.loadedListeners.values()) {
+      for (let listener of Preferences._loadedListeners.values()) {
          listener.onLoaded();
       }
       
       return length;
+   }
+   
+   static async save() {
+      let result = true;
+      
+      for (let preference of Preferences._array) {
+         if (!await preference.saveValue()) {
+            result = false;
+            break;
+         }
+      }
+      
+      return result;
    }
 }

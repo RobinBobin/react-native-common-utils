@@ -4,17 +4,17 @@ import Preferences from "./Preferences";
 
 @autobind
 export default class Preference {
-   constructor(name, defaultValue = "", componentType) {
-      this.name = name;
-      this.section = Preferences;
-      this.componentType = componentType;
-      this.valueChangeListeners = new Set();
+   constructor(data) {
+      this._data = data;
+      this._valueChangeListeners = new Set();
       
-      name.split("\.").forEach((part, index, array) => index == array.length - 1 ?
-         this.section[part] = this : ((!this.section.hasOwnProperty(part) &&
-            (this.section[part] = {})), this.section = this.section[part]));
+      let section = Preferences;
       
-      this.loaded = new Promise(async (resolve, reject) => {
+      this._data._name.split("\.").forEach((part, index, array) => index == array.
+         length - 1 ? section[part] = this : ((!section.hasOwnProperty(part) &&
+            (section[part] = {})), section = section[part]));
+      
+      this._loaded = new Promise(async (resolve, reject) => {
          let value;
          
          try {
@@ -22,28 +22,42 @@ export default class Preference {
          } catch (error) {
             this._onError(error);
          } finally {
-            await this.setValue(value == null || value == undefined ?
-               defaultValue : value) ? resolve() : reject();
+            await this.setValue(value == null ? this._data.
+               _defaultValue : value) ? resolve() : reject();
          }
       });
    }
    
    getValue() {
-      return this.value;
+      return this._value;
    }
    
    async setValue(value, stringifiedValue) {
+      const result = this._data._saveLazily ||
+         await this.saveValue(value, stringifiedValue);
+      
+      if (result) {
+         this._value = value;
+         
+         if (this._data._saveLazily) {
+            this._stringifiedValue = stringifiedValue;
+         }
+         
+         for (let listener of this._valueChangeListeners.values()) {
+            listener.onValueChanged(this);
+         }
+      }
+      
+      return result;
+   }
+   
+   async saveValue() {
       let result;
       
       try {
-         await AsyncStorage.setItem(this.toString(),
-            stringifiedValue || value.toString());
-         
-         this.value = value;
-         
-         for (let listener of this.valueChangeListeners.values()) {
-            listener.onValueChanged(this);
-         }
+         await AsyncStorage.setItem(this.toString(), (arguments.length ?
+            arguments[1] : this._stringifiedValue) || (arguments.length ?
+               arguments[0] : this._value).toString());
          
          result = true;
       } catch (error) {
@@ -54,11 +68,11 @@ export default class Preference {
    }
    
    getComponentType() {
-      return this.componentType;
+      return this._data._componentType;
    }
    
    toString() {
-      return this.name;
+      return this._data._name;
    }
    
    addValueChangeListener(listener) {

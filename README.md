@@ -463,6 +463,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v3.3.1|`Preferences.Data`.
 v3.2.1|&nbsp;
 v3.2.0|Added the `JSONPreference` class to store JSON objects as strings.
 v3.1.0|&nbsp;
