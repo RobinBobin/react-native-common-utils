@@ -26,13 +26,15 @@ import ListViewHelper from "./js/ListViewHelper";
 import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
 import NativeEventEmitterWrapper from "./js/NativeEventEmitterWrapper";
+import EventHandlingHelper from "./js/EventHandlingHelper";
 
 export {
    AlterStyles,
    ListViewHelper,
    DateTimePicker,
    StaticUtils,
-   NativeEventEmitterWrapper
+   NativeEventEmitterWrapper,
+   EventHandlingHelper
 };
 
 
