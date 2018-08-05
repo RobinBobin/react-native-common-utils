@@ -1,6 +1,6 @@
 {
   "name": "react-native-common-utils",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A collection of useful classes for RN projects.",
   "main": "index.js",
   "scripts": {

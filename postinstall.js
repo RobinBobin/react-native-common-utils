@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const readline = require("readline");
 
 const decorators6 = {
    package: "babel-plugin-transform-decorators-legacy",
@@ -25,15 +24,7 @@ function fallback() {
    pleaseInstall(decorators6, "For lower RN versions p");
 }
 
-function onError(error) {
-   console.error(error);
-   
-   console.log();
-   
-   fallback();
-}
-
-function getVersion(projectPath, directory, key, description, callback) {
+function getVersion(projectPath, directory, key, description) {
    const packageJson = fs.readFileSync(path.join(projectPath, directory, "package.json"), "utf8");
    
    let index = packageJson.indexOf(key);
@@ -48,34 +39,7 @@ function getVersion(projectPath, directory, key, description, callback) {
       throw new Error(`Failed to determine the ${description} version.`);
    }
    
-   const version = packageJson.substring(index, index2);
-   
-   const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-   });
-   
-   rl.question(`${description} version is determined as "${version}". Is that correct (y/n) ? `, answer => {
-         rl.close();
-         
-         console.log();
-         
-         answer == "y" ? callback(version, projectPath) : fallback();
-   });
-}
-
-function rnVersionDetermined(rnVersion, projectPath) {
-   if (rnVersion.localeCompare("0.56.0") < 0) {
-      pleaseInstall(decorators6, "P");
-   } else {
-      try {
-         getVersion(projectPath, path.join("node_modules", "@babel", "core"), '"version":', "@babel core", version => {
-            pleaseInstall(decorators7, "P", version);
-         });
-      } catch (error) {
-         onError(error);
-      }
-   }
+   return packageJson.substring(index, index2);
 }
 
 try {
@@ -87,7 +51,14 @@ try {
    
    const projectPath = __dirname.substring(0, index);
    
-   getVersion(projectPath, "", '"react-native":', "React Native", rnVersionDetermined);
+   if (getVersion(projectPath, "", '"react-native":', "React Native").localeCompare("0.56.0") < 0)
+   {
+      pleaseInstall(decorators6, "P");
+   } else {
+      pleaseInstall(decorators7, "P", getVersion(projectPath, path.join("node_modules", "@babel", "core"), '"version":', "@babel core"));
+   }
+   
+   fallback();
 } catch (error) {
    onError(error);
 }
