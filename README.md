@@ -1,7 +1,5 @@
 ﻿This is a collection of useful classes for RN projects.
 
-**Warning**: v3.0.0 introduces a backwards-incompatible change. Please see the [version history](#versionhistory).
-
  1. <a name="cinstallation"></a>[Installation.](#installation)
  1. <a name="cpackagecontents"></a>[Package contents.](#packagecontents)
  1. <a name="cversionhistory"></a>[Version history.](#versionhistory)
@@ -463,6 +461,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v4.0.0|**Backwards-incompatible change**: `babel-plugin-transform-decorators-legacy` is removed from dependencies to allow for Babel 7 usage. End user instructions are given through the postinstall event.
 v3.3.1|`Preferences.Data`.
 v3.2.1|&nbsp;
 v3.2.0|Added the `JSONPreference` class to store JSON objects as strings.

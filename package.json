@@ -1,14 +1,14 @@
 {
   "name": "react-native-common-utils",
-  "version": "3.4.2",
+  "version": "4.0.0",
   "description": "A collection of useful classes for RN projects.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "core-decorators": "latest",
-    "babel-plugin-transform-decorators-legacy": "latest",
     "react-native-extended-stylesheet": "latest",
     "react-native-localization": "0.2.1",
     "simple-common-utils": "latest"
