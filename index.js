@@ -27,6 +27,7 @@ import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
 import NativeEventEmitterWrapper from "./js/NativeEventEmitterWrapper";
 import EventHandlingHelper from "./js/EventHandlingHelper";
+import ApplicationSession from "./js/ApplicationSession";
 
 export {
    AlterStyles,
@@ -34,7 +35,8 @@ export {
    DateTimePicker,
    StaticUtils,
    NativeEventEmitterWrapper,
-   EventHandlingHelper
+   EventHandlingHelper,
+   ApplicationSession
 };
 
 
