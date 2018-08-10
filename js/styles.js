@@ -16,11 +16,6 @@ export const styles = {
    centerCenterFlex1: {
       ...centerCenter,
       flex: 1
-   },
-   screen: {
-      flex: 1,
-      padding: styles.marginPadding,
-      backgroundColor: styles.backgroundColor
    }
 };
 
@@ -57,6 +52,12 @@ export function create() {
          height: styles.marginPadding * 0.5
       }
    };
+   
+   styles.screen = {
+      flex: 1,
+      padding: styles.marginPadding,
+      backgroundColor: styles.backgroundColor
+   }
 }
 
 export function build() {

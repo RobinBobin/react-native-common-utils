@@ -398,10 +398,6 @@ Variables are used to make different UI parts look the same. Their default value
 
     Does exactly what the name suggests.
 
- - screen
-
-    Used for top-level views, adding padding and a background color to them.
-
 Apart from these, there are <a name="stylescomplexstyles"></a>styles that depend on [variables](#stylesvariables). That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
 
  - navigator
@@ -431,6 +427,10 @@ Apart from these, there are <a name="stylescomplexstyles"></a>styles that depend
      - separatorStyle
 
         A style for list view item separators.
+
+ - screen
+
+    Used for top-level views, adding padding and a background color to them.
 
 #### 4. <a name="stylesfont"></a>Font sizes.
 
