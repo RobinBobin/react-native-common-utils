@@ -13,32 +13,28 @@ Install with:
     
 [react-native-localization](https://www.npmjs.com/package/react-native-localization) is a package my code depends on and it needs linking.
 
-My code uses `@autobind` so please don't forget to modify your `.babelrc`:
+My code uses `@autobind` so please don't forget to modify your `.babelrc` according to the version of Babel you're using.
 
-    "plugins": [
-        ...
-        "transform-decorators-legacy" // <= This line must be added.
-    ] 
-
-If you want to use [native modules](#nativemodules) defined in the package, use the following command:
+If you want to use the [native modules](#nativemodules) defined in the package, use the following command:
 
     react-native link react-native-common-utils
 
 ## <a name="packagecontents"></a>[Package contents<i class="icon-up"></i>](#cpackagecontents)
 
  1. <a name="cnativemodules"></a>[Native modules](#nativemodules)
- 1. <a name="cpreferences"></a>[Preferences](#preferences)
- 1. AlterStyles
- 1. ContextMenu
- 1. DateTimePicker
- 1. <a name="clistviewhelper"></a>[ListViewHelper](#listviewhelper)
- 1. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
- 1. strings
- 1. <a name="cstyles"></a>[styles](#styles)
+ 2. <a name="cpreferences"></a>[Preferences](#preferences)
+ 3. AlterStyles
+ 4. ContextMenu
+ 5. DateTimePicker
+ 6. <a name="clistviewhelper"></a>[ListViewHelper](#listviewhelper)
+ 7. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
+ 8. ApplicationSession
+ 9. strings
+ 10. <a name="cstyles"></a>[styles](#styles)
  
 ### <a name="nativemodules"></a>[Native modules<i class="icon-up"></i>](#cnativemodules)
 
-**Warning**: Native modules are currently implemented only for Android. I'll implement them for iOS as soon as I learn Swift / Objective-C well enough.
+**Warning**: These native modules are currently implemented only for Android. I'll implement them for iOS as soon as I learn Swift / Objective-C well enough.
 
  1. <a name="csharedata"></a>[ShareData](#sharedata)
  1. <a name="cgetpath"></a>[GetPath](#getpath)
@@ -402,13 +398,15 @@ Variables are used to make different UI parts look the same. Their default value
 
     Does exactly what the name suggests.
 
+ - screen
+
+    Used for top-level views, adding padding and a background color to them.
+
 Apart from these, there are <a name="stylescomplexstyles"></a>styles that depend on [variables](#stylesvariables). That's why `create()` needs to be called: these styles are created during its invocation. They are described below:
 
  - navigator
 
-    To be used for a [`Navigator`](http://facebook.github.io/react-native/releases/0.43/docs/navigator.html). Though it's deprecated long ago, I find this component useful when no navigation UI is needed.
-
-    This style sets the navigator background color equal to `backgroundColor`.
+    To be used for a [`Navigator`](http://facebook.github.io/react-native/releases/0.43/docs/navigator.html). This style sets the navigator background color equal to `backgroundColor`.
 
  - navigatorWithPadding
 
@@ -461,6 +459,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v4.1.0|1.&nbsp;`ApplicationSession` added.<br>2.&nbsp;`styles.screen` added.
 v4.0.0|**Backwards-incompatible change**: `babel-plugin-transform-decorators-legacy` is removed from dependencies to allow for Babel 7 usage. End user instructions are given through the postinstall event.
 v3.3.1|`Preferences.Data`.
 v3.2.1|&nbsp;

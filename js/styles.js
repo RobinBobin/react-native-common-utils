@@ -16,6 +16,11 @@ export const styles = {
    centerCenterFlex1: {
       ...centerCenter,
       flex: 1
+   },
+   screen: {
+      flex: 1,
+      padding: styles.marginPadding,
+      backgroundColor: styles.backgroundColor
    }
 };
 
