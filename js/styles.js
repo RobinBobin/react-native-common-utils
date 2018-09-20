@@ -54,9 +54,11 @@ export function create() {
    };
    
    styles.screen = {
-      flex: 1,
-      padding: styles.marginPadding,
-      backgroundColor: styles.backgroundColor
+      container: {
+         flex: 1,
+         padding: styles.marginPadding,
+         backgroundColor: styles.backgroundColor
+      }
    }
 }
 

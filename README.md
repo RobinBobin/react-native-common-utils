@@ -297,9 +297,9 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 ### <a name="styles"></a>[styles](#cstyles)
 
-A tiny styling infrastructure based on [react-native-extended-stylesheet](https://npmjs.com/packages/react-native-extended-stylesheet), coming with several predefined styles.
+A tiny styling infrastructure based on [react-native-extended-stylesheet](https://npmjs.com/package/react-native-extended-stylesheet), coming with several predefined styles.
 
-**Warning**: v3.0.0 introduces a backwards-incompatible change. When using [react-native-common-ui-components](https://npmjs.com/packages/react-native-common-ui-components), everything must be imported from `react-native-common-ui-components/js/styles`, as predefined styles for components are moved there.
+**Warning**: v3.0.0 introduces a backwards-incompatible change. When using [react-native-common-ui-components](https://npmjs.com/package/react-native-common-ui-components), everything must be imported from `react-native-common-ui-components/js/styles`, as predefined styles for components are moved there.
 
 <a name="stylesnote"></a>**Please bear in mind** that predefined styles must be initialized even if you're not going to use them yourself.
 
@@ -430,7 +430,10 @@ Apart from these, there are <a name="stylescomplexstyles"></a>styles that depend
 
  - screen
 
-    Used for top-level views, adding padding and a background color to them.
+    Used to style top-level views.
+    - container
+
+        Adds padding and a background color.
 
 #### 4. <a name="stylesfont"></a>Font sizes.
 
@@ -459,13 +462,14 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v5.0.0|**Backwards-incompatible change**: `styles.screen` is superseded by `styles.screen.container`.
 v4.1.0|1.&nbsp;`ApplicationSession` added.<br>2.&nbsp;`styles.screen` added.
 v4.0.0|**Backwards-incompatible change**: `babel-plugin-transform-decorators-legacy` is removed from dependencies to allow for Babel 7 usage. End user instructions are given through the postinstall event.
 v3.3.1|`Preferences.Data`.
 v3.2.1|&nbsp;
 v3.2.0|Added the `JSONPreference` class to store JSON objects as strings.
 v3.1.0|&nbsp;
-v3.0.0|1.&nbsp;**Backwards-incompatible change**: when using [react-native-common-ui-components](https://npmjs.com/packages/react-native-common-ui-components), [styles](#styles) must be imported from `react-native-common-ui-components/js/styles`.<br>2.&nbsp;`AlterStyles.combineEx()` added.<br>3.&nbsp;Readme updated.
+v3.0.0|1.&nbsp;**Backwards-incompatible change**: when using [react-native-common-ui-components](https://npmjs.com/package/react-native-common-ui-components), [styles](#styles) must be imported from `react-native-common-ui-components/js/styles`.<br>2.&nbsp;`AlterStyles.combineEx()` added.<br>3.&nbsp;Readme updated.
 v2.1.1|Readme updated.
 v2.1.0|1.&nbsp;Readme updated.<br>2.&nbsp;`ListViewHelper.setEmptyItemsRenderer()` is added.
 v2.0.2|Invalid imports fixed.
