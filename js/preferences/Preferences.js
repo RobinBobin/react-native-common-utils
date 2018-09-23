@@ -61,6 +61,10 @@ export default class Preferences {
       Preferences._loadedListeners.clear();
    }
    
+   static areLoaded() {
+      return !!Preferences._array.length;
+   }
+   
    static async load() {
       const length = (await Promise.all(Preferences._array.
          map(preference => preference._loaded))).length;

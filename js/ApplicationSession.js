@@ -8,10 +8,18 @@ export default class ApplicationSession {
    }
    
    static async manage(nextAppState, context) {
+      if (ApplicationSession._logStateChange) {
+         console.log(`App state: ${nextAppState}.`);
+      }
+      
       if (nextAppState != "active") {
-         !ApplicationSession._currentSession._isShutdownRequested() && ApplicationSession._currentSession._requestShutdown();
-         
-         ApplicationSession._nextSession && ApplicationSession._nextSession._requestShutdown();
+         for (let sessionName of ["_currentSession", "_nextSession"]) {
+            const session = ApplicationSession[sessionName];
+            
+            if (session && !session._isShutdownRequested()) {
+               session._requestShutdown();
+            }
+         }
       } else {
          ApplicationSession._nextSession = new ApplicationSession._sessionType(context);
          
@@ -27,8 +35,9 @@ export default class ApplicationSession {
       }
    }
    
-   static _setSessionType(sessionType) {
+   static _setSessionType(sessionType, logStateChange) {
       ApplicationSession._sessionType = sessionType;
+      ApplicationSession._logStateChange = logStateChange;
    }
    
    _isShutdownRequested() {

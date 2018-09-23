@@ -462,6 +462,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v5.1.0|1.&nbsp;An iOS-only bug fixed in `ApplicationSession.manage()` .<br>2.&nbsp;State changes can be optionally logged to the console. An argument controlling this behaviour is added to `ApplicationSession._setSessionType()`.
 v5.0.0|**Backwards-incompatible change**: `styles.screen` is superseded by `styles.screen.container`.
 v4.1.0|1.&nbsp;`ApplicationSession` added.<br>2.&nbsp;`styles.screen` added.
 v4.0.0|**Backwards-incompatible change**: `babel-plugin-transform-decorators-legacy` is removed from dependencies to allow for Babel 7 usage. End user instructions are given through the postinstall event.
