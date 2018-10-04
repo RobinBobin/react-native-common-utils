@@ -2,6 +2,8 @@ export default class ApplicationSession {
    static _sessionType;
    static _currentSession;
    static _nextSession;
+   static _startListeners = [];
+   static _shutdownListeners = [];
    
    constructor(context) {
       this._context = context;
@@ -33,6 +35,22 @@ export default class ApplicationSession {
          
          ApplicationSession._currentSession._start();
       }
+   }
+   
+   static addStartListener(listener) {
+      ApplicationSession._startListeners.unshift(listener);
+   }
+   
+   static removeStartListener(listener) {
+      ApplicationSession._startListeners.splice(ApplicationSession._startListeners.findIndex(l => l == listener), 1);
+   }
+   
+   static addShutdownListener(listener) {
+      ApplicationSession._shutdownListeners.unshift(listener);
+   }
+   
+   static removeShutdownListener(listener) {
+      ApplicationSession._shutdownListeners.splice(ApplicationSession._shutdownListeners.findIndex(l => l == listener), 1);
    }
    
    static _setSessionType(sessionType, logStateChange) {
