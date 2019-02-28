@@ -1,10 +1,6 @@
 import Preference from "./Preference";
 
 export default class JSONPreference extends Preference {
-   constructor(name, defaultValue = {}, componentType) {
-      super(name, defaultValue, componentType);
-   }
-   
    async setValue(value) {
       const isString = value.constructor == String;
       
