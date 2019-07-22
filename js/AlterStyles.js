@@ -1,5 +1,8 @@
 import { DottedStringObject } from "simple-common-utils";
 
+/**
+ * @deprecated Since version 6.0.1. Please use combineStyles() from react-native-common-ui-components/js/styles.js.
+ */
 export default class AlterStyles {
    constructor(...styles) {
       this.styles = styles;

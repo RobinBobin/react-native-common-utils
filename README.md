@@ -464,6 +464,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v6.0.1|1.&nbsp;`AlterStyles` deprecated in favour of `combineStyles()` from `react-native-common-ui-components/js/styles.js`.<br>2.&nbsp;`@babel/plugin-proposal-decorators` is specified as a dev dependency and the postinstall script is deleted.
 v6.0.0|1.&nbsp;The latest version of [react-native-localization](https://www.npmjs.com/package/react-native-localization) is specified in `package.json`.<br>2.&nbsp;**Backwards-incompatible change** in `strings.js`: `strings.formatString()` is no longer available if a sub-object name was specified. `strings.all.formatString()` has to be used instead.
 v5.1.0|1.&nbsp;An iOS-only bug fixed in `ApplicationSession.manage()`.<br>2.&nbsp;State changes can be optionally logged to the console. An argument`ApplicationSession._setSessionType()`
 v5.0.0|**Backwards-incompatible change**: `styles.screen` is superseded by `styles.screen.container`.

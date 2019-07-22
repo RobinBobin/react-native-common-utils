@@ -1,17 +1,19 @@
 {
   "name": "react-native-common-utils",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "A collection of useful classes for RN projects.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "core-decorators": "latest",
     "react-native-extended-stylesheet": "latest",
     "react-native-localization": "latest",
     "simple-common-utils": "latest"
+  },
+  "devDependencies": {
+      "@babel/plugin-proposal-decorators": "latest"
   },
   "repository": {
     "type": "git",
