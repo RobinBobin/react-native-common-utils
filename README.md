@@ -8,16 +8,18 @@
 Install with:
 
     npm i --save react-native-common-utils
-    
+
+My code uses `@autobind` so please don't forget to modify your Babel config accordingly.
+
+**For RN < 0.60**:
+My code depends on [react-native-localization](https://www.npmjs.com/package/react-native-localization) which needs linking:
+
     react-native link react-native-localization
-    
-[react-native-localization](https://www.npmjs.com/package/react-native-localization) is a package my code depends on and it needs linking.
 
-My code uses `@autobind` so please don't forget to modify your `.babelrc` according to the version of Babel you're using.
-
-If you want to use the [native modules](#nativemodules) defined in the package, use the following command:
+You also need to execute
 
     react-native link react-native-common-utils
+, if you want to use the [native modules](#nativemodules) defined in my package.
 
 ## <a name="packagecontents"></a>[Package contents<i class="icon-up"></i>](#cpackagecontents)
 
@@ -462,7 +464,8 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
-v5.1.0|1.&nbsp;An iOS-only bug fixed in `ApplicationSession.manage()` .<br>2.&nbsp;State changes can be optionally logged to the console. An argument controlling this behaviour is added to `ApplicationSession._setSessionType()`.
+v6.0.0|1.&nbsp;The latest version of [react-native-localization](https://www.npmjs.com/package/react-native-localization) is specified in `package.json`.<br>2.&nbsp;**Backwards-incompatible change** in `strings.js`: `strings.formatString()` is no longer available if a sub-object name was specified. `strings.all.formatString()` has to be used instead.
+v5.1.0|1.&nbsp;An iOS-only bug fixed in `ApplicationSession.manage()`.<br>2.&nbsp;State changes can be optionally logged to the console. An argument`ApplicationSession._setSessionType()`
 v5.0.0|**Backwards-incompatible change**: `styles.screen` is superseded by `styles.screen.container`.
 v4.1.0|1.&nbsp;`ApplicationSession` added.<br>2.&nbsp;`styles.screen` added.
 v4.0.0|**Backwards-incompatible change**: `babel-plugin-transform-decorators-legacy` is removed from dependencies to allow for Babel 7 usage. End user instructions are given through the postinstall event.

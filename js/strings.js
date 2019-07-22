@@ -1,17 +1,8 @@
 import LocalizedStrings from "react-native-localization";
 export { LocalizedStrings };
 
-export default function () {
-   const object = arguments[0];
-   const prototype = arguments.length < 3 ? undefined : arguments[1].prototype;
-   const className = arguments.length == 1 ? null : arguments[arguments.length - 1];
-   
-   const all = {...object};
-   
-   if (prototype) {
-      Object.getOwnPropertyNames(prototype).forEach(methodName => methodName ==
-         "constructor" || (all[methodName] = object[methodName].bind(object)));
-   }
-   
-   return className ? Object.assign({...object[className]}, {all}) : all;
-}
+export default (object, name) => name ? {
+      all: object,
+      ...object[name]
+   } : object
+;

@@ -1,6 +1,6 @@
 {
   "name": "react-native-common-utils",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "description": "A collection of useful classes for RN projects.",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "dependencies": {
     "core-decorators": "latest",
     "react-native-extended-stylesheet": "latest",
-    "react-native-localization": "0.2.1",
+    "react-native-localization": "latest",
     "simple-common-utils": "latest"
   },
   "repository": {
