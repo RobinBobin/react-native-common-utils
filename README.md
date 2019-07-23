@@ -296,6 +296,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v7.1.1|1. `AsyncStorage` wasn't imported as a default object.<br>2. `@react-native-community/async-storage` is made a peer dependency.
 v7.1.0|`AsyncStorage` imported from `@react-native-community/async-storage`.
 v7.0.1|`react-native-localization` moved to `peerDependencies`.
 v7.0.0|**Backwards-incompatible changes**:<br>1. `ListViewHelper` / `styles.listView` removed.<br>2. `AlterStyles` removed.<br>3. `core-decorators` and `@autobind` are no longer used.
