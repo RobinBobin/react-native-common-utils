@@ -1,6 +1,6 @@
 {
   "name": "react-native-common-utils",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "A collection of useful classes for RN projects.",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "react-native-extended-stylesheet": "latest",
-    "react-native-localization": "latest",
     "simple-common-utils": "latest"
+  },
+  "peerDependencies": {
+    "react-native-localization": "latest"
   },
   "repository": {
     "type": "git",
