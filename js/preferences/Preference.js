@@ -1,8 +1,6 @@
 import { AsyncStorage } from "react-native";
-import { autobind } from "core-decorators";
 import Preferences from "./Preferences";
 
-@autobind
 export default class Preference {
    constructor(data) {
       this._data = data;

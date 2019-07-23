@@ -2,9 +2,7 @@ import {
    DatePickerAndroid,
    TimePickerAndroid
 } from "react-native";
-import { autobind } from "core-decorators";
 
-@autobind
 export default class DateTimePicker {
    constructor(
       component,

@@ -1,10 +1,8 @@
 import {
    NativeEventEmitter
 } from "react-native";
-import { autobind } from "core-decorators";
 
-@autobind
-export default class NativeEventEmitterHelper {
+export default class NativeEventEmitterWrapper {
    constructor(nativeModule, ... listenerData) {
       this.emitter = new NativeEventEmitter(nativeModule);
       this.listeners = [];

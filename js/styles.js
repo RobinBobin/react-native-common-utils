@@ -45,13 +45,6 @@ export function create() {
       ...styles.scene,
       margin: styles.marginPadding
    };
-
-   styles.listView = {
-      $itemHeight: styles.baseHeight * 1.2,
-      separatorStyle: {
-         height: styles.marginPadding * 0.5
-      }
-   };
    
    styles.screen = {
       container: {

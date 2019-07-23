@@ -9,8 +9,6 @@ Install with:
 
     npm i --save react-native-common-utils
 
-My code uses `@autobind` so please don't forget to modify your Babel config accordingly.
-
 **For RN < 0.60**:
 My code depends on [react-native-localization](https://www.npmjs.com/package/react-native-localization) which needs linking:
 
@@ -24,15 +22,13 @@ You also need to execute
 ## <a name="packagecontents"></a>[Package contents<i class="icon-up"></i>](#cpackagecontents)
 
  1. <a name="cnativemodules"></a>[Native modules](#nativemodules)
- 2. <a name="cpreferences"></a>[Preferences](#preferences)
- 3. AlterStyles
- 4. ContextMenu
- 5. DateTimePicker
- 6. <a name="clistviewhelper"></a>[ListViewHelper](#listviewhelper)
- 7. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
- 8. ApplicationSession
- 9. strings
- 10. <a name="cstyles"></a>[styles](#styles)
+ 1. <a name="cpreferences"></a>[Preferences](#preferences)
+ 1. ContextMenu
+ 1. DateTimePicker
+ 1. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
+ 1. ApplicationSession
+ 1. strings
+ 1. <a name="cstyles"></a>[styles](#styles)
  
 ### <a name="nativemodules"></a>[Native modules<i class="icon-up"></i>](#cnativemodules)
 
@@ -120,161 +116,9 @@ Gets the path/uri of the specified file.
 #### SwitchPreference
 #### JSONPreference
 
-### AlterStyles
-
 ### ContextMenu
 
 ### DateTimePicker
-
-### <a name="listviewhelper"></a>[ListViewHelper](#clistviewhelper)
-
-This class facilitates the use of the [`ListView`](https://facebook.github.io/react-native/docs/listview.html) class. Please make sure you read this [note](#stylesnote) before using it.
-
-    import { ListViewHelper } from "react-native-common-utils";
-
-A minimal usage example rendering a ListView with 3 items (10, 20, "abc"):
-
-    class Item extends React.Component {
-        render() {
-            return <Text>{this.props.data}</Text>;
-        }
-    }
-    
-    class Test extends React.Component {
-        constructor(props) {
-            super(props);
-            
-            this.lv = new ListViewHelper([10, 20, "abc"], Item);
-        }
-        
-        render() {
-            return this.lv.createListView();
-        }
-    }
-
-**Please keep in mind** that `ListViewHelper` uses the `@autobind` annotation, so if you extend it don't forget to use this annotation on your class as well.
-
-Class methods:
-
- - constructor()
-
-    Creates and initializes a class instance. All parameters are optional.
-
-        this.lv = new ListViewHelper(
-            items, // Array with data for items.
-            itemType, // A React Native component to render items.
-            ref // String. Used as a ref for the ListView.
-        );
-
- - setItems()
-
-    Specifies items data.
-
-        this.lv.setItems([{
-            name: "Leslie",
-            kind: "dog"
-        }, {
-            name: "Alice",
-            kind: "cat"
-        }]);
-
-    You can pass an `Array` as the data for a particular item. In this case the array's first element must be a React Native component to render this item and its second element must be the data itself. This allows different React Native components to be used for different items.
-
-        this.lv.setItems([{
-            name: "Leslie",
-            kind: "dog"
-        }, {
-            name: "Alice",
-            kind: "cat"
-        },
-        [Hippogriff, {
-            name: "Buckbeak"
-        }]]);
-
-    In this case the component set by the `constructor()` or `setItemType()` will be used for the first two items while the component `Hippogriff` will be used for the third one.
-
- - setItemType()
-
-    Sets a React Native component to render items.
-
- - setCallback()
-
-   Sets a callback function to be invoked from an item-rendering component in response to a user action.
-
-        this.lv.setCallback("onEditItem", this.onEditItem);
-        this.lv.setCallback("onDeleteItem", this.onDeleteItem);
-
-    The callbacks are stored in a `Map`.
-
- - deleteCallback()
-
-    Deletes a callback with the specified name.
-
-        this.lv.deleteCallback("onDeleteItem");
-
- - setOnPress()
-
-    Sets a callback with the `"onPress"` name.
-
- - setOnLongPress()
-
-    Sets a callback with the `"onLongPress"` name.
-
- - setStyle()
-
-    Sets a style for the `ListView`.
-
- - setPageSize()
-
-   Sets a page size for the `ListView`.
-
- - setSeparatorStyle()
-
-    Sets a style to be used for row separators.
-
- - setRowParams()
-
-    Sets a JS-object to be passed to **each** item in the list view.
-
-        this.lv.setRowParams({
-            owner: "Danny"
-        });
-
- - renderRow()
-
-    Renders an item. See [`ListView.renderRow()`](https://facebook.github.io/react-native/docs/listview.html#renderrow) for parameter description .
-
-    Apart from the item data, each item receives the following:
-     - parameters from `renderRow()`;
-     - itemCount: the number of items in the list view;
-     - callbacks: the callbacks `Map`;
-     - onPress: the callback set by `setOnPress()`;
-     - onLongPress: the callback set by `setOnLongPress()`;
-     - params: the JS-object set by `setRowParams()`.
-
-    All these can be referenced from within an item-rendering component through `this.props`.
-
- - renderSeparator()
-
-    Renders a row separator, invoking `renderLastRowSeparator()` for the last row and `renderRowSeparator()` for all the others.
-
-    See [`ListView.renderSeparator()`](https://facebook.github.io/react-native/docs/listview.html#renderseparator) for parameter description.
-
- - renderLastRowSeparator()
-
-    Renders the last row separator simply returning `null`.
-
- - renderRowSeparator()
-
-    Renders a row separator returning a `View` with a style set by `setSeparatorStyle()`.
-
- - setEmptyItemsRenderer()
-
-    Sets a callback to be invoked if there are no items in this list view. The callback must return a renderable object.
-
- - createListView()
-
-    Returns a `ListView` if there are any items set. Otherwise it invokes the callback set by `setEmptyItemsRenderer()` or simply returns `null` if the latter is undefined.
 
 ### <a name="staticutils"></a>[StaticUtils<i class="icon-up"></i>](#cstaticutils)
 
@@ -418,18 +262,6 @@ Apart from these, there are <a name="stylescomplexstyles"></a>styles that depend
 
     The same as `scene` but with margins set to `marginPadding`.
 
- - listView
-
-    A style for [`ListViewHelper`](#listviewhelper) and list view items.
-    
-     - $itemHeight
-
-        A list view item height.
-
-     - separatorStyle
-
-        A style for list view item separators.
-
  - screen
 
     Used to style top-level views.
@@ -464,6 +296,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v7.0.0|**Backwards-incompatible changes**:<br>1. `ListViewHelper` / `styles.listView` removed.<br>2. `AlterStyles` removed.<br>3. `core-decorators` and `@autobind` are no longer used.
 v6.0.1|1.&nbsp;`AlterStyles` deprecated in favour of `combineStyles()` from `react-native-common-ui-components/js/styles.js`.<br>2.&nbsp;`@babel/plugin-proposal-decorators` is specified as a dev dependency and the postinstall script is deleted.
 v6.0.0|1.&nbsp;The latest version of [react-native-localization](https://www.npmjs.com/package/react-native-localization) is specified in `package.json`.<br>2.&nbsp;**Backwards-incompatible change** in `strings.js`: `strings.formatString()` is no longer available if a sub-object name was specified. `strings.all.formatString()` has to be used instead.
 v5.1.0|1.&nbsp;An iOS-only bug fixed in `ApplicationSession.manage()`.<br>2.&nbsp;State changes can be optionally logged to the console. An argument`ApplicationSession._setSessionType()`

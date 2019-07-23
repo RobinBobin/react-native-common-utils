@@ -21,8 +21,6 @@ export {
 /**
  * Different.
  */
-import AlterStyles from "./js/AlterStyles";
-import ListViewHelper from "./js/ListViewHelper";
 import DateTimePicker from "./js/DateTimePicker";
 import StaticUtils from "./js/StaticUtils";
 import NativeEventEmitterWrapper from "./js/NativeEventEmitterWrapper";
@@ -30,8 +28,6 @@ import EventHandlingHelper from "./js/EventHandlingHelper";
 import ApplicationSession from "./js/ApplicationSession";
 
 export {
-   AlterStyles,
-   ListViewHelper,
    DateTimePicker,
    StaticUtils,
    NativeEventEmitterWrapper,
