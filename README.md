@@ -296,6 +296,7 @@ Font sizes are calculated as `baseFontSize + numberOfSteps * step`. `font` conta
 
 Version number|Changes
 -|-
+v7.2.0|`EventHandlingHelper.invokeListeners()`: all the arguments are passed to inner listeners, not only `data`.
 v7.1.1|1. `AsyncStorage` wasn't imported as a default object.<br>2. `@react-native-community/async-storage` is made a peer dependency.
 v7.1.0|`AsyncStorage` imported from `@react-native-community/async-storage`.
 v7.0.1|`react-native-localization` moved to `peerDependencies`.

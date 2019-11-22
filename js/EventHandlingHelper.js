@@ -89,7 +89,7 @@ export default class EventHandlingHelper {
       } else {
          this.invokeListeners = function(data) {
             this._listeners[data.eventName].listeners.
-               forEach(listener => listener(data));
+               forEach(listener => listener(...arguments));
          };
          
          (exportRemove ? object : this).removeListeners = function() {
