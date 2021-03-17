@@ -1,28 +1,20 @@
 {
   "name": "react-native-common-utils",
-  "version": "7.2.1",
+  "version": "8.0.0",
   "description": "A collection of useful classes for RN projects.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "react-native-extended-stylesheet": "latest",
-    "simple-common-utils": "latest"
-  },
-  "peerDependencies": {
-    "react-native-localization": "latest",
-    "@react-native-async-storage/async-storage": "latest"
+    "simple-common-utils": "^2.2.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RobinBobin/react-native-common-utils.git"
   },
   "keywords": [
-    "AsyncStorage wrapper",
-    "utils",
-    "styling utils",
-    "styling infrastructure",
+    "React Native utils",
     "email with multiple attachments",
     "email with binary attachments"
   ],
