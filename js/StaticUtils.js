@@ -13,6 +13,10 @@ export default class StaticUtils extends StaticUtilsBase {
     return Platform.OS === "android";
   }
   
+  static isIOS() {
+     return Platform.OS === "ios";
+  }
+  
   static spinkitColor(rgba) {
     return "#" + `${Array(7).join(0)}${(rgba >>> 8).toString(16)}`.slice(-6);
   }

@@ -102,15 +102,19 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
     import { StaticUtils } from "react-native-common-utils";
 
- - isAndroid()
-
-	Returns `true` if the app is running on Android, `false` otherwise.
-
  - getLocaleId()
 
     Gets the current locale id.
 
         StaticUtils.getLocaleId(); // GB
+
+ - isAndroid()
+
+	Returns `true` if the app is running on Android, `false` otherwise.
+
+ - isIOS()
+
+	Return `true` if the app is running on iOS, `false` otherwise.
 
  - spinkitColor()
 
@@ -123,6 +127,7 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 Version number|Changes
 -|-
+v8.2.0|`StaticUtils.isIOS()` added.
 v8.1.0|`StaticUtils.isAndroid()` added.
 v8.0.0|1. Many modules [removed](#packagecontents).<br>2. The package depends only on [simple-common-utils@^2.2.0](https://www.npmjs.com/package/simple-common-utils).
 v7.2.1|`@react-native-community` -> `@react-native-async-storage` for `async-storage`
