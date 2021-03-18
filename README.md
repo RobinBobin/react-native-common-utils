@@ -102,12 +102,9 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
     import { StaticUtils } from "react-native-common-utils";
 
- - spinkitColor()
+ - isAndroid()
 
-    Taking an RGBA value, returns a string of the form `#rrggbb` (as [react-native-spinkit](https://www.npmjs.com/package/react-native-spinkit) recognizes).
-
-        StaticUtils.spinkitColor(10); // #000000
-        StaticUtils.spinkitColor(0xFF487210); // #ff4872
+	Returns `true` if the app is running on Android, `false` otherwise.
 
  - getLocaleId()
 
@@ -115,10 +112,18 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
         StaticUtils.getLocaleId(); // GB
 
+ - spinkitColor()
+
+    Taking an RGBA value, returns a string of the form `#rrggbb` (as [react-native-spinkit](https://www.npmjs.com/package/react-native-spinkit) recognizes).
+
+        StaticUtils.spinkitColor(10); // #000000
+        StaticUtils.spinkitColor(0xFF487210); // #ff4872
+
 ## <a name="versionhistory"></a>[Version history<i class="icon-up"></i>](#cversionhistory)
 
 Version number|Changes
 -|-
+v8.1.0|`StaticUtils.isAndroid()` added.
 v8.0.0|1. Many modules [removed](#packagecontents).<br>2. The package depends only on [simple-common-utils@^2.2.0](https://www.npmjs.com/package/simple-common-utils).
 v7.2.1|`@react-native-community` -> `@react-native-async-storage` for `async-storage`
 v7.2.0|`EventHandlingHelper.invokeListeners()`: all the arguments are passed to inner listeners, not only `data`.
