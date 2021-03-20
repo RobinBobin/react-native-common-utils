@@ -16,11 +16,12 @@ needs to be executed, if you want to use the [native modules](#nativemodules) de
 
 ## <a name="packagecontents"></a>[Package contents<i class="icon-up"></i>](#cpackagecontents)
 
- 1. ApplicationSession
- 1. EventHandlingHelper
- 1. NativeEventEmitterWrapper
- 1. <a name="cnativemodules"></a>[Native modules](#nativemodules)
- 1. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
+ 1. ApplicationSession (**deprecated**)
+ 2. ApplicationSession2
+ 3. EventHandlingHelper
+ 4. NativeEventEmitterWrapper
+ 5. <a name="cnativemodules"></a>[Native modules](#nativemodules)
+ 6. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
 
 ### <a name="nativemodules"></a>[Native modules<i class="icon-up"></i>](#cnativemodules)
 
@@ -127,6 +128,7 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 Version number|Changes
 -|-
+v8.3.0|`ApplicationSession2` added.
 v8.2.0|`StaticUtils.isIOS()` added.
 v8.1.0|`StaticUtils.isAndroid()` added.
 v8.0.0|1. Many modules [removed](#packagecontents).<br>2. The package depends only on [simple-common-utils@^2.2.0](https://www.npmjs.com/package/simple-common-utils).

@@ -7,6 +7,8 @@ export default class ApplicationSession {
    
    constructor(context) {
       this._context = context;
+      
+      console.log("'ApplicationSession' is deprecated. Please use 'ApplicationSession2'.");
    }
    
    static async manage(nextAppState, context) {
