@@ -1,5 +1,3 @@
-import { NativeModules } from "react-native";
-
 import ApplicationSession from "./js/ApplicationSession";
 import ApplicationSession2 from "./js/ApplicationSession2";
 import EventHandlingHelper from "./js/EventHandlingHelper";
@@ -13,6 +11,3 @@ export {
    NativeEventEmitterWrapper,
    StaticUtils
 };
-
-exports.GetPath = NativeModules.RNCGetPath;
-exports.ShareData = NativeModules.RNCShareData;
