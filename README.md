@@ -12,7 +12,7 @@ Install with:
 ## <a name="packagecontents"></a>[Package contents<i class="icon-up"></i>](#cpackagecontents)
 
  1. ApplicationSession (**deprecated**)
- 2. ApplicationSession2
+ 2. ApplicationSession2 (**deprecated**, please use [@robinbobin/react-native-application-session](https://www.npmjs.com/package/@robinbobin/react-native-application-session) instead)
  3. EventHandlingHelper
  4. NativeEventEmitterWrapper
  5. <a name="cstaticutils"></a>[StaticUtils](#staticutils)
@@ -48,6 +48,7 @@ A collection of different `static` utility methods extending [StaticUtils](https
 
 Version number|Changes
 -|-
+v8.4.1|`ApplicationSession2` deprecated.
 v8.4.0|Native modules deleted. This is a breaking change, but ~~who cares~~ still&mldr;
 v8.3.0|`ApplicationSession2` added.
 v8.2.0|`StaticUtils.isIOS()` added.

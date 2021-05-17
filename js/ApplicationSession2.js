@@ -14,6 +14,9 @@ export default class ApplicationSession2 {
   __logStateChange = false;
   
   constructor(context) {
+    console.log("The package 'ApplicationSession2' is deprecated. Please use https://www.npmjs.com/package/@robinbobin/react-native-application-session instead.")
+    ;
+    
     this._context = context;
     
     this.manage = this.manage.bind(this);
